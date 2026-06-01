@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>xxd-article-poster Template</title>
+  <style>
+    html, body { margin: 0; width: 1440px; height: 1920px; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+      background: #d8d8d8;
+    }
+    .poster {
+      width: 1440px;
+      height: 1920px;
+      padding: 96px;
+      background: #f7f3ea;
+      color: #121212;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 52px;
+      overflow: hidden;
+    }
+    .title { font-size: 112px; line-height: .98; font-weight: 900; }
+    .core { font-size: 62px; line-height: 1.12; font-weight: 800; border-left: 18px solid #e94f37; padding-left: 34px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .block { background: #fff; border-radius: 28px; padding: 34px; }
+    .block h2 { margin: 0 0 16px; font-size: 38px; }
+    .block p { margin: 0; font-size: 30px; line-height: 1.45; }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <div class="title">主标题</div>
+    <div class="core">把长文压缩成 30-45 秒能看懂的一句话核心判断。</div>
+    <section class="grid">
+      <div class="block"><h2>信息组</h2><p>短句要点，保持手机端清晰可读。</p></div>
+      <div class="block"><h2>信息组</h2><p>短句要点，保持手机端清晰可读。</p></div>
+    </section>
+    <footer>source note</footer>
+  </main>
+</body>
+</html>

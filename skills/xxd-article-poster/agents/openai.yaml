@@ -1,0 +1,4 @@
+interface:
+  display_name: "xxd-article-poster"
+  short_description: "Turn long text and sources into readable poster images"
+  default_prompt: "Use $xxd-article-poster to turn long articles, URLs, files, or folders into a 30-45 second readable poster image."

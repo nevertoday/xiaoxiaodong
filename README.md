@@ -10,10 +10,29 @@
 - `styles.css`：页面样式
 - `script.js`：复制链接、提示反馈等轻量交互
 - `assets/`：Logo、二维码、图标与品牌视觉素材
+- `skills/xxd-article-poster/`：把长文、URL、文件或文件夹压缩成 30-45 秒可读海报图的 Skill
+
+## Skills
+
+### xxd-article-poster
+
+用途：把长文章、剪贴板文本、URL、Markdown/HTML/文本文件、目录或图片素材整理成一张或多张适合手机阅读的信息海报。
+
+入口文件：
+
+```text
+skills/xxd-article-poster/SKILL.md
+```
+
+辅助脚本：
+
+```bash
+python3 skills/xxd-article-poster/scripts/prepare_sources.py SOURCE... --output /tmp/xxd-article-poster-sources
+```
 
 ## 后续规划
 
-这个仓库后续会继续加入 Skills。建议新增内容时按主题分目录管理，例如：
+后续新增 Skills 时，建议继续按主题分目录管理，例如：
 
 ```text
 skills/
