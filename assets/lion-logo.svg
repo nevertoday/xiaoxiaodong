@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">小小东品牌标志</title>
+  <desc id="desc">黑白几何东字标志，呼应结构化判断和交付流程。</desc>
+  <rect x="8" y="8" width="240" height="240" rx="18" fill="#111111"/>
+  <rect x="27" y="27" width="202" height="202" fill="none" stroke="#f7f7f4" stroke-opacity="0.26" stroke-width="2"/>
+  <g fill="#f7f7f4">
+    <path d="M62 58h134v20H62z"/>
+    <path d="M119 47h25l-41 91H78z"/>
+    <path d="M50 113h156v21H50z"/>
+    <path d="M118 102h24v74c0 22-13 34-36 34H79v-22h23c11 0 16-5 16-16z"/>
+    <path d="M96 151h28l-44 52H52z"/>
+    <path d="M145 151h28l43 52h-28z"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="小小东">
+  <rect x="2" y="2" width="60" height="60" rx="5" fill="#111111"/>
+  <rect x="7" y="7" width="50" height="50" fill="none" stroke="#f7f7f4" stroke-opacity="0.26" stroke-width="1"/>
+  <g fill="#f7f7f4">
+    <path d="M15 15h34v5H15z"/>
+    <path d="M29.5 12h6.5L25.5 35H19z"/>
+    <path d="M12.5 28h39v5.5h-39z"/>
+    <path d="M29.5 25.5h6v18.5c0 5.5-3.2 8.5-9 8.5H20v-5.5h5.7c2.7 0 3.8-1.2 3.8-4z"/>
+    <path d="M24 38h7l-11 13.2h-7z"/>
+    <path d="M36 38h7l10.8 13.2h-7z"/>
+  </g>
+</svg>

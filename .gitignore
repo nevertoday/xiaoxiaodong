@@ -1,0 +1,9 @@
+.DS_Store
+.omx/
+.impeccable.md
+
+node_modules/
+dist/
+build/
+.env
+.env.*
