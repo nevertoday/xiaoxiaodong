@@ -3,6 +3,8 @@
 .impeccable.md
 
 node_modules/
+__pycache__/
+*.py[cod]
 dist/
 build/
 .env
