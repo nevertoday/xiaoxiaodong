@@ -17,12 +17,19 @@
     <meta property="og:url" content="https://nevertoday.github.io/xiaoxiaodong/" />
     <meta name="theme-color" content="#f7f7f4" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <script>
+      (() => {
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          document.documentElement.classList.add("motion-ready");
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
 
-    <header class="site-header">
+    <header class="site-header" data-motion="header">
       <a class="brand" href="#top" aria-label="小小东首页">
         <img src="assets/lion-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
         <span>
@@ -40,17 +47,17 @@
     <main id="main">
       <section id="top" class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">小小东整理维护</p>
-          <h1>公开项目资料馆</h1>
-          <p class="hero-text">
+          <p class="eyebrow" data-motion="hero-kicker">小小东整理维护</p>
+          <h1 data-motion="hero-title">公开项目资料馆</h1>
+          <p class="hero-text" data-motion="hero-copy">
             把网页、工具、Skills、浏览器插件和自动化实验整理成一个可以直接浏览、引用和继续开发的公共入口。这里不讲太多概念，先把能用的项目放在前面。
           </p>
-          <div class="hero-proof" aria-label="主页维护信息">
+          <div class="hero-proof" data-motion="hero-proof" aria-label="主页维护信息">
             <span>GitHub 公开仓库</span>
             <span>项目快照兜底</span>
             <span>MIT 开源主页</span>
           </div>
-          <div class="hero-actions" aria-label="快捷链接">
+          <div class="hero-actions" data-motion="hero-actions" aria-label="快捷链接">
             <a class="button button-primary" href="#projects">查看项目</a>
             <a class="button button-secondary" href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
               打开 GitHub
@@ -58,7 +65,7 @@
           </div>
         </div>
 
-        <aside class="profile-card" aria-label="小小东简介">
+        <aside class="profile-card" data-motion="profile-card" aria-label="小小东简介">
           <img src="assets/lion-logo.svg" width="72" height="72" alt="" aria-hidden="true" />
           <div>
             <span>项目资料卡</span>
@@ -74,7 +81,7 @@
       </section>
 
       <section id="projects" class="section">
-        <div class="section-head">
+        <div class="section-head" data-motion="section-head">
           <div>
             <p class="eyebrow">Open repositories</p>
             <h2>公开项目资料库</h2>
@@ -90,11 +97,11 @@
           </div>
         </div>
 
-        <div class="repo-status" data-repo-status role="status">正在读取 GitHub 公开项目...</div>
+        <div class="repo-status" data-motion="repo-status" data-repo-status role="status">正在读取 GitHub 公开项目...</div>
         <div class="repo-grid" data-repo-grid aria-live="polite"></div>
       </section>
 
-      <section id="about" class="about">
+      <section id="about" class="about" data-motion="about">
         <div>
           <p class="eyebrow">About</p>
           <h2>关于小小东</h2>

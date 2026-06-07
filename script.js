@@ -198,7 +198,7 @@ function createRepoCard(repo, index) {
   const featuredClass = index === 0 ? " is-featured" : "";
 
   return `
-    <article class="repo-card${featuredClass}" style="--project-color: ${profile.color}">
+    <article class="repo-card${featuredClass}" style="--project-color: ${profile.color}; --card-index: ${index}">
       <div class="repo-plate" aria-hidden="true">
         <span>${number}</span>
         <b>${colorName}</b>
@@ -285,7 +285,11 @@ function renderRepos() {
   if (!grid) return;
 
   const repos = getFilteredRepos();
+  grid.classList.remove("is-rendered");
   grid.innerHTML = repos.map((repo, index) => createRepoCard(repo, index)).join("");
+  window.requestAnimationFrame(() => {
+    grid.classList.add("is-rendered");
+  });
 
   if (!repos.length) {
     setStatus("没有匹配的公开项目。", "empty");
@@ -346,7 +350,16 @@ function initSearch() {
   });
 }
 
+function initMotion() {
+  if (!document.documentElement.classList.contains("motion-ready")) return;
+
+  window.requestAnimationFrame(() => {
+    document.documentElement.classList.add("motion-in");
+  });
+}
+
 function initPage() {
+  initMotion();
   initSearch();
   loadSnapshotRepos().then(refreshReposFromGithub);
 }
