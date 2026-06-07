@@ -1,55 +1,27 @@
 # xiaoxiaodong
 
-小小东的 GitHub 项目入口。这个仓库会逐步整理和发布小小东相关的页面、素材与 Skills。
+小小东的 GitHub 公开项目主页。
 
-当前仓库先放置一个静态主页，用来介绍“小小东”知识星球的定位：围绕 AI 图片任务、提示词、审美判断与交付流程，把真实需求拆成可以执行、可以讨论、可以继续修改的第一版。
+这个仓库是一个纯静态站点，用来快速展示 `nevertoday` 在 GitHub 上公开的项目，并简单介绍小小东。页面会优先读取仓库里的 `repos.json` 快照，保证 GitHub Pages 上稳定展示；如果 GitHub 公共 API 可用，再用实时仓库数据刷新。
 
-## 当前内容
+## 主页
 
-- `index.html`：主页结构与页面文案
+```text
+https://nevertoday.github.io/xiaoxiaodong/
+```
+
+## 内容
+
+- `index.html`：主页结构
 - `styles.css`：页面样式
-- `script.js`：复制链接、提示反馈等轻量交互
-- `assets/`：Logo、二维码、图标与品牌视觉素材
-- `skills/xxd-article-poster/`：把长文、URL、文件或文件夹压缩成 30-45 秒可读海报图的 Skill
-
-## Skills
-
-### xxd-article-poster
-
-用途：把长文章、剪贴板文本、URL、Markdown/HTML/文本文件、目录或图片素材整理成一张或多张适合手机阅读的信息海报。
-
-入口文件：
-
-```text
-skills/xxd-article-poster/SKILL.md
-```
-
-辅助脚本：
-
-```bash
-python3 skills/xxd-article-poster/scripts/prepare_sources.py SOURCE... --output /tmp/xxd-article-poster-sources
-```
-
-## 后续规划
-
-后续新增 Skills 时，建议继续按主题分目录管理，例如：
-
-```text
-skills/
-  prompt-writing/
-  image-direction/
-  workflow-checklists/
-```
-
-每个 Skill 建议至少包含：
-
-- `README.md`：说明用途、适用场景和使用方式
-- 示例输入与输出
-- 可复用模板或检查清单
+- `script.js`：项目搜索、仓库数据渲染和 GitHub API 刷新
+- `repos.json`：公开项目快照
+- `assets/`：Logo、图标和视觉素材
+- `skills/xxd-article-poster/`：小小东文章海报 Skill
 
 ## 本地预览
 
-这是一个纯静态项目，可以直接打开 `index.html` 预览，也可以在本地启动一个简单静态服务：
+这是纯静态项目，可以直接打开 `index.html`，也可以启动本地服务：
 
 ```bash
 python3 -m http.server 8000
@@ -61,6 +33,14 @@ python3 -m http.server 8000
 http://localhost:8000
 ```
 
-## 许可
+## 更新项目快照
 
-暂未选择开源许可证。未经许可，请勿直接复制、发布或商用本仓库中的品牌素材与页面内容。
+如果本机已经登录 GitHub CLI，可以用下面的命令查看最新公开仓库，再同步更新 `repos.json`：
+
+```bash
+gh api 'users/nevertoday/repos?sort=pushed&per_page=50'
+```
+
+## License
+
+MIT

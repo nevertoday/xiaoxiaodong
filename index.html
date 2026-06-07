@@ -3,515 +3,109 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>小小东 | AI 图片提示词、审美判断与交付流程社群</title>
+    <title>小小东 | GitHub 公开项目</title>
     <meta
       name="description"
-      content="小小东知识星球：帮你把 AI 图片任务拆成目标、素材、风格和交付格式。带着失败图或项目需求加入，先做出可讨论、可继续修改的第一版。"
+      content="小小东的 GitHub 公开项目主页，快速查看正在整理和发布的网页、工具、Skills 与自动化实验。"
     />
-    <meta property="og:title" content="小小东 | AI 图片提示词、审美判断与交付流程社群" />
+    <meta property="og:title" content="小小东 | GitHub 公开项目" />
     <meta
       property="og:description"
-      content="用结构化拆解、审美判断和工具流程，把 AI 图片和内容生产接进真实工作。"
+      content="快速查看小小东在 GitHub 上公开的页面、工具、Skills 与自动化实验。"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://xiaoxiaodong.ai" />
-    <meta name="theme-color" content="#f7f7f4" />
+    <meta property="og:url" content="https://nevertoday.github.io/xiaoxiaodong/" />
+    <meta name="theme-color" content="#f6f5f0" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
 
-    <header class="site-header" data-hero-item>
-      <a class="brand" href="#top">
-        <img src="assets/lion-logo.svg" width="44" height="44" alt="" aria-hidden="true" />
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="小小东首页">
+        <img src="assets/lion-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
         <span>
           <strong>小小东</strong>
-          <small>xiaoxiaodong.ai</small>
+          <small>github.com/nevertoday</small>
         </span>
       </a>
       <nav class="site-nav" aria-label="主要导航">
-        <a href="#trust">判断依据</a>
-        <a href="#inside">解决哪些卡点</a>
-        <a href="#path">开始方式</a>
-        <a class="nav-cta" href="#join">加入</a>
+        <a href="#projects">项目</a>
+        <a href="#about">简介</a>
+        <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
     </header>
 
     <main id="main">
-      <section id="top" class="hero-section">
-        <div class="hero-content">
-          <p class="eyebrow" data-hero-item>AI 图片 / 提示词 / 审美判断 / 交付流程</p>
-          <h1 data-hero-item>
-            <span class="title-line">别再让 AI 猜画面</span>
-            <span class="title-line">把真实任务做成可交付的第一版</span>
-          </h1>
-          <p class="hero-lede" data-hero-item>
-            你可能已经能用 AI 出图，但结果常常不像真实项目：风格不稳定、文字和画面脱节，交付尺寸和用途也不清楚。这里先把目标、素材、风格和交付格式拆清楚，再改提示词和画面，做出可讨论、可继续修改的第一版。
+      <section id="top" class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Public projects / tools / skills</p>
+          <h1>小小东的公开项目入口</h1>
+          <p class="hero-text">
+            这里不放太多介绍。主要用来快速查看我在 GitHub 上公开的项目：网页、自动化脚本、AI 工作流、Skills 和一些正在整理的实验。
           </p>
-          <div class="hero-actions" data-hero-item>
-            <a class="button button-primary" href="https://wx.zsxq.com/group/15554814142882" target="_blank" rel="noopener noreferrer">加入星球，提交一个任务</a>
-            <a class="button button-secondary" href="#trust">查看判断依据</a>
-          </div>
-          <p class="product-definition" data-hero-item>
-            不是资料库，而是围绕真实任务提供案例拆解、提问模板、提示词框架和流程清单。
-          </p>
-          <div class="proof-line" data-hero-item aria-label="小小东的可信依据">
-            <article>
-              <strong>失败图诊断</strong>
-              <span>从主体、风格、构图和文字层级找问题</span>
-            </article>
-            <article>
-              <strong>提示词重写</strong>
-              <span>把模糊想法改成 AI 能照着生成的输入</span>
-            </article>
-            <article>
-              <strong>流程模板</strong>
-              <span>把一次有效经验整理成下次能复用的方法</span>
-            </article>
+          <div class="hero-actions" aria-label="快捷链接">
+            <a class="button button-primary" href="#projects">查看项目</a>
+            <a class="button button-secondary" href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
+              打开 GitHub
+            </a>
           </div>
         </div>
 
-        <div class="hero-lab" aria-label="小小东星球交付模型">
-          <div class="lab-card lab-prompt" data-hero-board>
-            <div class="lab-top">
-              <span>AI 图片任务单</span>
-              <b>xiaoxiaodong.ai</b>
-            </div>
-            <div class="prompt-line">
-              <span>目标</span>
-              <p>用户看完要记住什么、相信什么</p>
-            </div>
-            <div class="prompt-line">
-              <span>画面</span>
-              <p>主体、风格、构图、光线和比例如何配合</p>
-            </div>
-            <div class="prompt-line is-output">
-              <span>交付</span>
-              <p>用于海报、封面、PPT、详情页，还是做成模板</p>
-            </div>
+        <aside class="profile-card" aria-label="小小东简介">
+          <img src="assets/lion-logo.svg" width="72" height="72" alt="" aria-hidden="true" />
+          <div>
+            <span>小小东</span>
+            <strong>把 AI、代码、审美判断和内容流程接到真实任务里。</strong>
           </div>
+        </aside>
+      </section>
 
-          <div class="lab-card lab-person" data-hero-board>
-            <img src="assets/lion-logo.svg" width="78" height="78" alt="" aria-hidden="true" />
-            <div>
-              <span>小小东</span>
-              <strong>结构化拆解 + 审美判断 + 交付经验</strong>
-            </div>
+      <section id="projects" class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">GitHub repositories</p>
+            <h2>公开项目</h2>
+          </div>
+          <div class="project-tools">
+            <label class="search-box">
+              <span>搜索公开项目</span>
+              <input id="repo-search" type="search" placeholder="搜索名称、描述、语言" autocomplete="off" />
+            </label>
+            <a class="text-link" href="https://github.com/nevertoday?tab=repositories" target="_blank" rel="noopener noreferrer">
+              全部仓库
+            </a>
           </div>
         </div>
+
+        <div class="repo-status" data-repo-status role="status">正在读取 GitHub 公开项目...</div>
+        <div class="repo-grid" data-repo-grid aria-live="polite"></div>
       </section>
 
-      <section class="answer-strip" aria-label="访客最关心的问题">
-        <article data-reveal>
-          <span>你可能卡在</span>
-          <strong>图能生成，但不像你的项目。</strong>
-        </article>
-        <article data-reveal>
-          <span>需要补上的</span>
-          <strong>不是固定句子，而是清楚的画面目标和判断标准。</strong>
-        </article>
-        <article data-reveal>
-          <span>星球提供</span>
-          <strong>提示词框架、案例拆解、改图方法和流程清单。</strong>
-        </article>
-        <article data-reveal>
-          <span>开始方式</span>
-          <strong>带失败图或项目需求来，先拆目标、输入和下一步。</strong>
-        </article>
-      </section>
-
-      <section class="belief-strip" data-reveal aria-label="小小东核心观念">
-        <span>核心观念</span>
-        <strong>AI 不会替你判断，它会暴露问题有没有说清楚。</strong>
-      </section>
-
-      <section id="trust" class="section trust-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">判断依据</span>
-          <h2>这里不提供通用提示词，只把判断过程讲清楚。</h2>
+      <section id="about" class="about">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>关于小小东</h2>
+        </div>
+        <div class="about-copy">
           <p>
-            AI 能提速，但目标、素材、风格和交付标准，仍然要人来判断。这里不会承诺“一句话解决所有场景”，而是讲清每一步为什么这么做、哪里需要人工判断、怎样从失败图改到可用版本。
-          </p>
-        </div>
-        <div class="trust-layout">
-          <div class="trust-grid" data-reveal>
-            <article>
-              <span>01</span>
-              <h3>先问目标，再写提示词</h3>
-              <p>先确认画面要服务谁、解决什么、放在哪里，再决定主体、风格、比例和信息层级。</p>
-            </article>
-            <article>
-              <span>02</span>
-              <h3>先给结果，再解释理由</h3>
-              <p>不只给你改法，也会说明为什么这样更清楚、更适合当前场景。</p>
-            </article>
-            <article>
-              <span>03</span>
-              <h3>承认限制，不神化工具</h3>
-              <p>不会承诺一条提示词适用于所有平台和场景，也不会把审美、行业理解和业务反馈都推给模型。</p>
-            </article>
-            <article>
-              <span>04</span>
-              <h3>把单次经验沉淀成流程</h3>
-              <p>一次调图、一次改文案、一次做页面，都要尽量留下模板、清单和可复用的工作方法。</p>
-            </article>
-          </div>
-          <aside class="trust-note" data-reveal>
-            <span>加入前先确认</span>
-            <strong>这里适合带任务来拆解，不适合只收藏资料。</strong>
-            <p>你带着项目、失败图、参考风格或客户需求进来，反馈会更具体。</p>
-            <a class="text-link" href="#join">查看加入方式</a>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section sample-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">拆解示例</span>
-          <h2>先判断问题出在哪里，再决定怎么改提示词。</h2>
-          <p>
-            很多 AI 输出不能用，不是因为提示词不够长，而是目标、受众、画面和交付场景没有说清。下面这类拆解，是你加入后最先会用到的工作方式。
-          </p>
-        </div>
-        <div class="sample-board" data-reveal>
-          <article class="sample-card is-problem">
-            <span>常见模糊需求</span>
-            <h3>“帮我生成一张高级感海报”</h3>
-            <p>AI 会猜行业、猜受众、猜主体、猜风格，最后得到一张看似完整但不能交付的图。</p>
-          </article>
-          <article class="sample-card">
-            <span>先拆问题</span>
-            <h3>目标、画面、文字、场景分开判断</h3>
-            <p>用户看完要相信什么？主体是什么？参考风格来自哪里？文字是否需要进图？最终用在封面、海报还是详情页？</p>
-          </article>
-          <article class="sample-card is-output">
-            <span>再改输入</span>
-            <h3>把模糊需求改成 AI 能执行的结构</h3>
-            <p>先定目标和场景，再定主体、构图、色彩、比例、限制和交付格式。这样结果才有可讨论的第一版。</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="about" class="section about-section">
-        <div class="section-copy" data-reveal>
-          <span class="section-kicker">我是谁</span>
-          <h2>我不是教你背提示词的人，而是帮你把 AI 接进具体任务的人。</h2>
-          <p>
-            我是小小东，一个写代码、也长期做内容和视觉判断的人。职业训练让我习惯拆结构；阅读、绘画、卡牌、潮玩和植物观察，让我对画面、文字和气质保持敏感。
+            我是小小东，长期在做代码、内容、AI 图片提示词、视觉判断和工作流整理。这个主页只保留最必要的信息，方便别人从 GitHub 快速了解我正在公开的东西。
           </p>
           <p>
-            我长期关心三件事：AI 怎么更好地被使用，图片和文字怎么更有分寸，流程怎么减少重复劳动。对我来说，AI 时代最稀缺的不是更多答案，而是把问题说准、把结果评准、把流程沉淀下来的能力。
+            我关心的是把复杂想法拆清楚：目标是什么、输入是什么、输出应该怎么判断、哪些步骤可以沉淀成工具或模板。
           </p>
-        </div>
-        <div class="profile-panel" data-reveal aria-label="小小东能力结构">
-          <article>
-            <span>01</span>
-            <h3>结构化拆解</h3>
-            <p>把一句“帮我做个页面”拆成目标、受众、信息层级、风格边界和交付格式。</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>审美与表达</h3>
-            <p>判断哪里乱、哪里空、哪里不像真实项目，让图片和内容更清楚、更能被信任。</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>工具与流程</h3>
-            <p>把好用的提示词、模板和工具组合起来，减少每次从零开始。</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="inside" class="section inside-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">解决哪些卡点</span>
-          <h2>这里不是零散灵感，而是能放进任务里的方法。</h2>
-          <p>
-            内容按真实任务组织：不只给一段提示词，还会说明适合什么场景、要准备哪些信息、怎么判断结果、下一步怎么改。
-          </p>
-        </div>
-
-        <div class="service-layout">
-          <article class="service-feature" data-reveal>
-            <span>提示词系统</span>
-            <h3>把模糊任务整理成 AI 能执行的提示词和检查步骤</h3>
-            <p>
-              覆盖 AI 图片、个人品牌页、海报、PPT、短视频脚本、运营文案、行业方案、批量生产等场景。每条内容尽量说清：什么时候用、准备哪些信息、什么结果算好、哪些地方必须人工判断。
-            </p>
-            <div class="prompt-preview" aria-hidden="true">
-              <span>先定目标：这张图要解决什么问题</span>
-              <span>再定画面：主体、风格、构图、比例和文字怎么配合</span>
-              <span>最后交付：确定图片、文案、版式或模板要求</span>
-            </div>
-          </article>
-
-          <div class="service-list">
-            <article class="service-card" data-reveal>
-              <span>审美判断</span>
-              <h3>不是只会出图，而是知道哪张图更适合交付</h3>
-              <p>我会讲清楚为什么这一版更适合：构图、留白、风格统一、文字层级、色彩节奏和画面气质会怎样影响判断。</p>
-            </article>
-            <article class="service-card" data-reveal>
-              <span>实用方法</span>
-              <h3>把图片和内容需求，翻译成 AI 能执行的输入</h3>
-              <p>用问题清单和输入模板，把目标、受众、素材、限制和交付格式一次填清，减少反复试错。</p>
-            </article>
-            <article class="service-card" data-reveal>
-              <span>工具与流程</span>
-              <h3>把重复步骤固定下来</h3>
-              <p>整理我常用的工具组合，让批量生成、素材整理、结果校准和模板复用有固定做法。</p>
-            </article>
-            <article class="service-card" data-reveal>
-              <span>真实场景</span>
-              <h3>把共性问题整理成新模板</h3>
-              <p>你可以带行业、产品、项目和客户场景来；我会把反复出现的问题沉淀成新的提示词、清单和方法。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section contents-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">星球里有什么</span>
-          <h2>加入后可以直接用的 4 类内容。</h2>
-          <p>
-            内容会尽量做成能直接用的形态：任务模板、案例拆解、提示词结构、流程清单，以及适合提问的输入格式。你不用从海量资料里猜重点。
-          </p>
-        </div>
-        <div class="contents-board" data-reveal>
-          <article>
-            <span>01</span>
-            <h3>案例笔记</h3>
-            <p>围绕失败图、封面、海报、PPT、详情页等任务，拆问题、输入和判断标准。</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>提问模板</h3>
-              <p>帮你一次说清目标、受众、素材、限制和交付要求，减少 AI 乱猜。</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>提示词框架</h3>
-            <p>不是固定句子，而是能按任务改写和复用的输入结构。</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>流程清单</h3>
-            <p>把出图、改图、检查、交付拆成可重复执行的步骤。</p>
-          </article>
-        </div>
-        <div class="mid-cta" data-reveal>
-          <strong>如果你已经有失败图、项目需求或风格参考，可以直接带进星球提问。</strong>
-          <a class="button button-primary" href="https://wx.zsxq.com/group/15554814142882" target="_blank" rel="noopener noreferrer">带任务加入</a>
-        </div>
-      </section>
-
-      <section class="section examples-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">可以带来的任务</span>
-          <h2>不知道怎么提问时，可以从这些问题开始。</h2>
-          <p>
-            这些是星球里最适合被拆解的任务类型。你提供的目标、素材和参考越具体，AI 输出越容易从“能看”变成“能用”。
-          </p>
-        </div>
-        <div class="example-board" data-reveal>
-          <article class="example-card">
-            <span>AI 图片</span>
-            <h3>生成了很多版，但没有一版像你的品牌</h3>
-            <p>一起拆主体、构图、色彩、材质、镜头和排除项，找到更稳定的风格输入方式。</p>
-          </article>
-          <article class="example-card">
-            <span>图文海报</span>
-            <h3>画面好看，但标题、卖点和信息层级不清楚</h3>
-            <p>先定用户需要记住的核心，再调整标题、辅助信息、视觉重心和下一步动作。</p>
-          </article>
-          <article class="example-card">
-            <span>内容交付</span>
-            <h3>PPT、封面、详情页、脚本都要做，但不知道先做哪一步</h3>
-            <p>把任务拆成输入模板、生成步骤、检查清单和可复用素材，下次不从零开始。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section week-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">加入后先做什么</span>
-          <h2>加入后先别翻资料，先把一个问题说清楚。</h2>
-          <p>
-            最容易开始的方式，是拿一个正在卡住的 AI 图片、文案、页面或流程，按模板补齐信息，把它推进到可讨论的第一版。
-          </p>
-        </div>
-        <div class="week-board" data-reveal>
-          <article>
-            <span>第 1 步</span>
-            <h3>发出失败图和当前输入</h3>
-            <p>先把失败图、当前提示词、项目目标或风格参考发出来，不用先整理得很完美。</p>
-          </article>
-          <article>
-            <span>第 2 步</span>
-            <h3>补齐任务信息</h3>
-            <p>补齐目标、受众、现有素材、参考风格和交付格式。缺哪一项，我会帮你指出来。</p>
-          </article>
-          <article>
-            <span>第 3 步</span>
-            <h3>改写提示词和交付结构</h3>
-            <p>先判断问题出在目标、画面、文字、素材还是流程，再决定该改输入、改图还是改交付结构。</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="path" class="section path-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">开始方式</span>
-          <h2>先别学一堆概念，先解决一个具体问题。</h2>
-          <p>
-            AI 最快产生价值的方式，是拿一个正在卡住你的任务来：先做出能讨论的第一版，再根据真实反馈修正表达、版式和流程。加入后不用先看完所有内容，先从一个任务开始。
-          </p>
-        </div>
-        <div class="path-board" data-reveal>
-          <ol class="path-list">
-            <li>
-              <span>01</span>
-              <h3>带着任务或失败图进来</h3>
-              <p>说明目标、受众、素材、风格参考和你最卡的地方。</p>
-            </li>
-            <li>
-              <span>02</span>
-              <h3>把问题拆清楚</h3>
-              <p>先判断卡点在文案、结构、审美，还是流程。</p>
-            </li>
-            <li>
-              <span>03</span>
-              <h3>做出第一版</h3>
-              <p>用提示词和方法产出图片、页面、海报、PPT、文案或流程初稿。</p>
-            </li>
-            <li>
-              <span>04</span>
-              <h3>沉淀为复用模板</h3>
-              <p>把有效做法整理成模板和清单，下次不用重来。</p>
-            </li>
-          </ol>
-          <aside class="path-note" aria-label="学习路径重点">
-            <span>我的观念</span>
-            <strong>AI 不会替你判断，它会暴露问题有没有说清楚。</strong>
-            <p>真正的效率不是多生成几版，而是更快知道哪一版能用、为什么能用、下一步该怎么改。</p>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section fit-section">
-        <div class="section-head" data-reveal>
-          <span class="section-kicker">适合谁</span>
-          <h2>更适合已经在用 AI，但结果还不稳定的人。</h2>
-          <p>
-            这里更适合有业务、有内容、有项目或客户交付的人。你需要的不是空泛鼓励，而是能减少试错的判断标准和流程。
-          </p>
-        </div>
-        <div class="fit-board" data-reveal>
-          <article class="fit-card">
-            <span>适合你</span>
-            <h3>适合：你已经在用 AI，但结果还不稳定</h3>
-            <ul>
-              <li>你经常觉得 AI 输出很多，但离真正可用还差一截。</li>
-              <li>你想把 AI 图片、文案和流程做得更稳定、更统一。</li>
-              <li>你希望把一次经验变成模板，而不是每次重新提问。</li>
-              <li>你愿意带真实反馈回来，把方法越磨越准。</li>
-            </ul>
-          </article>
-          <article class="fit-card is-soft">
-            <span>不适合</span>
-            <h3>不适合：你只想复制一句通用提示词</h3>
-            <ul>
-              <li>没有一个提示词能替代目标、素材和判断。</li>
-              <li>我会尽量把方法讲清楚，但结果仍需要根据业务反馈迭代。</li>
-              <li>这里更重视长期可复用能力，而不是一次性的炫目效果。</li>
-            </ul>
-          </article>
-        </div>
-        <div class="task-boundary" data-reveal>
-          <article>
-            <span>适合带进来</span>
-            <ul>
-              <li>出图不稳定，风格总是跑偏。</li>
-              <li>画面能看，但标题、卖点和信息层级不清楚。</li>
-              <li>封面、海报、PPT、详情页需要快速做出第一版。</li>
-              <li>想把一次 AI 任务沉淀成模板或流程。</li>
-            </ul>
-          </article>
-          <article>
-            <span>暂时不适合</span>
-            <ul>
-              <li>只想复制一条提示词，不愿补目标和素材。</li>
-              <li>希望一次提问直接得到最终商业成品，不再参与修改。</li>
-              <li>没有任务、没有参考，只想围观热点。</li>
-              <li>把所有判断都交给 AI，不愿意参与校准。</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section id="join" class="join-section">
-        <div class="join-copy" data-reveal>
-          <span class="section-kicker">加入知识星球</span>
-          <h2>带着一个真实问题进来，先做出能讨论的第一版。</h2>
-          <p>
-            如果你卡在出图、改图、风格统一、提示词不稳定，或者流程太散，可以从当前最想解决的一个任务开始。
-          </p>
-          <p class="join-hint">不知道怎么提问也没关系，先带一张失败图或一段当前提示词进来。</p>
-          <div class="join-promise" aria-label="加入前说明">
-            <article>
-              <span>先做什么</span>
-              <strong>带一个具体任务</strong>
-            </article>
-            <article>
-              <span>先解决什么</span>
-              <strong>明确目标、改提示词、判断结果</strong>
-            </article>
-            <article>
-              <span>不承诺什么</span>
-              <strong>不承诺一条提示词适用所有场景</strong>
-            </article>
-          </div>
-          <ol class="join-steps" aria-label="加入后的开始方式">
-            <li><span>01</span>选一个正在卡住你的真实任务</li>
-            <li><span>02</span>按模板补齐目标、受众、素材、参考和交付要求</li>
-            <li><span>03</span>拿到第一版后继续校准，沉淀成自己的流程</li>
-          </ol>
-          <div class="join-actions">
-            <a class="button button-primary" href="https://wx.zsxq.com/group/15554814142882" target="_blank" rel="noopener noreferrer">加入星球，提交你的第一个任务</a>
-            <button class="button button-secondary" type="button" data-copy="https://wx.zsxq.com/group/15554814142882">
-              复制加入链接
-            </button>
-          </div>
-        </div>
-        <div class="qr-panel" data-reveal aria-label="知识星球加入方式">
-          <div class="qr-card">
-            <div class="qr-header">
-              <span>wx.zsxq.com</span>
-              <strong>微信打开</strong>
-            </div>
-            <img
-              class="qr-image"
-              src="assets/zsxq-qr.svg"
-              width="156"
-              height="156"
-              loading="lazy"
-              alt="小小东知识星球加入二维码"
-            />
-            <strong>加入二维码</strong>
-            <p>扫描二维码，或复制链接后在微信中打开。加入前可以先准备一个具体任务。</p>
-          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>小小东 · AI 图片流程 / 提示词 / 审美判断</span>
-      <a href="#top">回到顶部</a>
+      <span>xiaoxiaodong</span>
+      <div>
+        <a href="https://github.com/nevertoday/xiaoxiaodong" target="_blank" rel="noopener noreferrer">本站源码</a>
+        <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
     </footer>
-
-    <div class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script src="script.js" defer></script>
   </body>
