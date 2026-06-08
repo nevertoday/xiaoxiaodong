@@ -3,22 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>小小东 | 公开项目资料馆</title>
+    <title>小小东 | 公开项目工作台</title>
     <meta
       name="description"
-      content="小小东的公开项目资料馆，快速查看正在整理和发布的网页、工具、Skills、浏览器插件与自动化实验。"
+      content="小小东的公开项目工作台，按类型浏览网页、工具、Skills、浏览器插件与自动化实验。"
     />
-    <meta property="og:title" content="小小东 | 公开项目资料馆" />
+    <meta property="og:title" content="小小东 | 公开项目工作台" />
     <meta
       property="og:description"
-      content="快速查看小小东在 GitHub 上公开的页面、工具、Skills、浏览器插件与自动化实验。"
+      content="按类型浏览小小东在 GitHub 上公开的页面、工具、Skills、浏览器插件与自动化实验。"
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nevertoday.github.io/xiaoxiaodong/" />
-    <meta name="theme-color" content="#f7f7f4" />
+    <meta name="theme-color" content="#f6f2e8" data-theme-color />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <script>
       (() => {
+        try {
+          const savedTheme = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+
         if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
           document.documentElement.classList.add("motion-ready");
         }
@@ -27,101 +35,152 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">跳到正文</a>
+    <a class="skip-link" href="#projects">跳到项目</a>
 
     <header class="site-header" data-motion="header">
       <a class="brand" href="#top" aria-label="小小东首页">
-        <img src="assets/lion-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
+        <img src="assets/lion-logo.svg" width="42" height="42" alt="" aria-hidden="true" />
         <span>
           <strong>小小东</strong>
-          <small>公开项目资料馆</small>
+          <small>公开项目工作台</small>
         </span>
       </a>
+
       <nav class="site-nav" aria-label="主要导航">
         <a href="#projects">项目</a>
-        <a href="#about">简介</a>
+        <a href="#skills">Skills</a>
+        <a href="#method">方法</a>
         <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
+
+      <div class="theme-switch" aria-label="切换颜色模式">
+        <button type="button" data-theme-option="light">淡色</button>
+        <button type="button" data-theme-option="dark">暗色</button>
+      </div>
     </header>
 
     <main id="main">
       <section id="top" class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow" data-motion="hero-kicker">小小东整理维护</p>
-          <h1 data-motion="hero-title">公开项目资料馆</h1>
+        <div class="hero-main">
+          <p class="eyebrow" data-motion="hero-kicker">xiaoxiaodong / public workbench</p>
+          <h1 data-motion="hero-title">把公开项目整理成一张可阅读的工作台</h1>
           <p class="hero-text" data-motion="hero-copy">
-            把网页、工具、Skills、浏览器插件和自动化实验整理成一个可以直接浏览、引用和继续开发的公共入口。这里不讲太多概念，先把能用的项目放在前面。
+            这里不是仓库列表，而是把项目按用途、形态和可复用价值重新整理。你可以先看项目类型，再进入源码、预览页或相关素材。
           </p>
-          <div class="hero-proof" data-motion="hero-proof" aria-label="主页维护信息">
-            <span>GitHub 公开仓库</span>
-            <span>项目快照兜底</span>
-            <span>MIT 开源主页</span>
-          </div>
-          <div class="hero-actions" data-motion="hero-actions" aria-label="快捷链接">
-            <a class="button button-primary" href="#projects">查看项目</a>
-            <a class="button button-secondary" href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
-              打开 GitHub
-            </a>
-          </div>
-        </div>
-
-        <aside class="profile-card" data-motion="profile-card" aria-label="小小东简介">
-          <img src="assets/lion-logo.svg" width="72" height="72" alt="" aria-hidden="true" />
-          <div>
-            <span>项目资料卡</span>
-            <strong>写代码，整理工具，也把提示词、审美判断和工作流沉淀成可复用资料。</strong>
-          </div>
-          <div class="palette-strip" aria-label="主页配色">
-            <span style="--swatch: #f9f4dc">乳白</span>
-            <span style="--swatch: #6b3e3c">爵弁</span>
-            <span style="--swatch: #ffd111">藤黄</span>
-            <span style="--swatch: #00a86b">竹青</span>
-          </div>
-        </aside>
-      </section>
-
-      <section id="projects" class="section">
-        <div class="section-head" data-motion="section-head">
-          <div>
-            <p class="eyebrow">Open repositories</p>
-            <h2>公开项目资料库</h2>
-          </div>
-          <div class="project-tools">
-            <label class="search-box">
-              <span>搜索公开项目</span>
-              <input id="repo-search" type="search" placeholder="搜索名称、描述、语言" autocomplete="off" />
-            </label>
-            <a class="text-link" href="https://github.com/nevertoday?tab=repositories" target="_blank" rel="noopener noreferrer">
+          <div class="hero-actions" data-motion="hero-actions">
+            <a class="button button-primary" href="#projects">浏览项目</a>
+            <a class="button button-secondary" href="https://github.com/nevertoday?tab=repositories" target="_blank" rel="noopener noreferrer">
               全部仓库
             </a>
           </div>
         </div>
 
-        <div class="repo-status" data-motion="repo-status" data-repo-status role="status">正在读取 GitHub 公开项目...</div>
-        <div class="repo-grid" data-repo-grid aria-live="polite"></div>
+        <aside class="hero-console" data-motion="hero-console" aria-label="项目概览">
+          <div class="console-head">
+            <span>Archive index</span>
+            <strong data-project-count>--</strong>
+          </div>
+          <dl class="console-stats">
+            <div>
+              <dt>公开项目</dt>
+              <dd data-project-count>--</dd>
+            </div>
+            <div>
+              <dt>类型</dt>
+              <dd data-kind-count>--</dd>
+            </div>
+            <div>
+              <dt>最近更新</dt>
+              <dd data-latest-date>--</dd>
+            </div>
+          </dl>
+          <div class="console-palette" aria-label="主题色">
+            <span style="--swatch: #f9f4dc">乳白</span>
+            <span style="--swatch: #6b3e3c">爵弁</span>
+            <span style="--swatch: #126bae">柏林蓝</span>
+            <span style="--swatch: #00a86b">竹青</span>
+          </div>
+        </aside>
       </section>
 
-      <section id="about" class="about" data-motion="about">
+      <section class="overview" aria-label="项目组织方式">
+        <article data-motion="overview">
+          <span>先看类型</span>
+          <strong>资料库、插件、Skill、主页、旧项目分别陈列。</strong>
+        </article>
+        <article data-motion="overview">
+          <span>再看用途</span>
+          <strong>每个项目都补一行“适合做什么”。</strong>
+        </article>
+        <article data-motion="overview">
+          <span>最后行动</span>
+          <strong>源码、预览和 GitHub 入口保持可直接访问。</strong>
+        </article>
+      </section>
+
+      <section id="projects" class="projects-section">
+        <div class="section-head" data-motion="section-head">
+          <div>
+            <p class="eyebrow">project archive</p>
+            <h2>项目陈列</h2>
+          </div>
+          <div class="project-tools">
+            <label class="search-box">
+              <span>检索</span>
+              <input id="repo-search" type="search" placeholder="搜名称、用途、类型、色名" autocomplete="off" />
+            </label>
+          </div>
+        </div>
+
+        <div class="archive-layout">
+          <aside class="archive-sidebar" data-motion="archive-sidebar">
+            <span class="sidebar-label">按类型查看</span>
+            <div class="category-nav" data-category-nav aria-label="项目类型"></div>
+            <a class="sidebar-link" href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">打开 GitHub 主页</a>
+          </aside>
+
+          <div class="archive-main">
+            <div class="repo-status" data-motion="repo-status" data-repo-status role="status">正在读取公开项目...</div>
+            <div class="feature-grid" data-feature-grid aria-label="精选项目"></div>
+            <div class="repo-grid" data-repo-grid aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="skills-section">
+        <div class="section-head" data-motion="skills-head">
+          <div>
+            <p class="eyebrow">open skills</p>
+            <h2>开源 Skills</h2>
+          </div>
+          <p>
+            Skills 不是普通仓库介绍，而是一组可以直接交给 Agent 执行的工作方法。这里单独列出触发方式、解决场景和最终产物。
+          </p>
+        </div>
+        <div class="skills-grid" data-skills-grid aria-label="小小东开源 Skills"></div>
+      </section>
+
+      <section id="method" class="method-section" data-motion="about">
         <div>
-          <p class="eyebrow">About</p>
+          <p class="eyebrow">method</p>
           <h2>关于小小东</h2>
         </div>
-        <div class="about-copy">
+        <div class="method-copy">
           <p>
-            我是小小东，长期在做代码、内容、AI 图片提示词、视觉判断和工作流整理。这个主页只保留必要入口，方便别人快速判断哪些项目能直接用，哪些可以继续改。
+            我是小小东，长期在做代码、内容、AI 图片提示词、视觉判断和工作流整理。这个主页的重点不是讲履历，而是让公开项目更容易被判断和使用。
           </p>
           <p>
-            表达上我更偏向资料馆逻辑：来源清楚、命名清楚、入口清楚。颜色和文案都服务浏览、引用和复用，不制造额外噪音。
+            我倾向用资料馆的方式处理项目：给出来源、用途、形态和入口。好的项目展示应该让人更快知道它能不能帮上忙，而不是让人猜它是什么。
           </p>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>开放项目资料馆 · xiaoxiaodong</span>
+      <span>公开项目工作台 · xiaoxiaodong</span>
       <div>
         <a href="https://github.com/nevertoday/xiaoxiaodong" target="_blank" rel="noopener noreferrer">本站源码</a>
-        <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://nevertoday.github.io/xiaoxiaodong/repos.json" target="_blank" rel="noopener noreferrer">项目快照</a>
       </div>
     </footer>
 
