@@ -344,8 +344,10 @@ function renderStats(repos) {
   document.querySelectorAll("[data-project-count]").forEach((item) => {
     item.textContent = String(repos.length || "--");
   });
-  document.querySelector("[data-kind-count]").textContent = String(kindCount || "--");
-  document.querySelector("[data-latest-date]").textContent = latest;
+  const kindCountNode = document.querySelector("[data-kind-count]");
+  const latestDateNode = document.querySelector("[data-latest-date]");
+  if (kindCountNode) kindCountNode.textContent = String(kindCount || "--");
+  if (latestDateNode) latestDateNode.textContent = latest;
 }
 
 function renderCategories() {
