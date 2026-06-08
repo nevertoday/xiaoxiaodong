@@ -53,7 +53,6 @@
         <a href="#projects">项目</a>
         <a href="#community">知识星球</a>
         <a href="#skills">Skills</a>
-        <a href="#about">关于</a>
       </nav>
 
       <div class="header-tools" aria-label="站点工具">
@@ -68,45 +67,29 @@
     <main id="main">
       <section id="top" class="hero">
         <div class="hero-main">
-          <p class="eyebrow" data-motion="hero-kicker">nevertoday</p>
-          <h1 data-motion="hero-title">小小东，是程序员。</h1>
-          <p class="hero-note" data-motion="hero-note">爱养花草、爱游泳、爱美色、爱整提示词的一个俗人。</p>
+          <p class="eyebrow" data-motion="hero-kicker">小小东</p>
+          <h1 data-motion="hero-title">程序员。俗人。</h1>
+          <p class="hero-note" data-motion="hero-note">养花草，游泳，看美色，整提示词。</p>
         </div>
 
         <div class="hero-links" data-motion="hero-links" aria-label="小小东主页入口">
           <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
-            <span>GitHub 主页</span>
-            <strong>github.com/nevertoday</strong>
+            <span>GitHub</span>
           </a>
           <a href="https://x.com/nevertoday" target="_blank" rel="noopener noreferrer">
-            <span>X 主页</span>
-            <strong>x.com/nevertoday</strong>
+            <span>X</span>
           </a>
         </div>
       </section>
 
       <section id="projects" class="projects-section">
-        <div class="section-head" data-motion="section-head">
-          <div>
-            <p class="eyebrow">projects</p>
-            <h2>我做过的项目</h2>
-          </div>
-          <p>获取是打开项目，源码是 GitHub。</p>
-        </div>
-
-        <div class="project-toolbar" data-motion="repo-status">
-          <div class="project-tools">
-            <label class="search-box">
-              <span>搜索</span>
-              <input id="repo-search" type="search" placeholder="项目名 / 插件 / 色卡 / Skill" autocomplete="off" />
-            </label>
-          </div>
+        <div class="section-head compact-head" data-motion="section-head">
+          <h2>近期可用项目</h2>
           <div class="repo-status" data-repo-status role="status">读取中...</div>
         </div>
 
         <div class="archive-main">
-          <div class="feature-grid" data-feature-grid aria-label="重点项目"></div>
-          <div class="repo-grid" data-repo-grid aria-live="polite"></div>
+          <div class="project-grid" data-project-grid aria-live="polite" aria-label="当前可用项目"></div>
         </div>
       </section>
 
@@ -116,7 +99,11 @@
           <h2>知识星球</h2>
         </div>
         <div class="community-copy">
-          <p>日常做项目、复盘和工具分享。</p>
+          <p>日常做项目、复盘、工具分享。</p>
+          <a class="community-qr" href="assets/zsxq-qr.svg" target="_blank" rel="noopener noreferrer">
+            <img src="assets/zsxq-qr.svg" alt="知识星球二维码" />
+            <span>扫码进入</span>
+          </a>
         </div>
       </section>
 
@@ -129,17 +116,6 @@
           <p>给 Agent 用的工作流。</p>
         </div>
         <div class="skills-grid" data-skills-grid aria-label="小小东开源 Skills"></div>
-      </section>
-
-      <section id="about" class="method-section" data-motion="about">
-        <div>
-          <p class="eyebrow">about</p>
-          <h2>关于小小东</h2>
-        </div>
-        <div class="method-copy">
-          <p>我是小小东。写代码，做插件，做网页。</p>
-          <p>这里是我的公开项目列表。</p>
-        </div>
       </section>
     </main>
 

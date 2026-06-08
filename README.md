@@ -4,7 +4,7 @@
 
 这个仓库是一个纯静态站点，用来快速展示 `nevertoday` 在 GitHub 上公开的项目，并简单介绍小小东。页面会优先读取仓库里的 `repos.json` 快照，保证 GitHub Pages 上稳定展示；如果 GitHub 公共 API 可用，再用实时仓库数据刷新。
 
-页面现在按“我做过的项目”组织：少讲概念，重点展示项目、知识星球、开源 Skills 和 GitHub 入口；视觉上提供淡色和暗色两种模式。
+页面现在按“近期可用项目”组织：少讲概念，重点展示项目、知识星球、开源 Skills 和 GitHub 入口；视觉上提供淡色和暗色两种模式。
 
 ## 主页
 
@@ -16,7 +16,7 @@ https://nevertoday.github.io/xiaoxiaodong/
 
 - `index.html`：主页结构
 - `styles.css`：页面样式
-- `script.js`：主题切换、项目搜索、Skills 渲染和 GitHub API 刷新
+- `script.js`：主题切换、项目宫格、Skills 渲染和 GitHub API 刷新
 - `repos.json`：公开项目快照
 - `assets/`：Logo、图标和视觉素材
 - `skills/xxd-article-poster/`：小小东文章海报 Skill

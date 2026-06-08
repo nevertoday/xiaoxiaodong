@@ -17,8 +17,6 @@ const fallbackRepos = [
 
 const state = {
   repos: [],
-  query: "",
-  category: "all",
 };
 
 const themeColors = {
@@ -42,49 +40,49 @@ const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
     format: "开源网页",
-    intent: "传统色色卡。",
+    intent: "查传统色。",
     colorName: "藤黄",
     color: "#FFD111",
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
     format: "开源网页",
-    intent: "传统色色卡。",
+    intent: "查传统色。",
     colorName: "藤黄",
     color: "#FFD111",
   },
   nevertoday: {
     kind: "个人主页",
     format: "主页",
-    intent: "个人介绍和链接。",
+    intent: "个人入口。",
     colorName: "月白天青",
     color: "#C6D7DB",
   },
   xposter: {
     kind: "发布插件",
     format: "Chrome MV3",
-    intent: "Markdown 发到 X Articles。",
+    intent: "把 Markdown 发到 X。",
     colorName: "柏林蓝",
     color: "#126BAE",
   },
   "100-layout-compositions": {
     kind: "构图参考",
     format: "视觉资料",
-    intent: "100 张构图参考。",
+    intent: "看构图。",
     colorName: "素积",
     color: "#D2C8BC",
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
     format: "提交流程",
-    intent: "Chrome 插件上架材料。",
+    intent: "准备 Chrome 上架材料。",
     colorName: "竹青",
     color: "#00A86B",
   },
   image: {
     kind: "图片实验",
     format: "脚本仓库",
-    intent: "图片处理实验。",
+    intent: "做图片实验。",
     colorName: "奶橙色",
     color: "#FFD8B3",
   },
@@ -115,6 +113,8 @@ const projectGlyphs = {
   bootstrap: "B",
   "phpcms-zhongnanlinye": "站",
 };
+
+const hiddenProjectNames = new Set(["xiaoxiaodong", "bootstrap", "phpcms-zhongnanlinye"]);
 
 const openSkills = [
   {
@@ -188,7 +188,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "浏览器插件",
       format: "Chrome 工具",
-      intent: "浏览器小工具。",
+      intent: "做浏览器工具。",
       colorName: "柏林蓝",
       color: "#126BAE",
     };
@@ -198,7 +198,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "开源 Skill",
       format: "工作流模块",
-      intent: "可复用工作流。",
+      intent: "复用工作流。",
       colorName: "竹青",
       color: "#00A86B",
     };
@@ -208,7 +208,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "视觉资料",
       format: "素材仓库",
-      intent: "视觉参考。",
+      intent: "做视觉参考。",
       colorName: palette.name,
       color: palette.color,
     };
@@ -218,7 +218,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "网页入口",
       format: "静态页面",
-      intent: "可访问网页。",
+      intent: "打开就能看。",
       colorName: palette.name,
       color: palette.color,
     };
@@ -227,7 +227,7 @@ function inferProjectProfile(repo, index) {
   return {
     kind: "开源项目",
     format: repo.language || "代码仓库",
-    intent: "公开代码项目。",
+    intent: "公开代码。",
     colorName: palette.name,
     color: palette.color,
   };
@@ -265,44 +265,9 @@ function getProjectAction(view) {
 function filterDisplayRepos(repos) {
   return repos
     .filter((repo) => !repo.fork)
-    .filter((repo) => repo.name !== "xiaoxiaodong")
+    .filter((repo) => !hiddenProjectNames.has(repo.name))
     .filter((repo) => !/-privacy$/i.test(repo.name) && !/privacy-policy/i.test(repo.name))
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
-}
-
-function getKindCounts(repos) {
-  return repos.reduce((counts, repo, index) => {
-    const kind = inferProjectProfile(repo, index).kind;
-    counts.set(kind, (counts.get(kind) || 0) + 1);
-    return counts;
-  }, new Map());
-}
-
-function getFilteredRepos() {
-  const query = state.query.trim().toLowerCase();
-
-  return state.repos.filter((repo, index) => {
-    const profile = inferProjectProfile(repo, index);
-    const categoryMatches = state.category === "all" || profile.kind === state.category;
-    if (!categoryMatches) return false;
-    if (!query) return true;
-
-    const searchable = [
-      repo.name,
-      repo.description,
-      repo.language,
-      profile.kind,
-      profile.format,
-      profile.intent,
-      profile.colorName,
-      ...(Array.isArray(repo.topics) ? repo.topics : []),
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchable.includes(query);
-  });
 }
 
 function setTheme(theme) {
@@ -337,50 +302,9 @@ function setStatus(message, type = "default") {
   status.dataset.type = type;
 }
 
-function renderStats(repos) {
-  const kindCount = getKindCounts(repos).size;
-  const latest = repos[0]?.pushed_at ? formatDate(repos[0].pushed_at) : "--";
-
-  document.querySelectorAll("[data-project-count]").forEach((item) => {
-    item.textContent = String(repos.length || "--");
-  });
-  const kindCountNode = document.querySelector("[data-kind-count]");
-  const latestDateNode = document.querySelector("[data-latest-date]");
-  if (kindCountNode) kindCountNode.textContent = String(kindCount || "--");
-  if (latestDateNode) latestDateNode.textContent = latest;
-}
-
-function renderCategories() {
-  const nav = document.querySelector("[data-category-nav]");
-  if (!nav) return;
-
-  const counts = getKindCounts(state.repos);
-  const categories = [["all", state.repos.length], ...Array.from(counts.entries())];
-
-  nav.innerHTML = categories
-    .map(([kind, count]) => {
-      const label = kind === "all" ? "全部项目" : kind;
-      const active = state.category === kind ? " is-active" : "";
-      return `
-        <button class="category-button${active}" type="button" data-category="${escapeHtml(kind)}">
-          <span>${escapeHtml(label)}</span>
-          <b>${count}</b>
-        </button>
-      `;
-    })
-    .join("");
-
-  nav.querySelectorAll("[data-category]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.category = button.dataset.category || "all";
-      renderAll();
-    });
-  });
-}
-
 function createSkillCard(skill, index) {
   return `
-    <article class="skill-card" style="--skill-color: ${skill.color}; --card-index: ${index}">
+    <article class="skill-card" style="--skill-color: ${skill.color}; --card-delay: ${80 + index * 52}ms">
       <div class="skill-index">
         <span>${String(index + 1).padStart(2, "0")}</span>
         <b>${escapeHtml(skill.label)}</b>
@@ -422,34 +346,7 @@ function renderSkills() {
   });
 }
 
-function createFeatureCard(view, featureIndex) {
-  const { repo, profile, homepage } = view;
-  const safeName = escapeHtml(repo.name);
-  const htmlUrl = escapeHtml(repo.html_url);
-  const action = getProjectAction(view);
-  const actionUrl = escapeHtml(action.url);
-  const actionLabel = escapeHtml(action.label);
-  const glyph = escapeHtml(getProjectGlyph(repo));
-
-  return `
-    <article class="feature-card app-feature-card" style="--project-color: ${profile.color}; --card-index: ${featureIndex}">
-      <div class="app-feature-copy">
-        <p>${escapeHtml(profile.kind)}</p>
-        <h3>${safeName}</h3>
-        <strong>${escapeHtml(profile.intent)}</strong>
-      </div>
-      <div class="app-feature-footer">
-        <div class="app-icon app-icon-large" aria-hidden="true">${glyph}</div>
-        <div class="app-actions">
-          <a href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
-          ${homepage ? `<a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>` : ""}
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-function createRepoCard(view, visibleIndex) {
+function createProjectCard(view, visibleIndex) {
   const { repo, profile, topics, homepage } = view;
   const safeName = escapeHtml(repo.name);
   const htmlUrl = escapeHtml(repo.html_url);
@@ -462,63 +359,53 @@ function createRepoCard(view, visibleIndex) {
     : "";
 
   return `
-    <article class="repo-card app-card" style="--project-color: ${profile.color}; --card-index: ${visibleIndex}">
-      <div class="app-icon" aria-hidden="true">${glyph}</div>
-      <div class="app-card-main">
-        <div class="app-card-head">
-          <div>
-            <h3>${safeName}</h3>
-            <p>${escapeHtml(profile.intent)}</p>
-          </div>
-          <a class="app-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
+    <article class="project-card" style="--project-color: ${profile.color}; --card-delay: ${90 + visibleIndex * 48}ms">
+      <div class="project-card-top">
+        <div class="app-icon" aria-hidden="true">${glyph}</div>
+        <div class="project-title">
+          <p>${escapeHtml(profile.kind)}</p>
+          <h3>${safeName}</h3>
         </div>
-        <div class="app-tags">
-          <span>${escapeHtml(profile.kind)}</span>
-          <span>${escapeHtml(profile.format)}</span>
-          ${repo.language ? `<span>${escapeHtml(repo.language)}</span>` : ""}
-          ${topicMarkup}
-        </div>
-        <div class="app-meta">
-          <span>${repo.stargazers_count ?? 0} stars</span>
-          <span>${repo.forks_count ?? 0} forks</span>
-          <span>${formatDate(repo.pushed_at)}</span>
-          <a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>
-        </div>
+        <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
+      </div>
+      <p class="project-intent">${escapeHtml(profile.intent)}</p>
+      <div class="project-tags">
+        <span>${escapeHtml(profile.format)}</span>
+        ${repo.language ? `<span>${escapeHtml(repo.language)}</span>` : ""}
+        ${topicMarkup}
+      </div>
+      <div class="project-footer">
+        <span>${repo.stargazers_count ?? 0} stars</span>
+        <span>${repo.forks_count ?? 0} forks</span>
+        <span>${formatDate(repo.pushed_at)}</span>
+        ${homepage ? `<a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>` : ""}
       </div>
     </article>
   `;
 }
 
 function renderProjects() {
-  const featureGrid = document.querySelector("[data-feature-grid]");
-  const repoGrid = document.querySelector("[data-repo-grid]");
-  if (!featureGrid || !repoGrid) return;
+  const grid = document.querySelector("[data-project-grid]");
+  if (!grid) return;
 
-  const repos = getFilteredRepos();
+  const repos = state.repos;
   const views = repos.map(getRepoView);
-  const featureViews = views.slice(0, Math.min(2, views.length));
-  const gridViews = views.slice(featureViews.length);
 
-  featureGrid.classList.remove("is-rendered");
-  repoGrid.classList.remove("is-rendered");
-  featureGrid.innerHTML = featureViews.map(createFeatureCard).join("");
-  repoGrid.innerHTML = gridViews.map(createRepoCard).join("");
+  grid.classList.remove("is-rendered");
+  grid.innerHTML = views.map(createProjectCard).join("");
 
   window.requestAnimationFrame(() => {
-    featureGrid.classList.add("is-rendered");
-    repoGrid.classList.add("is-rendered");
+    grid.classList.add("is-rendered");
   });
 
   if (!repos.length) {
-    setStatus("没有匹配项目。", "empty");
+    setStatus("暂无项目", "empty");
   } else {
-    setStatus(`${repos.length} 个项目。`, "ready");
+    setStatus(`${repos.length} 个项目`, "ready");
   }
 }
 
 function renderAll() {
-  renderStats(state.repos);
-  renderCategories();
   renderProjects();
 }
 
@@ -559,16 +446,6 @@ async function refreshReposFromGithub() {
   }
 }
 
-function initSearch() {
-  const search = document.querySelector("#repo-search");
-  if (!search) return;
-
-  search.addEventListener("input", () => {
-    state.query = search.value;
-    renderProjects();
-  });
-}
-
 function initMotion() {
   if (!document.documentElement.classList.contains("motion-ready")) return;
 
@@ -580,7 +457,6 @@ function initMotion() {
 function initPage() {
   initTheme();
   initMotion();
-  initSearch();
   renderSkills();
   loadSnapshotRepos().then(refreshReposFromGithub);
 }
