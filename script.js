@@ -3,15 +3,15 @@ const REPO_SNAPSHOT_URL = "repos.json";
 
 const fallbackRepos = [
   {
-    name: "xiaoxiaodong",
-    description: "小小东做过的项目入口，包含主页和公开 Skills。",
-    html_url: "https://github.com/nevertoday/xiaoxiaodong",
-    homepage: "https://nevertoday.github.io/xiaoxiaodong/",
-    language: "HTML",
-    stargazers_count: 0,
-    forks_count: 0,
+    name: "chinese-traditional-colors",
+    description: "中华传统色演示、色卡浏览与颜色知识科普开源项目",
+    html_url: "https://github.com/nevertoday/chinese-traditional-colors",
+    homepage: "https://nevertoday.github.io/chinese-traditional-colors/",
+    language: "JavaScript",
+    stargazers_count: 338,
+    forks_count: 44,
     pushed_at: new Date().toISOString(),
-    topics: ["homepage", "skills", "ai-workflow"],
+    topics: [],
   },
 ];
 
@@ -67,13 +67,6 @@ const projectProfiles = {
     colorName: "柏林蓝",
     color: "#126BAE",
   },
-  xiaoxiaodong: {
-    kind: "项目主页",
-    format: "静态主页",
-    intent: "这个页面本身，用来展示我做过的公开项目。",
-    colorName: "爵弁",
-    color: "#6B3E3C",
-  },
   "100-layout-compositions": {
     kind: "构图参考",
     format: "视觉资料",
@@ -109,6 +102,18 @@ const projectProfiles = {
     colorName: "鹅血石红",
     color: "#AB372F",
   },
+};
+
+const projectGlyphs = {
+  "chinese-traditional-colors": "色",
+  "zhongguo-traditional-colors": "色",
+  nevertoday: "我",
+  xposter: "X",
+  "100-layout-compositions": "版",
+  "chrome-store-submission": "上",
+  image: "图",
+  bootstrap: "B",
+  "phpcms-zhongnanlinye": "站",
 };
 
 const openSkills = [
@@ -240,9 +245,28 @@ function getRepoView(repo, index) {
   };
 }
 
+function getProjectGlyph(repo) {
+  return projectGlyphs[repo.name] || repo.name.slice(0, 1).toUpperCase();
+}
+
+function getProjectAction(view) {
+  if (view.homepage) {
+    return {
+      label: "获取",
+      url: view.homepage,
+    };
+  }
+
+  return {
+    label: "获取",
+    url: view.repo.html_url,
+  };
+}
+
 function filterDisplayRepos(repos) {
   return repos
     .filter((repo) => !repo.fork)
+    .filter((repo) => repo.name !== "xiaoxiaodong")
     .filter((repo) => !/-privacy$/i.test(repo.name) && !/privacy-policy/i.test(repo.name))
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
 }
@@ -401,23 +425,25 @@ function createFeatureCard(view, featureIndex) {
   const { repo, profile, homepage, description } = view;
   const safeName = escapeHtml(repo.name);
   const htmlUrl = escapeHtml(repo.html_url);
-  const homepageUrl = escapeHtml(homepage);
+  const action = getProjectAction(view);
+  const actionUrl = escapeHtml(action.url);
+  const actionLabel = escapeHtml(action.label);
+  const glyph = escapeHtml(getProjectGlyph(repo));
 
   return `
-    <article class="feature-card" style="--project-color: ${profile.color}; --card-index: ${featureIndex}">
-      <div class="feature-top">
-        <span>项目 ${String(featureIndex + 1).padStart(2, "0")}</span>
-        <b>${escapeHtml(profile.kind)}</b>
-      </div>
-      <div>
-        <p>${escapeHtml(profile.kind)} / ${escapeHtml(profile.format)}</p>
+    <article class="feature-card app-feature-card" style="--project-color: ${profile.color}; --card-index: ${featureIndex}">
+      <div class="app-feature-copy">
+        <p>${escapeHtml(profile.kind)}</p>
         <h3>${safeName}</h3>
+        <strong>${escapeHtml(profile.intent)}</strong>
+        <span>${escapeHtml(description)}</span>
       </div>
-      <strong>${escapeHtml(profile.intent)}</strong>
-      <p>${escapeHtml(description)}</p>
-      <div class="feature-links">
-        <a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>
-        ${homepage ? `<a href="${homepageUrl}" target="_blank" rel="noopener noreferrer">预览</a>` : ""}
+      <div class="app-feature-footer">
+        <div class="app-icon app-icon-large" aria-hidden="true">${glyph}</div>
+        <div class="app-actions">
+          <a href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
+          ${homepage ? `<a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>` : ""}
+        </div>
       </div>
     </article>
   `;
@@ -427,50 +453,38 @@ function createRepoCard(view, visibleIndex) {
   const { repo, profile, topics, homepage, description } = view;
   const safeName = escapeHtml(repo.name);
   const htmlUrl = escapeHtml(repo.html_url);
-  const homepageUrl = escapeHtml(homepage);
+  const action = getProjectAction(view);
+  const actionUrl = escapeHtml(action.url);
+  const actionLabel = escapeHtml(action.label);
+  const glyph = escapeHtml(getProjectGlyph(repo));
   const topicMarkup = topics.length
-    ? `<div class="repo-topics">${topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")}</div>`
+    ? topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")
     : "";
 
   return `
-    <article class="repo-card" style="--project-color: ${profile.color}; --card-index: ${visibleIndex}">
-      <div class="repo-marker" aria-hidden="true">
-        <span>${String(visibleIndex + 1).padStart(2, "0")}</span>
-        <b>${escapeHtml(profile.kind)}</b>
-      </div>
-      <div class="repo-body">
-        <div class="repo-title-row">
-          <h3>${safeName}</h3>
-          <span>${escapeHtml(repo.language || "Code")}</span>
+    <article class="repo-card app-card" style="--project-color: ${profile.color}; --card-index: ${visibleIndex}">
+      <div class="app-icon" aria-hidden="true">${glyph}</div>
+      <div class="app-card-main">
+        <div class="app-card-head">
+          <div>
+            <h3>${safeName}</h3>
+            <p>${escapeHtml(profile.intent)}</p>
+          </div>
+          <a class="app-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
         </div>
-        <p>${escapeHtml(description)}</p>
-      </div>
-      <div class="repo-intent">
-        <span>用途</span>
-        <strong>${escapeHtml(profile.intent)}</strong>
-      </div>
-      <div class="repo-tags">
-        <span>${escapeHtml(profile.kind)}</span>
-        <span>${escapeHtml(profile.format)}</span>
-      </div>
-      ${topicMarkup}
-      <dl class="repo-meta" aria-label="${safeName} 仓库信息">
-        <div>
-          <dt>Stars</dt>
-          <dd>${repo.stargazers_count ?? 0}</dd>
+        <p class="app-description">${escapeHtml(description)}</p>
+        <div class="app-tags">
+          <span>${escapeHtml(profile.kind)}</span>
+          <span>${escapeHtml(profile.format)}</span>
+          ${repo.language ? `<span>${escapeHtml(repo.language)}</span>` : ""}
+          ${topicMarkup}
         </div>
-        <div>
-          <dt>Forks</dt>
-          <dd>${repo.forks_count ?? 0}</dd>
+        <div class="app-meta">
+          <span>${repo.stargazers_count ?? 0} stars</span>
+          <span>${repo.forks_count ?? 0} forks</span>
+          <span>${formatDate(repo.pushed_at)}</span>
+          <a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>
         </div>
-        <div>
-          <dt>Updated</dt>
-          <dd>${formatDate(repo.pushed_at)}</dd>
-        </div>
-      </dl>
-      <div class="repo-links">
-        <a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>
-        ${homepage ? `<a href="${homepageUrl}" target="_blank" rel="noopener noreferrer">预览</a>` : ""}
       </div>
     </article>
   `;
