@@ -42,63 +42,63 @@ const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
     format: "开源网页",
-    intent: "中国传统色色卡，可以查色、下载，也可以做设计参考。",
+    intent: "传统色色卡。",
     colorName: "藤黄",
     color: "#FFD111",
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
     format: "开源网页",
-    intent: "中国传统色色卡，可以查色、下载，也可以做设计参考。",
+    intent: "传统色色卡。",
     colorName: "藤黄",
     color: "#FFD111",
   },
   nevertoday: {
     kind: "个人主页",
     format: "主页",
-    intent: "一个更轻的个人主页，用来放基础介绍和链接。",
+    intent: "个人介绍和链接。",
     colorName: "月白天青",
     color: "#C6D7DB",
   },
   xposter: {
     kind: "发布插件",
     format: "Chrome MV3",
-    intent: "把 Markdown 草稿导入 X Articles 的 Chrome 插件。",
+    intent: "Markdown 发到 X Articles。",
     colorName: "柏林蓝",
     color: "#126BAE",
   },
   "100-layout-compositions": {
     kind: "构图参考",
     format: "视觉资料",
-    intent: "100 张构图参考图，适合做版式练习和设计参考。",
+    intent: "100 张构图参考。",
     colorName: "素积",
     color: "#D2C8BC",
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
     format: "提交流程",
-    intent: "帮 Chrome 插件整理上架材料、权限说明和隐私文案。",
+    intent: "Chrome 插件上架材料。",
     colorName: "竹青",
     color: "#00A86B",
   },
   image: {
     kind: "图片实验",
     format: "脚本仓库",
-    intent: "一些图片处理、素材整理和自动化实验。",
+    intent: "图片处理实验。",
     colorName: "奶橙色",
     color: "#FFD8B3",
   },
   bootstrap: {
     kind: "早期实验",
     format: "前端存档",
-    intent: "很早期的 Bootstrap 练习和前端存档。",
+    intent: "早期前端练习。",
     colorName: "素积",
     color: "#D2C8BC",
   },
   "phpcms-zhongnanlinye": {
     kind: "旧站存档",
     format: "PHP 项目",
-    intent: "早期网站项目源码，保留一下做过的痕迹。",
+    intent: "早期网站源码。",
     colorName: "鹅血石红",
     color: "#AB372F",
   },
@@ -121,8 +121,8 @@ const openSkills = [
     name: "xxd-article-poster",
     label: "文章海报",
     trigger: "$xxd-article-poster",
-    scene: "把长文章、网页或文档整理成更好读的信息海报。",
-    output: "信息海报 / 一图读懂 / 多张卡片",
+    scene: "长文转海报。",
+    output: "海报 / 卡片",
     source: "skills/xxd-article-poster/SKILL.md",
     url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-article-poster",
     colorName: "爵弁",
@@ -132,8 +132,8 @@ const openSkills = [
     name: "chrome-store-submission",
     label: "插件上架",
     trigger: "$chrome-store-submission",
-    scene: "帮 Chrome 插件准备商店上架文案、权限说明和隐私资料。",
-    output: "上架文案 / 权限说明 / 文件清单",
+    scene: "Chrome 插件上架。",
+    output: "文案 / 权限说明",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/chrome-store-submission",
     colorName: "竹青",
@@ -143,8 +143,8 @@ const openSkills = [
     name: "claude_skill_vibe-writing",
     label: "写作流程",
     trigger: "安装 Skill",
-    scene: "把写作协作流程整理成一个可以被 Agent 调用的 Skill。",
-    output: "Skill zip / 写作流程",
+    scene: "写作工作流。",
+    output: "Skill zip",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/claude_skill_vibe-writing",
     colorName: "柏林蓝",
@@ -188,7 +188,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "浏览器插件",
       format: "Chrome 工具",
-      intent: "把重复的浏览器操作做成一个更顺手的插件。",
+      intent: "浏览器小工具。",
       colorName: "柏林蓝",
       color: "#126BAE",
     };
@@ -198,7 +198,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "开源 Skill",
       format: "工作流模块",
-      intent: "把一套做事流程整理成可以复用的 Skill。",
+      intent: "可复用工作流。",
       colorName: "竹青",
       color: "#00A86B",
     };
@@ -208,7 +208,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "视觉资料",
       format: "素材仓库",
-      intent: "给设计、写作和视觉判断做参考。",
+      intent: "视觉参考。",
       colorName: palette.name,
       color: palette.color,
     };
@@ -218,7 +218,7 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "网页入口",
       format: "静态页面",
-      intent: "把一些信息整理成可以直接访问的网页。",
+      intent: "可访问网页。",
       colorName: palette.name,
       color: palette.color,
     };
@@ -227,7 +227,7 @@ function inferProjectProfile(repo, index) {
   return {
     kind: "开源项目",
     format: repo.language || "代码仓库",
-    intent: "一个公开代码项目，可以继续阅读、复用或二次开发。",
+    intent: "公开代码项目。",
     colorName: palette.name,
     color: palette.color,
   };
@@ -241,7 +241,6 @@ function getRepoView(repo, index) {
     index,
     topics: Array.isArray(repo.topics) ? repo.topics.slice(0, 3) : [],
     homepage: repo.homepage && repo.homepage.startsWith("http") ? repo.homepage : "",
-    description: repo.description || "这个仓库暂时没有描述。",
   };
 }
 
@@ -422,7 +421,7 @@ function renderSkills() {
 }
 
 function createFeatureCard(view, featureIndex) {
-  const { repo, profile, homepage, description } = view;
+  const { repo, profile, homepage } = view;
   const safeName = escapeHtml(repo.name);
   const htmlUrl = escapeHtml(repo.html_url);
   const action = getProjectAction(view);
@@ -436,7 +435,6 @@ function createFeatureCard(view, featureIndex) {
         <p>${escapeHtml(profile.kind)}</p>
         <h3>${safeName}</h3>
         <strong>${escapeHtml(profile.intent)}</strong>
-        <span>${escapeHtml(description)}</span>
       </div>
       <div class="app-feature-footer">
         <div class="app-icon app-icon-large" aria-hidden="true">${glyph}</div>
@@ -450,7 +448,7 @@ function createFeatureCard(view, featureIndex) {
 }
 
 function createRepoCard(view, visibleIndex) {
-  const { repo, profile, topics, homepage, description } = view;
+  const { repo, profile, topics, homepage } = view;
   const safeName = escapeHtml(repo.name);
   const htmlUrl = escapeHtml(repo.html_url);
   const action = getProjectAction(view);
@@ -472,7 +470,6 @@ function createRepoCard(view, visibleIndex) {
           </div>
           <a class="app-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
         </div>
-        <p class="app-description">${escapeHtml(description)}</p>
         <div class="app-tags">
           <span>${escapeHtml(profile.kind)}</span>
           <span>${escapeHtml(profile.format)}</span>
@@ -511,9 +508,9 @@ function renderProjects() {
   });
 
   if (!repos.length) {
-    setStatus("没有匹配的公开项目。", "empty");
+    setStatus("没有匹配项目。", "empty");
   } else {
-    setStatus(`展示 ${repos.length} 个公开项目。`, "ready");
+    setStatus(`${repos.length} 个项目。`, "ready");
   }
 }
 
@@ -533,7 +530,7 @@ async function loadSnapshotRepos() {
   } catch {
     state.repos = fallbackRepos;
     renderAll();
-    setStatus("展示本地兜底项目。", "warning");
+    setStatus("显示本地项目。", "warning");
   }
 }
 
@@ -555,7 +552,7 @@ async function refreshReposFromGithub() {
     } else {
       state.repos = fallbackRepos;
       renderAll();
-      setStatus("暂时无法读取 GitHub API，已显示本地兜底项目。", "warning");
+      setStatus("GitHub 暂时不可用。", "warning");
     }
   }
 }
