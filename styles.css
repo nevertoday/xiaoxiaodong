@@ -1,27 +1,28 @@
 :root {
   color-scheme: light;
-  --rubai: #f9f4dc;
-  --suji: #d2c8bc;
-  --juebian: #6b3e3c;
-  --tenghuang: #ffd111;
-  --zhuqing: #00a86b;
-  --bolinlan: #126bae;
-  --xuan: #171512;
+  --rubai: #f7f7f4;
+  --suji: #d8d8d4;
+  --juebian: #111111;
+  --tenghuang: #9a9a94;
+  --zhuqing: #5f5f5a;
+  --bolinlan: #3a3a37;
+  --xuan: #111111;
 
-  --paper: #f6f2e8;
-  --paper-wash: #fbf8ee;
-  --surface: #fffdf6;
-  --surface-soft: #efe7da;
-  --ink: #171512;
-  --ink-soft: #4d463d;
-  --muted: #7b7165;
-  --line: #d9cfc0;
-  --line-strong: #a99b8a;
-  --accent: var(--juebian);
-  --accent-2: var(--bolinlan);
-  --accent-3: var(--zhuqing);
-  --focus: color-mix(in srgb, var(--tenghuang) 64%, transparent);
-  --shadow: 0 22px 54px rgba(38, 30, 20, 0.12);
+  --paper: #f7f7f4;
+  --paper-wash: #ffffff;
+  --surface: #ffffff;
+  --surface-soft: #eeeeeb;
+  --ink: #111111;
+  --ink-soft: #3f3f3c;
+  --muted: #777771;
+  --line: #d9d9d4;
+  --line-strong: #b8b8b2;
+  --accent: #111111;
+  --accent-2: #3f3f3c;
+  --accent-3: #777771;
+  --neutral-mark: color-mix(in srgb, var(--ink) 78%, var(--muted));
+  --focus: color-mix(in srgb, var(--ink) 18%, transparent);
+  --shadow: 0 18px 48px rgba(17, 17, 17, 0.1);
   --max: 1180px;
   --edge: max(24px, calc((100vw - var(--max)) / 2));
   --header-h: 70px;
@@ -35,20 +36,21 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #151412;
-  --paper-wash: #1a1815;
-  --surface: #211f1b;
-  --surface-soft: #2b2822;
-  --ink: #f2ecdf;
-  --ink-soft: #d6cbbc;
-  --muted: #a99d90;
-  --line: #3a352d;
-  --line-strong: #625849;
-  --accent: #d9c6b3;
-  --accent-2: #79aeca;
-  --accent-3: #75c6a1;
-  --focus: color-mix(in srgb, var(--tenghuang) 48%, transparent);
-  --shadow: 0 24px 68px rgba(0, 0, 0, 0.34);
+  --paper: #111111;
+  --paper-wash: #151515;
+  --surface: #191919;
+  --surface-soft: #242424;
+  --ink: #f4f4f4;
+  --ink-soft: #d8d8d8;
+  --muted: #a0a09a;
+  --line: #343434;
+  --line-strong: #5a5a54;
+  --accent: #f4f4f4;
+  --accent-2: #d8d8d8;
+  --accent-3: #a0a09a;
+  --neutral-mark: color-mix(in srgb, var(--ink) 74%, var(--muted));
+  --focus: color-mix(in srgb, var(--ink) 22%, transparent);
+  --shadow: 0 24px 68px rgba(0, 0, 0, 0.36);
 }
 
 * {
@@ -135,6 +137,17 @@ p {
   outline-offset: 3px;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: fixed;
   top: 12px;
@@ -190,9 +203,9 @@ main {
   height: 34px;
   flex: 0 0 auto;
   place-items: center;
-  color: #f8f1e3;
+  color: #f7f7f4;
   background: #11100e;
-  box-shadow: inset 0 0 0 1px rgba(248, 241, 227, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(247, 247, 244, 0.18);
   font-family: var(--font-logo);
   font-size: 1.18rem;
   font-weight: 900;
@@ -201,8 +214,8 @@ main {
 
 .eyebrow,
 .site-nav,
-.theme-switch,
-.nav-tool-link,
+.nav-icon-link,
+.theme-toggle,
 .hero-links,
 .repo-status,
 .project-title p,
@@ -226,8 +239,8 @@ main {
 }
 
 .site-nav a,
-.theme-switch button,
-.nav-tool-link,
+.nav-icon-link,
+.theme-toggle,
 .hero-links a,
 .project-get,
 .project-footer a,
@@ -242,7 +255,8 @@ main {
 }
 
 .site-nav a,
-.nav-tool-link {
+.nav-icon-link,
+.theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -255,9 +269,7 @@ main {
 }
 
 .site-nav a:hover,
-.site-nav a:focus-visible,
-.nav-tool-link:hover,
-.nav-tool-link:focus-visible {
+.site-nav a:focus-visible {
   color: var(--paper);
   background: var(--ink);
 }
@@ -270,37 +282,53 @@ main {
   min-width: 0;
 }
 
-.theme-switch {
-  display: inline-grid;
-  grid-template-columns: repeat(2, minmax(52px, 1fr));
-  gap: 1px;
-  min-width: 96px;
-  padding: 1px;
-  border: 1px solid var(--line-strong);
-  background: var(--line-strong);
-}
-
-.theme-switch button {
+.nav-icon-link,
+.theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
   min-height: 32px;
-  padding: 0 0.52rem;
-  color: var(--muted);
-  background: var(--surface);
-  font-size: 0.78rem;
-  font-weight: 900;
-  line-height: 1;
+  padding: 0;
+  border: 1px solid transparent;
+  color: var(--ink-soft);
+  background: transparent;
+  opacity: 0.76;
 }
 
-.theme-switch button:hover {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--rubai) 34%, var(--surface));
+.nav-icon-link svg,
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
 }
 
-.theme-switch button.is-active {
+.nav-icon-link:hover,
+.nav-icon-link:focus-visible,
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
   color: var(--paper);
+  border-color: var(--ink);
   background: var(--ink);
+  opacity: 1;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
 }
 
 #top,
@@ -448,6 +476,7 @@ h3 {
 
 .project-card {
   position: relative;
+  --project-tone: var(--neutral-mark);
   display: grid;
   grid-template-rows: auto minmax(4.8rem, 1fr) auto auto;
   gap: 1rem;
@@ -456,7 +485,7 @@ h3 {
   padding: 1.05rem;
   overflow: hidden;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--project-color) 7%, transparent), transparent 56%),
+    linear-gradient(135deg, color-mix(in srgb, var(--project-tone) 7%, transparent), transparent 56%),
     var(--surface);
   transition:
     background 180ms var(--ease),
@@ -468,7 +497,7 @@ h3 {
   position: absolute;
   inset: 0 auto 0 0;
   width: 3px;
-  background: var(--project-color);
+  background: var(--project-tone);
   content: "";
   opacity: 0.68;
   transform: scaleY(0.32);
@@ -484,8 +513,8 @@ h3 {
   bottom: 1rem;
   width: 4.2rem;
   height: 4.2rem;
-  border: 1px solid color-mix(in srgb, var(--project-color) 36%, transparent);
-  background: color-mix(in srgb, var(--project-color) 9%, transparent);
+  border: 1px solid color-mix(in srgb, var(--project-tone) 32%, transparent);
+  background: color-mix(in srgb, var(--project-tone) 6%, transparent);
   content: "";
   opacity: 0.32;
   pointer-events: none;
@@ -498,7 +527,7 @@ h3 {
 .project-card:hover {
   z-index: 1;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--project-color) 12%, transparent), transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--project-tone) 10%, transparent), transparent 58%),
     var(--surface);
   box-shadow: var(--shadow);
   transform: translateY(-2px);
@@ -530,11 +559,11 @@ h3 {
   height: 56px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--project-color) 42%, var(--line-strong));
+  border: 1px solid color-mix(in srgb, var(--project-tone) 38%, var(--line-strong));
   border-radius: 8px;
-  color: color-mix(in srgb, var(--project-color) 46%, var(--ink));
+  color: color-mix(in srgb, var(--project-tone) 44%, var(--ink));
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--project-color) 22%, transparent), transparent 58%),
+    linear-gradient(145deg, color-mix(in srgb, var(--project-tone) 12%, transparent), transparent 58%),
     color-mix(in srgb, var(--surface) 88%, var(--paper));
   font-family: var(--font-title);
   font-size: 1.42rem;
@@ -573,10 +602,10 @@ h3 {
   justify-content: center;
   min-height: 32px;
   padding: 0 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--accent-2) 24%, var(--line));
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, var(--line));
   border-radius: 999px;
-  color: var(--accent-2);
-  background: color-mix(in srgb, var(--accent-2) 9%, var(--surface));
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
   font-size: 0.78rem;
   font-weight: 900;
   line-height: 1;
@@ -615,10 +644,10 @@ h3 {
 .project-tags span {
   min-width: 0;
   padding: 0.22rem 0.48rem;
-  border: 1px solid color-mix(in srgb, var(--project-color) 22%, var(--line));
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, var(--line));
   border-radius: 999px;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--project-color) 8%, var(--surface));
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1.2;
@@ -664,7 +693,7 @@ h3 {
   gap: clamp(2rem, 6vw, 5rem);
   align-items: start;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--zhuqing) 7%, transparent), transparent 54%),
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 4%, transparent), transparent 54%),
     transparent;
 }
 
@@ -702,7 +731,7 @@ h3 {
 .community-qr img {
   width: 112px;
   height: 112px;
-  background: #f8f1e3;
+  background: #f7f7f4;
   image-rendering: pixelated;
 }
 
@@ -727,6 +756,7 @@ h3 {
 }
 
 .skill-card {
+  --skill-tone: var(--neutral-mark);
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   gap: 1.08rem;
@@ -734,7 +764,7 @@ h3 {
   min-height: 20rem;
   padding: 1.15rem;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--skill-color) 8%, transparent), transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--skill-tone) 7%, transparent), transparent 58%),
     var(--surface);
   transition:
     background 180ms var(--ease),
@@ -776,7 +806,7 @@ h3 {
   width: 2.2rem;
   height: 0.72rem;
   border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
-  background: var(--skill-color);
+  background: var(--skill-tone);
   content: "";
   flex: 0 0 auto;
   transition: transform 200ms var(--ease);
@@ -907,8 +937,8 @@ h3 {
 }
 
 .site-nav a:active,
-.theme-switch button:active,
-.nav-tool-link:active,
+.nav-icon-link:active,
+.theme-toggle:active,
 .hero-links a:active,
 .project-get:active,
 .skill-footer a:active,
@@ -1107,8 +1137,10 @@ h3 {
     font-size: 0.82rem;
   }
 
-  .theme-switch {
-    min-width: 104px;
+  .nav-icon-link,
+  .theme-toggle {
+    width: 34px;
+    min-height: 34px;
   }
 
   h1 {

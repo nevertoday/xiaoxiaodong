@@ -25,15 +25,12 @@ const themeColors = {
 };
 
 const projectPalette = [
-  { name: "爵弁", color: "#6B3E3C" },
-  { name: "藤黄", color: "#FFD111" },
-  { name: "竹青", color: "#00A86B" },
-  { name: "柏林蓝", color: "#126BAE" },
-  { name: "鹅血石红", color: "#AB372F" },
-  { name: "月白天青", color: "#C6D7DB" },
-  { name: "奶橙色", color: "#FFD8B3" },
-  { name: "宝石绿", color: "#41AE3C" },
-  { name: "素积", color: "#D2C8BC" },
+  { name: "墨黑", color: "#111111" },
+  { name: "铁灰", color: "#3F3F3C" },
+  { name: "中灰", color: "#777771" },
+  { name: "石灰", color: "#9A9A94" },
+  { name: "线灰", color: "#B8B8B2" },
+  { name: "纸白", color: "#F7F7F4" },
 ];
 
 const projectProfiles = {
@@ -41,64 +38,64 @@ const projectProfiles = {
     kind: "色卡资料库",
     format: "开源网页",
     intent: "查传统色。",
-    colorName: "藤黄",
-    color: "#FFD111",
+    colorName: "墨黑",
+    color: "#111111",
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
     format: "开源网页",
     intent: "查传统色。",
-    colorName: "藤黄",
-    color: "#FFD111",
+    colorName: "墨黑",
+    color: "#111111",
   },
   nevertoday: {
     kind: "个人主页",
     format: "主页",
     intent: "个人入口。",
-    colorName: "月白天青",
-    color: "#C6D7DB",
+    colorName: "铁灰",
+    color: "#3F3F3C",
   },
   xposter: {
     kind: "发布插件",
     format: "Chrome MV3",
     intent: "把 Markdown 发到 X。",
-    colorName: "柏林蓝",
-    color: "#126BAE",
+    colorName: "墨黑",
+    color: "#111111",
   },
   "100-layout-compositions": {
     kind: "构图参考",
     format: "视觉资料",
     intent: "看构图。",
-    colorName: "素积",
-    color: "#D2C8BC",
+    colorName: "中灰",
+    color: "#777771",
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
     format: "提交流程",
     intent: "准备 Chrome 上架材料。",
-    colorName: "竹青",
-    color: "#00A86B",
+    colorName: "铁灰",
+    color: "#3F3F3C",
   },
   image: {
     kind: "图片实验",
     format: "脚本仓库",
     intent: "做图片实验。",
-    colorName: "奶橙色",
-    color: "#FFD8B3",
+    colorName: "石灰",
+    color: "#9A9A94",
   },
   bootstrap: {
     kind: "早期实验",
     format: "前端存档",
     intent: "早期前端练习。",
-    colorName: "素积",
-    color: "#D2C8BC",
+    colorName: "线灰",
+    color: "#B8B8B2",
   },
   "phpcms-zhongnanlinye": {
     kind: "旧站存档",
     format: "PHP 项目",
     intent: "早期网站源码。",
-    colorName: "鹅血石红",
-    color: "#AB372F",
+    colorName: "中灰",
+    color: "#777771",
   },
 };
 
@@ -125,8 +122,8 @@ const openSkills = [
     output: "海报 / 卡片",
     source: "skills/xxd-article-poster/SKILL.md",
     url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-article-poster",
-    colorName: "爵弁",
-    color: "#6B3E3C",
+    colorName: "墨黑",
+    color: "#111111",
   },
   {
     name: "chrome-store-submission",
@@ -136,8 +133,8 @@ const openSkills = [
     output: "文案 / 权限说明",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/chrome-store-submission",
-    colorName: "竹青",
-    color: "#00A86B",
+    colorName: "铁灰",
+    color: "#3F3F3C",
   },
   {
     name: "claude_skill_vibe-writing",
@@ -147,8 +144,8 @@ const openSkills = [
     output: "Skill zip",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/claude_skill_vibe-writing",
-    colorName: "柏林蓝",
-    color: "#126BAE",
+    colorName: "中灰",
+    color: "#777771",
   },
 ];
 
@@ -189,8 +186,8 @@ function inferProjectProfile(repo, index) {
       kind: "浏览器插件",
       format: "Chrome 工具",
       intent: "做浏览器工具。",
-      colorName: "柏林蓝",
-      color: "#126BAE",
+      colorName: "墨黑",
+      color: "#111111",
     };
   }
 
@@ -199,8 +196,8 @@ function inferProjectProfile(repo, index) {
       kind: "开源 Skill",
       format: "工作流模块",
       intent: "复用工作流。",
-      colorName: "竹青",
-      color: "#00A86B",
+      colorName: "铁灰",
+      color: "#3F3F3C",
     };
   }
 
@@ -272,14 +269,16 @@ function filterDisplayRepos(repos) {
 
 function setTheme(theme) {
   const normalized = theme === "dark" ? "dark" : "light";
+  const nextMode = normalized === "dark" ? "light" : "dark";
+  const nextModeLabel = nextMode === "dark" ? "暗色" : "淡色";
   document.documentElement.dataset.theme = normalized;
   document.querySelector("[data-theme-color]")?.setAttribute("content", themeColors[normalized]);
 
-  document.querySelectorAll("[data-theme-option]").forEach((button) => {
-    const isActive = button.dataset.themeOption === normalized;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
+  const toggle = document.querySelector("[data-theme-toggle]");
+  const label = document.querySelector("[data-theme-label]");
+  toggle?.setAttribute("aria-pressed", String(normalized === "dark"));
+  toggle?.setAttribute("aria-label", `切换到${nextModeLabel}模式`);
+  if (label) label.textContent = nextModeLabel;
 
   try {
     localStorage.setItem("theme", normalized);
@@ -290,8 +289,8 @@ function setTheme(theme) {
 
 function initTheme() {
   setTheme(document.documentElement.dataset.theme || "light");
-  document.querySelectorAll("[data-theme-option]").forEach((button) => {
-    button.addEventListener("click", () => setTheme(button.dataset.themeOption));
+  document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+    setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
   });
 }
 
@@ -304,7 +303,7 @@ function setStatus(message, type = "default") {
 
 function createSkillCard(skill, index) {
   return `
-    <article class="skill-card" style="--skill-color: ${skill.color}; --card-delay: ${80 + index * 52}ms">
+    <article class="skill-card" style="--card-delay: ${80 + index * 52}ms">
       <div class="skill-index">
         <span>${String(index + 1).padStart(2, "0")}</span>
         <b>${escapeHtml(skill.label)}</b>
@@ -359,7 +358,7 @@ function createProjectCard(view, visibleIndex) {
     : "";
 
   return `
-    <article class="project-card" style="--project-color: ${profile.color}; --card-delay: ${90 + visibleIndex * 48}ms">
+    <article class="project-card" style="--card-delay: ${90 + visibleIndex * 48}ms">
       <div class="project-card-top">
         <div class="app-icon" aria-hidden="true">${glyph}</div>
         <div class="project-title">
