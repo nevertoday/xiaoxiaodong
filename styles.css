@@ -222,7 +222,6 @@ main {
 .console-head,
 .console-stats dt,
 .console-palette,
-.overview span,
 .sidebar-label,
 .category-button,
 .repo-status,
@@ -383,12 +382,6 @@ h1 {
   font-size: clamp(2.8rem, 7vw, 5.8rem);
 }
 
-.hero-text {
-  max-width: 44rem;
-  font-size: clamp(1.04rem, 1.8vw, 1.24rem);
-  line-height: 1.75;
-}
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -541,45 +534,6 @@ h1 {
   border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
   background: var(--swatch);
   content: "";
-}
-
-.proof-strip,
-.overview {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: 0;
-  padding-inline: var(--edge);
-  border-bottom: 1px solid var(--line);
-  background: var(--line);
-  background-clip: content-box;
-}
-
-.proof-strip article,
-.overview article {
-  display: grid;
-  gap: 0.5rem;
-  min-width: 0;
-  min-height: 96px;
-  padding: clamp(1rem, 2vw, 1.25rem);
-  background: color-mix(in srgb, var(--surface) 72%, var(--paper));
-}
-
-.proof-strip span,
-.overview span {
-  color: var(--accent);
-  font-size: 0.76rem;
-  font-weight: 900;
-}
-
-.proof-strip strong,
-.overview strong {
-  max-width: 22rem;
-  color: var(--ink);
-  font-family: var(--font-title);
-  font-size: clamp(1.08rem, 2vw, 1.36rem);
-  line-height: 1.32;
-  overflow-wrap: anywhere;
 }
 
 .projects-section,
@@ -1621,20 +1575,12 @@ h2 {
   --motion-delay: 140ms;
 }
 
-[data-motion="hero-copy"] {
-  --motion-delay: 220ms;
-}
-
 [data-motion="hero-actions"] {
-  --motion-delay: 300ms;
+  --motion-delay: 220ms;
 }
 
 [data-motion="hero-console"] {
   --motion-delay: 240ms;
-}
-
-[data-motion="overview"] {
-  --motion-delay: 120ms;
 }
 
 [data-motion="section-head"],
@@ -1765,18 +1711,11 @@ h2 {
     font-size: clamp(2rem, 10vw, 3rem);
   }
 
-  .proof-strip,
-  .overview,
   .section-head,
   .feature-grid,
   .repo-grid,
   .skills-grid {
     grid-template-columns: 1fr;
-  }
-
-  .proof-strip article,
-  .overview article {
-    min-height: 108px;
   }
 
   .project-tools {
