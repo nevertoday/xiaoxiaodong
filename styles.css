@@ -190,6 +190,7 @@ main {
 
 .brand {
   display: inline-flex;
+  gap: 0.62rem;
   align-items: center;
   min-width: 0;
   color: var(--ink);
@@ -198,6 +199,20 @@ main {
   font-weight: 900;
   line-height: 1;
   white-space: nowrap;
+}
+
+.brand-logo {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--paper);
+  background: #11100e;
+  font-family: var(--font-logo);
+  font-size: 1.08rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .eyebrow,
