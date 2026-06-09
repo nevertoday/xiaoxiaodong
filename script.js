@@ -148,6 +148,10 @@ const openSkills = [
     url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-article-poster",
     colorName: "墨黑",
     color: "#111111",
+    pain: "长文章适合阅读，但不适合直接发到社媒；手动提炼标题、摘要、层级和卡片版式，很容易越改越散。",
+    highlights: ["从长文中提炼传播重点", "把标题、摘要和视觉层级一起整理", "适合做小红书、公众号配图、社媒海报的首版"],
+    usage: ["准备一篇文章或笔记", "调用 $xxd-article-poster", "让 Agent 先提炼重点，再生成可发布的海报卡片方案"],
+    tips: ["先给文章的目标读者，不要只贴正文", "适合先出 3 个标题方向，再选一个继续细化", "如果文章很长，先让 Agent 摘出核心段落再生成卡片"],
   },
   {
     name: "chrome-store-submission",
@@ -161,6 +165,10 @@ const openSkills = [
     url: "https://github.com/nevertoday/chrome-store-submission",
     colorName: "铁灰",
     color: "#3F3F3C",
+    pain: "Chrome 插件上架不是只传代码，还要解释权限、隐私、商店描述和审核材料；很多返工都发生在这些文字和披露表述上。",
+    highlights: ["按扩展代码整理上架所需资料", "生成权限说明、隐私披露和商店介绍", "减少审核前反复补材料的时间"],
+    usage: ["把插件仓库交给 Agent 分析", "运行 chrome-store-submission Skill", "按输出清单补齐商店文案、权限解释和隐私说明"],
+    tips: ["上架前先确认 manifest 权限是否真的必要", "权限说明要写用户收益，不要只复述 API 名称", "隐私披露要和代码行为一致"],
   },
   {
     name: "claude_skill_vibe-writing",
@@ -174,6 +182,10 @@ const openSkills = [
     url: "https://github.com/nevertoday/claude_skill_vibe-writing",
     colorName: "中灰",
     color: "#777771",
+    pain: "写作任务如果只靠一句提示词，风格、结构和修改标准都不稳定；每次都要重新解释一遍需求。",
+    highlights: ["把写作拆成可复用流程", "控制选题、结构、改写和风格", "适合把个人写作方法沉淀成 Agent 可执行的规范"],
+    usage: ["安装 Skill", "给出写作目标、读者和素材", "让 Agent 按流程完成选题、成稿、改写或风格统一"],
+    tips: ["先定义读者和发布场景，再让 Agent 写", "不要一次要求又写又改又排版，分阶段更稳定", "把你满意的文章样例作为风格参考"],
   },
 ];
 
@@ -367,10 +379,82 @@ function createSkillCard(skill, index) {
       </dl>
       <div class="skill-footer">
         <span>${escapeHtml(skill.source)}</span>
-        <a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">查看源码</a>
+        <div class="skill-actions">
+          <button type="button" data-skill-detail="${escapeHtml(skill.name)}">了解详情</button>
+          <a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">查看源码</a>
+        </div>
       </div>
     </article>
   `;
+}
+
+function createListMarkup(items) {
+  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+}
+
+function createSkillDetailMarkup(skill) {
+  return `
+    <div class="skill-modal-heading">
+      <p class="eyebrow">${escapeHtml(skill.label)}</p>
+      <h3 id="skill-modal-title">${escapeHtml(skill.title)}</h3>
+      <p>${escapeHtml(skill.summary)}</p>
+    </div>
+    <div class="skill-modal-grid">
+      <section>
+        <h4>解决的痛点</h4>
+        <p>${escapeHtml(skill.pain)}</p>
+      </section>
+      <section>
+        <h4>详细亮点</h4>
+        <ul>${createListMarkup(skill.highlights)}</ul>
+      </section>
+      <section>
+        <h4>使用方案</h4>
+        <ol>${createListMarkup(skill.usage)}</ol>
+      </section>
+      <section>
+        <h4>使用技巧</h4>
+        <ul>${createListMarkup(skill.tips)}</ul>
+      </section>
+    </div>
+    <dl class="skill-modal-links">
+      <div>
+        <dt>触发方式</dt>
+        <dd>${escapeHtml(skill.trigger)}</dd>
+      </div>
+      <div>
+        <dt>相关地址</dt>
+        <dd><a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(skill.source)}</a></dd>
+      </div>
+    </dl>
+  `;
+}
+
+function openSkillModal(skillName) {
+  const skill = openSkills.find((item) => item.name === skillName);
+  const modal = document.querySelector("[data-skill-modal]");
+  const body = document.querySelector("[data-skill-modal-body]");
+  const panel = modal?.querySelector(".skill-modal-panel");
+  if (!skill || !modal || !body || !panel) return;
+
+  body.innerHTML = createSkillDetailMarkup(skill);
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+  window.requestAnimationFrame(() => {
+    modal.classList.add("is-open");
+    panel.focus();
+  });
+}
+
+function closeSkillModal() {
+  const modal = document.querySelector("[data-skill-modal]");
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+  document.body.classList.remove("modal-open");
+  window.setTimeout(() => {
+    if (!modal.classList.contains("is-open")) modal.hidden = true;
+  }, 180);
 }
 
 function renderSkills() {
@@ -381,6 +465,25 @@ function renderSkills() {
   grid.innerHTML = openSkills.map(createSkillCard).join("");
   window.requestAnimationFrame(() => {
     grid.classList.add("is-rendered");
+  });
+}
+
+function initSkillModal() {
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const detailButton = target?.closest("[data-skill-detail]");
+    if (detailButton) {
+      openSkillModal(detailButton.dataset.skillDetail);
+      return;
+    }
+
+    if (target?.closest("[data-skill-modal-close]")) {
+      closeSkillModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeSkillModal();
   });
 }
 
@@ -517,6 +620,7 @@ function initPage() {
   initTheme();
   initMotion();
   renderSkills();
+  initSkillModal();
   initPlanProgress();
   loadSnapshotRepos().then(refreshReposFromGithub);
 }
