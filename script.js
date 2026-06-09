@@ -444,7 +444,7 @@ function renderProjects() {
   if (!repos.length) {
     setStatus("暂无项目", "empty");
   } else {
-    setStatus(`${repos.length} 个项目`, "ready");
+    setStatus(`${repos.length} 个可用`, "ready");
   }
 }
 
