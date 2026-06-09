@@ -560,13 +560,14 @@ function initPlanProgress() {
     const total = Number(item.dataset.total) || 0;
     const done = Math.min(Math.max(Number(item.dataset.done) || 0, 0), total);
     const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+    const unit = item.dataset.unit || "套";
     const title = item.querySelector("h4")?.textContent?.trim() || "计划";
     const count = item.querySelector("[data-progress-count]");
     const percentLabel = item.querySelector("[data-progress-percent]");
 
     item.style.setProperty("--progress", `${percent}%`);
-    item.setAttribute("aria-label", `${title}，已完成 ${done} / ${total} 套，完成 ${percent}%`);
-    if (count) count.textContent = `${done}/${total} 套`;
+    item.setAttribute("aria-label", `${title}，已完成 ${done} / ${total} ${unit}，完成 ${percent}%`);
+    if (count) count.textContent = `${done}/${total} ${unit}`;
     if (percentLabel) percentLabel.textContent = `完成 ${percent}%`;
   });
 }
