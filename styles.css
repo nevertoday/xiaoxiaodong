@@ -818,7 +818,11 @@ h3 {
 
 .plan-board {
   min-width: 0;
-  padding-top: 0.2rem;
+  padding: clamp(0.85rem, 2vw, 1.1rem);
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ink) 5%, transparent), transparent 34%),
+    color-mix(in srgb, var(--surface) 90%, var(--paper));
 }
 
 .plan-board-head {
@@ -826,8 +830,8 @@ h3 {
   gap: 1rem;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.1rem;
-  padding-bottom: 0.78rem;
+  margin-bottom: 0.95rem;
+  padding-bottom: 0.9rem;
   border-bottom: 1px solid var(--line);
 }
 
@@ -847,18 +851,34 @@ h3 {
 .plan-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  margin-bottom: 1rem;
-  border: 1px solid var(--line-strong);
-  background: var(--line-strong);
+  gap: 0.55rem;
+  margin-bottom: 0.95rem;
+  border: 0;
+  background: transparent;
 }
 
 .plan-summary div {
+  position: relative;
   display: grid;
   gap: 0.18rem;
   min-width: 0;
-  padding: 0.72rem 0.82rem;
-  background: color-mix(in srgb, var(--surface) 92%, var(--paper));
+  padding: 0.78rem 0.86rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 94%, var(--paper));
+  overflow: hidden;
+}
+
+.plan-summary div::after {
+  position: absolute;
+  right: -0.25rem;
+  bottom: -0.42rem;
+  color: color-mix(in srgb, var(--ink) 7%, transparent);
+  font-family: var(--font-title);
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1;
+  content: attr(data-mark);
+  pointer-events: none;
 }
 
 .plan-summary b {
@@ -881,49 +901,84 @@ h3 {
 .plan-timeline {
   position: relative;
   display: grid;
-  gap: 1px;
+  gap: 0.72rem;
   list-style: none;
   padding: 0;
-  border: 1px solid var(--line-strong);
-  background: var(--line-strong);
+  border: 0;
+  background: transparent;
 }
 
 .plan-timeline::before {
   position: absolute;
-  top: 1.35rem;
-  bottom: 1.35rem;
-  left: 1.15rem;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: 1.25rem;
   z-index: 1;
   width: 1px;
-  background: var(--line-strong);
+  background: linear-gradient(180deg, var(--line-strong), transparent);
   content: "";
 }
 
 .plan-item {
   position: relative;
   min-width: 0;
-  padding: 1rem 1rem 1rem 2.65rem;
-  background: color-mix(in srgb, var(--surface) 92%, var(--paper));
+  padding: 0;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--ink) 4%, transparent), transparent 48%),
+    color-mix(in srgb, var(--surface) 96%, var(--paper));
+  transition:
+    border-color 180ms var(--ease),
+    transform 180ms var(--ease),
+    background 180ms var(--ease);
 }
 
 .plan-item::before {
   position: absolute;
-  top: 1.18rem;
-  left: 0.88rem;
+  top: 1.02rem;
+  left: 0.92rem;
   z-index: 2;
-  width: 0.58rem;
-  height: 0.58rem;
+  width: 0.74rem;
+  height: 0.74rem;
   border: 2px solid var(--surface);
   background: var(--ink);
   content: "";
+  transition:
+    transform 180ms var(--ease),
+    background 180ms var(--ease);
+}
+
+.plan-item:hover {
+  border-color: var(--line-strong);
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--ink) 7%, transparent), transparent 50%),
+    var(--surface);
+  transform: translateX(2px);
+}
+
+.plan-item:hover::before {
+  transform: rotate(45deg) scale(1.08);
+}
+
+.plan-item-featured {
+  border-color: var(--line-strong);
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--ink) 10%, transparent), transparent 55%),
+    var(--surface);
+}
+
+.plan-item-featured::before {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--ink);
 }
 
 .plan-content {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.28fr);
-  gap: 0.72rem;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 0.25fr);
+  gap: 0.72rem 1rem;
   align-items: start;
   min-width: 0;
+  padding: 0.95rem 1rem 0.95rem 2.85rem;
 }
 
 .plan-meta,
@@ -958,12 +1013,33 @@ h3 {
   line-height: 1.72;
 }
 
+.plan-tags {
+  grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.plan-tags span {
+  padding: 0.18rem 0.46rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, var(--line));
+  color: var(--muted);
+  background: color-mix(in srgb, var(--paper) 66%, transparent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
 .plan-progress {
   grid-column: 2;
   align-self: end;
-  height: 0.42rem;
+  height: 0.48rem;
   overflow: hidden;
-  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 0.7rem, color-mix(in srgb, var(--ink) 8%, transparent) 0.7rem 0.75rem),
+    var(--surface-soft);
 }
 
 .plan-progress span {
@@ -1757,7 +1833,7 @@ h3 {
   }
 
   .plan-item {
-    padding-right: 0.82rem;
+    padding-right: 0;
   }
 
   .plan-content {
@@ -1765,6 +1841,7 @@ h3 {
   }
 
   .plan-content p,
+  .plan-tags,
   .plan-progress,
   .plan-count {
     grid-column: 1;
