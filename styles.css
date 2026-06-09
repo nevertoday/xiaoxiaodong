@@ -982,22 +982,26 @@ h3 {
 
 .community-side {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(9rem, auto);
+  gap: 0;
+  align-items: stretch;
   align-content: start;
-  justify-items: start;
+  justify-items: stretch;
   width: 100%;
   min-width: 0;
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line-strong);
 }
 
 .courseware-note {
   display: grid;
   gap: 0.72rem;
+  align-content: center;
   min-width: 0;
   width: 100%;
   padding: 0.95rem;
-  border: 1px solid var(--line-strong);
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
   background: color-mix(in srgb, var(--surface) 88%, var(--paper));
 }
 
@@ -1015,10 +1019,12 @@ h3 {
 .community-qr {
   display: grid;
   gap: 0.48rem;
+  align-content: center;
   justify-items: center;
   flex: 0 0 auto;
   padding: 0.72rem;
-  border: 1px solid var(--line-strong);
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
   background: color-mix(in srgb, var(--surface) 88%, var(--paper));
 }
 
