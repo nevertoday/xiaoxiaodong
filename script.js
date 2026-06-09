@@ -36,6 +36,8 @@ const projectPalette = [
 const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
+    title: "查中华传统色，直接复制色值",
+    summary: "传统色演示、色卡浏览和颜色知识科普，适合做视觉配色参考。",
     format: "开源网页",
     intent: "查传统色。",
     colorName: "墨黑",
@@ -43,6 +45,8 @@ const projectProfiles = {
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
+    title: "查中华传统色，直接复制色值",
+    summary: "传统色演示、色卡浏览和颜色知识科普，适合做视觉配色参考。",
     format: "开源网页",
     intent: "查传统色。",
     colorName: "墨黑",
@@ -57,6 +61,8 @@ const projectProfiles = {
   },
   xposter: {
     kind: "发布插件",
+    title: "把 Markdown 一键发布到 X",
+    summary: "面向写作者和运营者的 Chrome 插件，把本地内容整理后快速发布。",
     format: "Chrome MV3",
     intent: "把 Markdown 发到 X。",
     colorName: "墨黑",
@@ -64,6 +70,8 @@ const projectProfiles = {
   },
   "100-layout-compositions": {
     kind: "构图参考",
+    title: "用 100 种版式找构图参考",
+    summary: "沉淀版式组合和视觉构图，给海报、卡片、封面设计找起点。",
     format: "视觉资料",
     intent: "看构图。",
     colorName: "中灰",
@@ -71,13 +79,26 @@ const projectProfiles = {
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
+    title: "生成 Chrome 插件上架材料",
+    summary: "整理商店描述、权限说明、隐私披露和提交材料，减少上架返工。",
     format: "提交流程",
     intent: "准备 Chrome 上架材料。",
     colorName: "铁灰",
     color: "#3F3F3C",
   },
+  "tampermonkey-scripts": {
+    kind: "油猴脚本集",
+    title: "批量选择并下载主流图片站原图",
+    summary: "支持 Pinterest、小红书、微信公众号、堆糖、500px，悬停勾选后一键导出链接、逐张下载或打包 ZIP。",
+    format: "Tampermonkey",
+    intent: "批量下载图片。",
+    colorName: "墨黑",
+    color: "#111111",
+  },
   image: {
     kind: "图片实验",
+    title: "批量处理图片实验素材",
+    summary: "围绕图片生成、整理和脚本化处理做实验，适合沉淀视觉工作流。",
     format: "脚本仓库",
     intent: "做图片实验。",
     colorName: "石灰",
@@ -106,17 +127,20 @@ const projectGlyphs = {
   xposter: "X",
   "100-layout-compositions": "版",
   "chrome-store-submission": "上",
+  "tampermonkey-scripts": "油",
   image: "图",
   bootstrap: "B",
   "phpcms-zhongnanlinye": "站",
 };
 
-const hiddenProjectNames = new Set(["xiaoxiaodong", "bootstrap", "phpcms-zhongnanlinye"]);
+const hiddenProjectNames = new Set(["xiaoxiaodong", "nevertoday", "bootstrap", "phpcms-zhongnanlinye"]);
 
 const openSkills = [
   {
     name: "xxd-article-poster",
     label: "文章海报",
+    title: "把长文生成可发布的海报卡片",
+    summary: "从文章内容提炼标题、摘要和视觉层级，输出适合社媒传播的海报。",
     trigger: "$xxd-article-poster",
     scene: "长文转海报。",
     output: "海报 / 卡片",
@@ -128,6 +152,8 @@ const openSkills = [
   {
     name: "chrome-store-submission",
     label: "插件上架",
+    title: "自动整理 Chrome 插件上架资料",
+    summary: "分析扩展代码，生成商店介绍、权限解释、隐私披露和提交检查清单。",
     trigger: "$chrome-store-submission",
     scene: "Chrome 插件上架。",
     output: "文案 / 权限说明",
@@ -139,6 +165,8 @@ const openSkills = [
   {
     name: "claude_skill_vibe-writing",
     label: "写作流程",
+    title: "把写作过程拆成可复用工作流",
+    summary: "围绕选题、结构、改写和风格控制，把写作任务交给 Agent 稳定执行。",
     trigger: "安装 Skill",
     scene: "写作工作流。",
     output: "Skill zip",
@@ -184,6 +212,8 @@ function inferProjectProfile(repo, index) {
   if (haystack.includes("chrome") || haystack.includes("extension") || haystack.includes("mv3")) {
     return {
       kind: "浏览器插件",
+      title: "做一个浏览器里的实用工具",
+      summary: repo.description || "把高频操作搬进浏览器，减少重复步骤。",
       format: "Chrome 工具",
       intent: "做浏览器工具。",
       colorName: "墨黑",
@@ -194,6 +224,8 @@ function inferProjectProfile(repo, index) {
   if (haystack.includes("skill") || haystack.includes("agent")) {
     return {
       kind: "开源 Skill",
+      title: "把一段工作流交给 Agent 执行",
+      summary: repo.description || "把常见任务拆成可复用步骤，让 Agent 按流程稳定产出。",
       format: "工作流模块",
       intent: "复用工作流。",
       colorName: "铁灰",
@@ -204,6 +236,8 @@ function inferProjectProfile(repo, index) {
   if (haystack.includes("color") || haystack.includes("image") || haystack.includes("layout")) {
     return {
       kind: "视觉资料",
+      title: "整理可复用的视觉参考",
+      summary: repo.description || "把颜色、图片或版式资料沉淀成可直接查阅的素材。",
       format: "素材仓库",
       intent: "做视觉参考。",
       colorName: palette.name,
@@ -214,6 +248,8 @@ function inferProjectProfile(repo, index) {
   if (language === "html" || haystack.includes("homepage")) {
     return {
       kind: "网页入口",
+      title: "打开就能使用的静态网页",
+      summary: repo.description || "轻量网页入口，适合快速查看内容或演示结果。",
       format: "静态页面",
       intent: "打开就能看。",
       colorName: palette.name,
@@ -223,6 +259,8 @@ function inferProjectProfile(repo, index) {
 
   return {
     kind: "开源项目",
+    title: repo.description || "公开一个可复用的代码项目",
+    summary: repo.language ? `用 ${repo.language} 做的公开项目。` : "公开代码和项目实现，方便查看、复用或二次开发。",
     format: repo.language || "代码仓库",
     intent: "公开代码。",
     colorName: palette.name,
@@ -308,9 +346,10 @@ function createSkillCard(skill, index) {
         <span>${String(index + 1).padStart(2, "0")}</span>
         <b>${escapeHtml(skill.label)}</b>
       </div>
-      <div>
-        <p>${escapeHtml(skill.label)}</p>
-        <h3>${escapeHtml(skill.name)}</h3>
+      <div class="skill-heading">
+        <p>${escapeHtml(skill.name)}</p>
+        <h3>${escapeHtml(skill.title)}</h3>
+        <span>${escapeHtml(skill.summary)}</span>
       </div>
       <dl class="skill-facts">
         <div>
@@ -348,6 +387,8 @@ function renderSkills() {
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, topics, homepage } = view;
   const safeName = escapeHtml(repo.name);
+  const projectTitle = escapeHtml(profile.title || profile.intent || repo.description || repo.name);
+  const projectSummary = escapeHtml(profile.summary || repo.description || profile.format || "公开代码项目。");
   const htmlUrl = escapeHtml(repo.html_url);
   const action = getProjectAction(view);
   const actionUrl = escapeHtml(action.url);
@@ -363,11 +404,14 @@ function createProjectCard(view, visibleIndex) {
         <div class="app-icon" aria-hidden="true">${glyph}</div>
         <div class="project-title">
           <p>${escapeHtml(profile.kind)}</p>
-          <h3>${safeName}</h3>
+          <span>${safeName}</span>
         </div>
         <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
       </div>
-      <p class="project-intent">${escapeHtml(profile.intent)}</p>
+      <div class="project-copy">
+        <h3 class="project-intent">${projectTitle}</h3>
+        <p class="project-summary">${projectSummary}</p>
+      </div>
       <div class="project-tags">
         <span>${escapeHtml(profile.format)}</span>
         ${repo.language ? `<span>${escapeHtml(repo.language)}</span>` : ""}
@@ -406,6 +450,22 @@ function renderProjects() {
 
 function renderAll() {
   renderProjects();
+}
+
+function initPlanProgress() {
+  document.querySelectorAll("[data-plan-progress]").forEach((item) => {
+    const total = Number(item.dataset.total) || 0;
+    const done = Math.min(Math.max(Number(item.dataset.done) || 0, 0), total);
+    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+    const title = item.querySelector("h4")?.textContent?.trim() || "计划";
+    const count = item.querySelector("[data-progress-count]");
+    const percentLabel = item.querySelector("[data-progress-percent]");
+
+    item.style.setProperty("--progress", `${percent}%`);
+    item.setAttribute("aria-label", `${title}，已完成 ${done} / ${total} 套，完成 ${percent}%`);
+    if (count) count.textContent = `${done}/${total} 套`;
+    if (percentLabel) percentLabel.textContent = `完成 ${percent}%`;
+  });
 }
 
 async function loadSnapshotRepos() {
@@ -457,6 +517,7 @@ function initPage() {
   initTheme();
   initMotion();
   renderSkills();
+  initPlanProgress();
   loadSnapshotRepos().then(refreshReposFromGithub);
 }
 

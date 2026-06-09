@@ -1,5 +1,17 @@
 [
   {
+    "description": "实用油猴脚本集 — 图片批量选择下载 (Pinterest/小红书/微信公众号/堆糖/500px) 等",
+    "fork": false,
+    "forks_count": 0,
+    "homepage": null,
+    "html_url": "https://github.com/nevertoday/tampermonkey-scripts",
+    "language": "JavaScript",
+    "name": "tampermonkey-scripts",
+    "pushed_at": "2026-06-09T02:23:23Z",
+    "stargazers_count": 0,
+    "topics": []
+  },
+  {
     "description": "中华传统色演示、色卡浏览与颜色知识科普开源项目",
     "fork": false,
     "forks_count": 44,
