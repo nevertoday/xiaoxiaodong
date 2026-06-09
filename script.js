@@ -133,7 +133,7 @@ const projectGlyphs = {
   "phpcms-zhongnanlinye": "站",
 };
 
-const hiddenProjectNames = new Set(["xiaoxiaodong", "nevertoday", "bootstrap", "phpcms-zhongnanlinye"]);
+const hiddenProjectNames = new Set(["xiaoxiaodong", "nevertoday", "image", "bootstrap", "phpcms-zhongnanlinye"]);
 
 const openSkills = [
   {
