@@ -69,9 +69,7 @@ body {
   margin: 0;
   overflow-x: clip;
   color: var(--ink);
-  background:
-    linear-gradient(180deg, var(--paper-wash) 0, var(--paper) 420px),
-    var(--paper);
+  background: var(--paper);
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.65;
@@ -562,9 +560,7 @@ h3 {
   border-right: 1px solid var(--line-strong);
   border-bottom: 1px solid var(--line-strong);
   overflow: hidden;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--project-tone) 7%, transparent), transparent 56%),
-    var(--surface);
+  background: var(--surface);
   transition:
     background 180ms var(--ease),
     box-shadow 180ms var(--ease),
@@ -591,9 +587,7 @@ h3 {
 
 .project-card:hover {
   z-index: 1;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--project-tone) 10%, transparent), transparent 58%),
-    var(--surface);
+  background: color-mix(in srgb, var(--surface) 94%, var(--paper));
   box-shadow: var(--shadow);
   transform: translateX(2px);
 }
@@ -628,9 +622,7 @@ h3 {
   border: 1px solid color-mix(in srgb, var(--project-tone) 38%, var(--line-strong));
   border-radius: 8px;
   color: color-mix(in srgb, var(--project-tone) 44%, var(--ink));
-  background:
-    linear-gradient(145deg, color-mix(in srgb, var(--project-tone) 12%, transparent), transparent 58%),
-    color-mix(in srgb, var(--surface) 88%, var(--paper));
+  background: color-mix(in srgb, var(--surface) 88%, var(--paper));
   font-family: var(--font-title);
   font-size: 1.42rem;
   font-weight: 900;
@@ -790,9 +782,7 @@ h3 {
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(1.4rem, 3vw, 2.2rem);
   align-items: start;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--ink) 4%, transparent), transparent 54%),
-    transparent;
+  background: transparent;
 }
 
 .community-intro {
@@ -820,9 +810,7 @@ h3 {
   min-width: 0;
   padding: clamp(0.85rem, 2vw, 1.1rem);
   border: 1px solid var(--line-strong);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--ink) 5%, transparent), transparent 34%),
-    color-mix(in srgb, var(--surface) 90%, var(--paper));
+  background: color-mix(in srgb, var(--surface) 90%, var(--paper));
 }
 
 .plan-board-head {
@@ -915,7 +903,7 @@ h3 {
   left: 1.25rem;
   z-index: 1;
   width: 1px;
-  background: linear-gradient(180deg, var(--line-strong), transparent);
+  background: var(--line-strong);
   content: "";
 }
 
@@ -924,9 +912,7 @@ h3 {
   min-width: 0;
   padding: 0;
   border: 1px solid var(--line);
-  background:
-    linear-gradient(120deg, color-mix(in srgb, var(--ink) 4%, transparent), transparent 48%),
-    color-mix(in srgb, var(--surface) 96%, var(--paper));
+  background: color-mix(in srgb, var(--surface) 96%, var(--paper));
   transition:
     border-color 180ms var(--ease),
     transform 180ms var(--ease),
@@ -950,9 +936,7 @@ h3 {
 
 .plan-item:hover {
   border-color: var(--line-strong);
-  background:
-    linear-gradient(120deg, color-mix(in srgb, var(--ink) 7%, transparent), transparent 50%),
-    var(--surface);
+  background: var(--surface);
   transform: translateX(2px);
 }
 
@@ -962,9 +946,7 @@ h3 {
 
 .plan-item-featured {
   border-color: var(--line-strong);
-  background:
-    linear-gradient(120deg, color-mix(in srgb, var(--ink) 10%, transparent), transparent 55%),
-    var(--surface);
+  background: var(--surface);
 }
 
 .plan-item-featured::before {
@@ -1037,9 +1019,7 @@ h3 {
   height: 0.48rem;
   overflow: hidden;
   border: 1px solid var(--line);
-  background:
-    repeating-linear-gradient(90deg, transparent 0 0.7rem, color-mix(in srgb, var(--ink) 8%, transparent) 0.7rem 0.75rem),
-    var(--surface-soft);
+  background: var(--surface-soft);
 }
 
 .plan-progress span {
@@ -1153,9 +1133,7 @@ h3 {
   padding: clamp(1.05rem, 2vw, 1.35rem);
   border-right: 1px solid var(--line-strong);
   border-bottom: 1px solid var(--line-strong);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--skill-tone) 7%, transparent), transparent 58%),
-    var(--surface);
+  background: var(--surface);
   transition:
     background 180ms var(--ease),
     transform 180ms var(--ease);
@@ -1657,14 +1635,14 @@ h3 {
 @media (max-width: 800px) {
   :root {
     --header-h: 112px;
-    --edge: 12px;
+    --edge: 16px;
   }
 
   .site-header {
     grid-template-columns: minmax(0, auto) auto;
     gap: 0.7rem 0.85rem;
     align-items: center;
-    padding: 0.72rem var(--edge);
+    padding: 0.78rem var(--edge);
   }
 
   .brand {
@@ -1693,16 +1671,17 @@ h3 {
   }
 
   .hero {
-    min-height: 24rem;
-    padding-top: 2.6rem;
+    min-height: auto;
+    padding-top: 2.4rem;
+    padding-bottom: 2.5rem;
   }
 
   h1 {
-    font-size: 3.25rem;
+    font-size: 3rem;
   }
 
   h2 {
-    font-size: 2.7rem;
+    font-size: 2.45rem;
   }
 
   .section-head,
@@ -1727,7 +1706,8 @@ h3 {
       "tags"
       "footer";
     grid-template-columns: 1fr;
-    gap: 0.92rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .skill-card {
@@ -1737,7 +1717,8 @@ h3 {
       "facts"
       "footer";
     grid-template-columns: 1fr;
-    gap: 0.92rem;
+    gap: 1rem;
+    padding: 1rem;
     min-height: auto;
   }
 
@@ -1757,7 +1738,7 @@ h3 {
 
 @media (max-width: 560px) {
   :root {
-    --edge: 10px;
+    --edge: 16px;
   }
 
   .brand-logo {
@@ -1766,8 +1747,8 @@ h3 {
   }
 
   .site-nav a {
-    min-height: 34px;
-    padding-inline: 0.55rem;
+    min-height: 40px;
+    padding-inline: 0.62rem;
     font-size: 0.82rem;
   }
 
@@ -1778,29 +1759,54 @@ h3 {
   }
 
   h1 {
-    font-size: 2.75rem;
+    font-size: 2.42rem;
   }
 
   h2 {
-    font-size: 2.25rem;
+    font-size: 2.05rem;
   }
 
   .hero-note,
   .community-copy p {
-    font-size: 1rem;
+    font-size: 0.96rem;
   }
 
   .hero-proof {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     text-align: left;
   }
 
+  .hero-proof div {
+    padding: 0.72rem 0.8rem;
+  }
+
+  .hero-links a,
+  .project-get,
+  .skill-actions a,
+  .skill-actions button {
+    min-height: 44px;
+  }
+
+  .app-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.24rem;
+  }
+
   .project-intent {
-    font-size: 1.34rem;
+    font-size: 1.24rem;
+    line-height: 1.26;
+  }
+
+  .project-summary,
+  .skill-heading span {
+    font-size: 0.9rem;
+    line-height: 1.66;
   }
 
   .skill-card h3 {
-    font-size: 1.48rem;
+    font-size: 1.32rem;
+    line-height: 1.18;
   }
 
   .skill-heading span,
@@ -1827,7 +1833,7 @@ h3 {
   }
 
   .plan-summary div {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: minmax(3.2rem, auto) minmax(0, 1fr);
     gap: 0.7rem;
     align-items: baseline;
   }
@@ -1838,6 +1844,7 @@ h3 {
 
   .plan-content {
     grid-template-columns: 1fr;
+    padding: 0.9rem 0.9rem 0.9rem 2.65rem;
   }
 
   .plan-content p,
@@ -1848,11 +1855,26 @@ h3 {
   }
 
   .plan-content h4 {
-    font-size: 1.22rem;
+    font-size: 1.12rem;
+    line-height: 1.24;
+  }
+
+  .plan-meta,
+  .plan-count {
+    font-size: 0.68rem;
   }
 
   .community-side {
     grid-template-columns: 1fr;
+  }
+
+  .community-qr {
+    justify-items: start;
+  }
+
+  .community-qr img {
+    width: 104px;
+    height: 104px;
   }
 
   .courseware-note h3 {
