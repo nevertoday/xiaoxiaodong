@@ -36,8 +36,8 @@ const projectPalette = [
 const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
-    title: "查中华传统色，直接复制色值",
-    summary: "传统色演示、色卡浏览和颜色知识科普，适合做视觉配色参考。",
+    title: "把传统色变成可查、可复制的配色资料",
+    summary: "给设计、海报和内容创作找颜色依据，避免每次从零试色。",
     format: "开源网页",
     intent: "查传统色。",
     colorName: "墨黑",
@@ -45,8 +45,8 @@ const projectProfiles = {
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
-    title: "查中华传统色，直接复制色值",
-    summary: "传统色演示、色卡浏览和颜色知识科普，适合做视觉配色参考。",
+    title: "把传统色变成可查、可复制的配色资料",
+    summary: "给设计、海报和内容创作找颜色依据，避免每次从零试色。",
     format: "开源网页",
     intent: "查传统色。",
     colorName: "墨黑",
@@ -61,8 +61,8 @@ const projectProfiles = {
   },
   xposter: {
     kind: "发布插件",
-    title: "把 Markdown 一键发布到 X",
-    summary: "面向写作者和运营者的 Chrome 插件，把本地内容整理后快速发布。",
+    title: "把写好的 Markdown 直接发布出去",
+    summary: "减少复制、改格式、拆段落这些重复步骤，让写作者把时间留给内容本身。",
     format: "Chrome MV3",
     intent: "把 Markdown 发到 X。",
     colorName: "墨黑",
@@ -70,8 +70,8 @@ const projectProfiles = {
   },
   "100-layout-compositions": {
     kind: "构图参考",
-    title: "用 100 种版式找构图参考",
-    summary: "沉淀版式组合和视觉构图，给海报、卡片、封面设计找起点。",
+    title: "用 100 种版式解决画面没结构的问题",
+    summary: "给海报、卡片、封面提供构图起点，先定信息层级，再进入视觉细化。",
     format: "视觉资料",
     intent: "看构图。",
     colorName: "中灰",
@@ -79,8 +79,8 @@ const projectProfiles = {
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
-    title: "生成 Chrome 插件上架材料",
-    summary: "整理商店描述、权限说明、隐私披露和提交材料，减少上架返工。",
+    title: "把 Chrome 插件上架资料一次整理清楚",
+    summary: "商店描述、权限说明、隐私披露和提交检查放在同一套流程里，减少审核前返工。",
     format: "提交流程",
     intent: "准备 Chrome 上架材料。",
     colorName: "铁灰",
@@ -88,8 +88,8 @@ const projectProfiles = {
   },
   "tampermonkey-scripts": {
     kind: "油猴脚本集",
-    title: "批量选择并下载主流图片站原图",
-    summary: "支持 Pinterest、小红书、微信公众号、堆糖、500px，悬停勾选后一键导出链接、逐张下载或打包 ZIP。",
+    title: "把图片素材收集从手工点击里解放出来",
+    summary: "支持 Pinterest、小红书、微信公众号、堆糖、500px，勾选后导出链接、逐张下载或打包 ZIP。",
     format: "Tampermonkey",
     intent: "批量下载图片。",
     colorName: "墨黑",
@@ -140,7 +140,7 @@ const openSkills = [
     name: "xxd-article-poster",
     label: "文章海报",
     title: "把长文生成可发布的海报卡片",
-    summary: "从文章内容提炼标题、摘要和视觉层级，输出适合社媒传播的海报。",
+    summary: "文章不是直接搬上社媒就有人读，这个 Skill 先提炼传播重点，再整理成卡片结构。",
     trigger: "$xxd-article-poster",
     scene: "长文转海报。",
     output: "海报 / 卡片",
@@ -157,7 +157,7 @@ const openSkills = [
     name: "chrome-store-submission",
     label: "插件上架",
     title: "自动整理 Chrome 插件上架资料",
-    summary: "分析扩展代码，生成商店介绍、权限解释、隐私披露和提交检查清单。",
+    summary: "上架卡住通常不是代码，而是权限解释、隐私披露和商店文案，这个 Skill 专门处理这些材料。",
     trigger: "$chrome-store-submission",
     scene: "Chrome 插件上架。",
     output: "文案 / 权限说明",
@@ -174,7 +174,7 @@ const openSkills = [
     name: "claude_skill_vibe-writing",
     label: "写作流程",
     title: "把写作过程拆成可复用工作流",
-    summary: "围绕选题、结构、改写和风格控制，把写作任务交给 Agent 稳定执行。",
+    summary: "把选题、结构、改写和风格标准拆开，让 Agent 按流程写，而不是每次重新猜你的口味。",
     trigger: "安装 Skill",
     scene: "写作工作流。",
     output: "Skill zip",
@@ -298,13 +298,13 @@ function getProjectGlyph(repo) {
 function getProjectAction(view) {
   if (view.homepage) {
     return {
-      label: "获取",
+      label: "打开",
       url: view.homepage,
     };
   }
 
   return {
-    label: "获取",
+    label: "源码",
     url: view.repo.html_url,
   };
 }
@@ -547,7 +547,7 @@ function renderProjects() {
   if (!repos.length) {
     setStatus("暂无项目", "empty");
   } else {
-    setStatus(`${repos.length} 个可用`, "ready");
+    setStatus(`${repos.length} 个可用项目`, "ready");
   }
 }
 
