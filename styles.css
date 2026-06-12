@@ -202,7 +202,7 @@ main {
   top: 0;
   z-index: 30;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: clamp(1rem, 3vw, 1.75rem);
   align-items: center;
   width: 100%;
@@ -264,7 +264,7 @@ main {
   display: flex;
   gap: 0.25rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   min-width: 0;
 }
 
@@ -302,6 +302,7 @@ main {
 .site-nav a:focus-visible {
   color: var(--paper);
   background: var(--ink);
+  transform: translateY(-1px);
 }
 
 .header-tools {
@@ -521,7 +522,8 @@ h3 {
   color: var(--paper);
   border-color: var(--ink);
   background: var(--ink);
-  transform: translateY(-1px);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 14%, transparent);
+  transform: translate(-2px, -2px);
 }
 
 .section-head {
@@ -596,6 +598,7 @@ h3 {
     background 180ms var(--ease),
     box-shadow 180ms var(--ease),
     transform 180ms var(--ease);
+  will-change: transform;
 }
 
 .project-card::before {
@@ -618,9 +621,9 @@ h3 {
 
 .project-card:hover {
   z-index: 1;
-  background: transparent;
-  box-shadow: none;
-  transform: translateX(3px);
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  box-shadow: 0 1px 0 var(--line), inset 0 0 0 1px color-mix(in srgb, var(--ink) 7%, transparent);
+  transform: translate3d(6px, -2px, 0);
 }
 
 .project-card:hover::before {
@@ -657,11 +660,16 @@ h3 {
   font-size: 1.18rem;
   font-weight: 900;
   line-height: 1;
-  transition: transform 220ms var(--ease);
+  transition:
+    background 220ms var(--ease),
+    color 220ms var(--ease),
+    transform 220ms var(--ease);
 }
 
 .project-card:hover .app-icon {
-  transform: translateY(-2px);
+  color: var(--paper);
+  background: var(--ink);
+  transform: translate3d(0, -2px, 0) scale(1.04);
 }
 
 .project-title {
@@ -709,7 +717,8 @@ h3 {
   color: var(--paper);
   border-color: var(--ink);
   background: var(--ink);
-  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 16%, transparent);
+  transform: translate(-2px, -2px);
 }
 
 .project-copy {
@@ -720,6 +729,22 @@ h3 {
   gap: 0.45rem;
   align-self: center;
   min-width: 0;
+}
+
+.project-intent,
+.project-summary {
+  transition:
+    opacity 180ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.project-card:hover .project-intent {
+  transform: translateX(4px);
+}
+
+.project-card:hover .project-summary {
+  opacity: 0.88;
+  transform: translateX(4px);
 }
 
 .project-intent {
@@ -873,7 +898,8 @@ h3 {
   color: var(--paper);
   border-color: var(--ink);
   background: var(--ink);
-  transform: translateY(-1px);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 14%, transparent);
+  transform: translate(-2px, -2px);
 }
 
 .community-contact:hover span,
@@ -977,6 +1003,30 @@ h3 {
   min-width: 0;
   padding: clamp(0.95rem, 2vw, 1.15rem);
   background: color-mix(in srgb, var(--surface) 88%, var(--paper));
+  transition:
+    background 200ms var(--ease),
+    box-shadow 200ms var(--ease),
+    transform 200ms var(--ease);
+  will-change: transform;
+}
+
+.plan-groups section:hover {
+  z-index: 1;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line-strong), 5px 5px 0 color-mix(in srgb, var(--ink) 9%, transparent);
+  transform: translate3d(-2px, -3px, 0);
+}
+
+.plan-groups section h4,
+.plan-groups section p {
+  transition:
+    opacity 180ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.plan-groups section:hover h4,
+.plan-groups section:hover p {
+  transform: translateX(3px);
 }
 
 .plan-groups span,
@@ -1018,6 +1068,21 @@ h3 {
   background: transparent;
   cursor: pointer;
   list-style: none;
+  transition:
+    color 180ms var(--ease),
+    background 180ms var(--ease),
+    border-color 180ms var(--ease),
+    box-shadow 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.plan-detail summary:hover,
+.plan-detail summary:focus-visible {
+  color: var(--paper);
+  border-color: var(--ink);
+  background: var(--ink);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 14%, transparent);
+  transform: translate(-2px, -2px);
 }
 
 .plan-detail summary::-webkit-details-marker {
@@ -1066,8 +1131,10 @@ h3 {
   background: color-mix(in srgb, var(--surface) 96%, var(--paper));
   transition:
     border-color 180ms var(--ease),
+    box-shadow 180ms var(--ease),
     transform 180ms var(--ease),
     background 180ms var(--ease);
+  will-change: transform;
 }
 
 .plan-item::before {
@@ -1088,7 +1155,8 @@ h3 {
 .plan-item:hover {
   border-color: var(--line-strong);
   background: var(--surface);
-  transform: translateX(2px);
+  box-shadow: 5px 5px 0 color-mix(in srgb, var(--ink) 8%, transparent);
+  transform: translate3d(5px, -2px, 0);
 }
 
 .plan-item:hover::before {
@@ -1238,8 +1306,8 @@ h3 {
 .community-qr:hover,
 .community-qr:focus-visible {
   border-color: var(--ink);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: 5px 5px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+  transform: translate(-3px, -3px);
 }
 
 .community-qr img {
@@ -1289,7 +1357,7 @@ h3 {
 .contact-float:focus-visible {
   background: var(--surface);
   box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 18%, transparent);
-  transform: translate(-2px, -2px);
+  transform: translate(-3px, -3px);
 }
 
 .contact-modal[hidden] {
@@ -1399,7 +1467,8 @@ h3 {
   background: color-mix(in srgb, var(--surface) 92%, var(--paper));
   transition:
     color 180ms var(--ease),
-    background 180ms var(--ease);
+    background 180ms var(--ease),
+    transform 180ms var(--ease);
 }
 
 .contact-options span {
@@ -1418,6 +1487,7 @@ h3 {
 .contact-options a:focus-visible {
   color: var(--paper);
   background: var(--ink);
+  transform: translateY(-2px);
 }
 
 .contact-options a:hover span,
@@ -1484,11 +1554,15 @@ h3 {
   background: transparent;
   transition:
     background 180ms var(--ease),
+    box-shadow 180ms var(--ease),
     transform 180ms var(--ease);
+  will-change: transform;
 }
 
 .skill-card:hover {
-  transform: translateX(2px);
+  background: color-mix(in srgb, var(--surface) 58%, transparent);
+  box-shadow: 0 1px 0 var(--line), inset 0 0 0 1px color-mix(in srgb, var(--ink) 7%, transparent);
+  transform: translate3d(6px, -2px, 0);
 }
 
 .skill-index {
@@ -1530,7 +1604,7 @@ h3 {
 }
 
 .skill-card:hover .skill-index b::before {
-  transform: scaleX(1.18);
+  transform: scaleX(1.28) translateY(-1px);
 }
 
 .skill-card > div:not(.skill-index) {
@@ -1559,6 +1633,18 @@ h3 {
   line-height: 1.18;
   overflow-wrap: anywhere;
   text-wrap: normal;
+}
+
+.skill-card h3,
+.skill-heading span {
+  transition:
+    opacity 180ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.skill-card:hover h3,
+.skill-card:hover .skill-heading span {
+  transform: translateX(4px);
 }
 
 .skill-heading span {
@@ -1655,7 +1741,8 @@ h3 {
   color: var(--paper);
   border-color: var(--ink);
   background: var(--ink);
-  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 16%, transparent);
+  transform: translate(-2px, -2px);
 }
 
 .skill-actions button:hover,
