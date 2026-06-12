@@ -487,6 +487,48 @@ function initSkillModal() {
   });
 }
 
+function openContactModal() {
+  const modal = document.querySelector("[data-contact-modal]");
+  const panel = modal?.querySelector(".contact-panel");
+  if (!modal || !panel) return;
+
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+  window.requestAnimationFrame(() => {
+    modal.classList.add("is-open");
+    panel.focus();
+  });
+}
+
+function closeContactModal() {
+  const modal = document.querySelector("[data-contact-modal]");
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+  document.body.classList.remove("modal-open");
+  window.setTimeout(() => {
+    if (!modal.classList.contains("is-open")) modal.hidden = true;
+  }, 180);
+}
+
+function initContactModal() {
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest("[data-contact-open]")) {
+      openContactModal();
+      return;
+    }
+
+    if (target?.closest("[data-contact-close]")) {
+      closeContactModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeContactModal();
+  });
+}
+
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, topics, homepage } = view;
   const safeName = escapeHtml(repo.name);
@@ -622,6 +664,7 @@ function initPage() {
   initMotion();
   renderSkills();
   initSkillModal();
+  initContactModal();
   initPlanProgress();
   loadSnapshotRepos().then(refreshReposFromGithub);
 }

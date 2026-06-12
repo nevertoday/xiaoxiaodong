@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#projects">跳到项目</a>
+    <a class="skip-link" href="#community">跳到知识星球</a>
 
     <header class="site-header" data-motion="header">
       <a class="brand" href="#top" aria-label="小小东首页">
@@ -50,9 +50,9 @@
       </a>
 
       <nav class="site-nav" aria-label="主要导航">
+        <a href="#community">知识星球</a>
         <a href="#projects">项目</a>
         <a href="#skills">Skills</a>
-        <a href="#community">知识星球</a>
       </nav>
 
       <div class="header-tools" aria-label="站点工具">
@@ -87,22 +87,22 @@
         <div class="hero-main">
           <p class="eyebrow" data-motion="hero-kicker">小小东 / nevertoday</p>
           <h1 data-motion="hero-title">
-            <span class="hero-focus">从会生成</span>
-            <span class="hero-line">到能交付</span>
+            <span class="hero-focus">把 AI 用到</span>
+            <span class="hero-line">自己的事里</span>
           </h1>
-          <p class="hero-note" data-motion="hero-note">我整理 AI 工作里最容易卡住的部分：提示词不稳定、素材不好收、流程难复用、交付没标准。这里放的是能打开、能改写、能继续使用的项目和底稿。</p>
+          <p class="hero-note" data-motion="hero-note">很多人接触 AI 后，卡住的地方并不一样：有人想做图，有人想写内容，有人想整理素材，有人想把自己的项目跑起来。我把试过的工具、脚本、Skills 和提示词计划公开出来，给你一个可以跟着拆、跟着改的入口。</p>
           <dl class="hero-proof" data-motion="hero-proof" aria-label="小小东可信证明">
             <div>
-              <dt>做什么</dt>
-              <dd>开源工具和工作流</dd>
+              <dt>你可能想要</dt>
+              <dd>做出作品 / 跟上变化</dd>
             </div>
             <div>
-              <dt>解决什么</dt>
-              <dd>素材、提示词、上架和发布</dd>
+              <dt>这里提供</dt>
+              <dd>项目、脚本、提示词</dd>
             </div>
             <div>
               <dt>为什么可信</dt>
-              <dd>长期公开代码和真实计划</dd>
+              <dd>长期公开代码和过程</dd>
             </div>
           </dl>
         </div>
@@ -117,43 +117,15 @@
         </div>
       </section>
 
-      <section id="projects" class="projects-section">
-        <div class="section-head compact-head" data-motion="section-head">
-          <h2>小小东开源项目</h2>
-          <div class="repo-status" data-repo-status role="status">读取中...</div>
-        </div>
-
-        <div class="archive-main">
-          <div class="project-grid" data-project-grid aria-live="polite" aria-label="当前可用项目"></div>
-        </div>
-      </section>
-
-      <section id="skills" class="skills-section">
-        <div class="section-head" data-motion="skills-head">
-          <div>
-            <p class="eyebrow">open skills</p>
-            <h2>开源 Skills</h2>
-          </div>
-          <p>把重复解释给 Agent 的事情，沉淀成可执行流程。</p>
-        </div>
-        <div class="skills-grid" data-skills-grid aria-label="小小东开源 Skills"></div>
-      </section>
-
-      <div class="skill-modal" data-skill-modal hidden>
-        <div class="skill-modal-backdrop" data-skill-modal-close></div>
-        <article class="skill-modal-panel" role="dialog" aria-modal="true" aria-labelledby="skill-modal-title" tabindex="-1">
-          <button class="skill-modal-close" type="button" data-skill-modal-close aria-label="关闭 Skill 详情">
-            <span aria-hidden="true">×</span>
-          </button>
-          <div class="skill-modal-body" data-skill-modal-body></div>
-        </article>
-      </div>
-
       <section id="community" class="community-section" data-motion="community">
         <div class="community-intro">
           <p class="eyebrow">zhishixingqiu</p>
           <h2>知识星球计划</h2>
           <p>这里不做空泛灵感库。每个类目先开源 50 套可改写样板；超过 50 套的扩展、拆解和课件，放在知识星球。</p>
+          <button class="community-contact" type="button" data-contact-open>
+            <span aria-hidden="true">东</span>
+            认识小小东
+          </button>
         </div>
         <div class="community-copy">
           <div class="plan-board" aria-label="知识星球近期计划">
@@ -614,12 +586,83 @@
             </div>
             <a class="community-qr" href="assets/zsxq-qr.svg" target="_blank" rel="noopener noreferrer">
               <img src="assets/zsxq-qr.svg" alt="知识星球二维码" />
-              <span>扫码进入</span>
+              <span>扫码进入知识星球</span>
             </a>
           </aside>
         </div>
       </section>
+      <section id="projects" class="projects-section">
+        <div class="section-head compact-head" data-motion="section-head">
+          <h2>小小东开源项目</h2>
+          <div class="repo-status" data-repo-status role="status">读取中...</div>
+        </div>
+
+        <div class="archive-main">
+          <div class="project-grid" data-project-grid aria-live="polite" aria-label="当前可用项目"></div>
+        </div>
+      </section>
+
+      <section id="skills" class="skills-section">
+        <div class="section-head" data-motion="skills-head">
+          <div>
+            <p class="eyebrow">open skills</p>
+            <h2>开源 Skills</h2>
+          </div>
+          <p>把重复解释给 Agent 的事情，沉淀成可执行流程。</p>
+        </div>
+        <div class="skills-grid" data-skills-grid aria-label="小小东开源 Skills"></div>
+      </section>
+
+      <div class="skill-modal" data-skill-modal hidden>
+        <div class="skill-modal-backdrop" data-skill-modal-close></div>
+        <article class="skill-modal-panel" role="dialog" aria-modal="true" aria-labelledby="skill-modal-title" tabindex="-1">
+          <button class="skill-modal-close" type="button" data-skill-modal-close aria-label="关闭 Skill 详情">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="skill-modal-body" data-skill-modal-body></div>
+        </article>
+      </div>
+
     </main>
+
+    <button class="contact-float" type="button" data-contact-open aria-label="认识小小东">
+      <span aria-hidden="true">东</span>
+      <b>认识小小东</b>
+    </button>
+
+    <div class="contact-modal" data-contact-modal hidden>
+      <div class="contact-modal-backdrop" data-contact-close></div>
+      <article class="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1">
+        <button class="contact-close" type="button" data-contact-close aria-label="关闭联系弹窗">×</button>
+        <div class="contact-copy">
+          <p class="eyebrow">say hi</p>
+          <h2 id="contact-title">认识一下小小东</h2>
+          <p>如果你也在琢磨 AI 怎么用到自己的内容、项目、门店或副业里，可以先加个入口。别写很正式，简单说一句你正在做什么就行。</p>
+        </div>
+        <div class="contact-options">
+          <a href="https://x.com/nevertoday" target="_blank" rel="noopener noreferrer">
+            <span>X 私信</span>
+            <b>发一句“认识小小东”</b>
+          </a>
+          <a href="https://x.com/nevertoday" target="_blank" rel="noopener noreferrer">
+            <span>加微信</span>
+            <b>私信发“加微信”</b>
+          </a>
+          <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
+            <span>GitHub</span>
+            <b>看项目，顺手找到我</b>
+          </a>
+        </div>
+        <div class="contact-qr">
+          <img src="assets/zsxq-qr.svg" alt="知识星球二维码" />
+          <div>
+            <p class="eyebrow">zhishixingqiu</p>
+            <h3>也可以先从知识星球进来</h3>
+            <p>提示词计划、课件扩展和后续更新会集中放在这里。</p>
+          </div>
+        </div>
+      </article>
+    </div>
 
     <footer class="site-footer">
       <span>小小东做过的项目</span>
