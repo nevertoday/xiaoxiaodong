@@ -23,8 +23,7 @@
   --neutral-mark: color-mix(in srgb, var(--ink) 78%, var(--muted));
   --focus: color-mix(in srgb, var(--ink) 18%, transparent);
   --shadow: 0 14px 34px rgba(17, 17, 17, 0.08);
-  --max: 1180px;
-  --edge: max(24px, calc((100vw - var(--max)) / 2));
+  --edge: clamp(18px, 3.2vw, 64px);
   --header-h: 70px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
@@ -382,18 +381,21 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1.2rem;
-  place-items: center;
+  place-items: stretch;
   min-height: 29rem;
   padding-top: clamp(2.4rem, 5vw, 3.8rem);
   padding-bottom: clamp(2.8rem, 6vw, 4.6rem);
-  text-align: center;
+  text-align: left;
 }
 
 .hero-main {
   display: grid;
-  justify-items: center;
-  gap: 1rem;
-  max-width: 46rem;
+  grid-template-columns: minmax(0, 0.92fr) minmax(24rem, 0.58fr);
+  gap: clamp(1.2rem, 4vw, 4rem);
+  align-items: end;
+  justify-items: start;
+  width: 100%;
+  max-width: none;
   min-width: 0;
 }
 
@@ -414,7 +416,7 @@ h1 {
 .hero h1 {
   display: grid;
   gap: 0.32rem;
-  justify-items: center;
+  justify-items: start;
   max-width: 9.5em;
 }
 
@@ -443,28 +445,32 @@ h3 {
 }
 
 .hero-note {
-  max-width: 36rem;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  max-width: 44rem;
   color: var(--ink-soft);
   font-size: 1.02rem;
   line-height: 1.78;
 }
 
 .hero-proof {
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: min(100%, 42rem);
-  margin-top: 0.65rem;
+  width: 100%;
+  margin-top: 0.2rem;
   border-top: 1px solid var(--line);
   border-left: 0;
   background: transparent;
-  text-align: center;
+  text-align: left;
 }
 
 .hero-proof div {
   display: grid;
   gap: 0.34rem;
   min-width: 0;
-  padding: 0.82rem 1rem 0;
+  padding: 0.82rem 1rem 0 0;
   border-right: 0;
   border-bottom: 0;
   background: transparent;
@@ -492,7 +498,7 @@ h3 {
   flex-wrap: wrap;
   gap: 0.42rem;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   min-width: 0;
 }
 
@@ -727,7 +733,7 @@ h3 {
 }
 
 .project-summary {
-  max-width: 35rem;
+  max-width: none;
   color: var(--ink-soft);
   font-size: 0.92rem;
   line-height: 1.68;
@@ -810,13 +816,22 @@ h3 {
 
 .community-intro {
   display: grid;
+  grid-template-columns: minmax(0, 0.52fr) minmax(24rem, 0.48fr);
   gap: 0.82rem;
+  align-items: end;
   justify-items: start;
   min-width: 0;
 }
 
+.community-intro .eyebrow,
+.community-intro h2 {
+  grid-column: 1;
+}
+
 .community-intro p:not(.eyebrow) {
-  max-width: 40rem;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  max-width: none;
   color: var(--ink-soft);
   font-size: 1rem;
   line-height: 1.72;
@@ -869,7 +884,7 @@ h3 {
 
 .community-copy {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.26fr);
   gap: clamp(1.2rem, 3vw, 1.8rem);
   align-items: start;
   min-width: 0;
@@ -949,7 +964,7 @@ h3 {
 
 .plan-groups {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   margin-bottom: 1rem;
   border: 1px solid var(--line);
@@ -982,7 +997,7 @@ h3 {
 }
 
 .plan-groups p {
-  max-width: 30rem;
+  max-width: none;
   color: var(--ink-soft);
   font-size: 0.9rem;
   line-height: 1.66;
@@ -1174,7 +1189,7 @@ h3 {
 
 .community-side {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(9rem, auto);
+  grid-template-columns: minmax(0, 1fr);
   gap: 0;
   align-items: stretch;
   align-content: start;
@@ -1539,7 +1554,7 @@ h3 {
 }
 
 .skill-card h3 {
-  max-width: 38rem;
+  max-width: none;
   font-size: 1.46rem;
   line-height: 1.18;
   overflow-wrap: anywhere;
@@ -1941,13 +1956,40 @@ h3 {
 }
 
 @media (max-width: 1040px) {
-  .hero,
-  .community-section {
+  .hero-main,
+  .community-intro,
+  .community-copy {
     grid-template-columns: 1fr;
+  }
+
+  .hero-note,
+  .community-intro .eyebrow,
+  .community-intro h2,
+  .community-intro p:not(.eyebrow) {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .hero-links {
     justify-content: center;
+  }
+
+  .hero,
+  .hero-proof {
+    text-align: center;
+  }
+
+  .hero-main,
+  .hero h1 {
+    justify-items: center;
+  }
+
+  .hero-proof div {
+    padding-left: 1rem;
+  }
+
+  .plan-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .project-card {
