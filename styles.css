@@ -3261,6 +3261,226 @@ body {
   content: "";
 }
 
+.project-grid,
+.skills-grid {
+  width: min(100%, 680px);
+  gap: 0.55rem;
+  border: 0;
+}
+
+.project-card,
+.skill-card {
+  display: grid;
+  grid-template-areas: "icon body action";
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: center;
+  justify-items: stretch;
+  width: min(100%, 680px);
+  min-height: 74px;
+  padding: 0.65rem 0;
+  background: #ffffff;
+  border: 0;
+  box-shadow: none;
+  text-align: left;
+  transform: none;
+}
+
+.project-card:hover,
+.project-card:focus-within,
+.skill-card:hover,
+.skill-card:focus-within {
+  background: #ffffff;
+  box-shadow: none;
+  transform: none;
+}
+
+.project-card::before,
+.project-card::after,
+.skill-index b::before {
+  display: none;
+  content: none;
+}
+
+.project-card-top {
+  grid-area: icon;
+  display: contents;
+}
+
+.app-icon,
+.skill-app-icon {
+  grid-area: icon;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  color: #ffffff;
+  background: #111111;
+  font-size: 1.08rem;
+  transform: none;
+}
+
+.project-card:hover .app-icon,
+.skill-card:hover .app-icon {
+  color: #ffffff;
+  background: #111111;
+  transform: none;
+}
+
+.project-title,
+.skill-index {
+  display: none;
+}
+
+.project-copy,
+.skill-heading {
+  grid-area: body;
+  display: grid;
+  gap: 0.22rem;
+  justify-items: start;
+  text-align: left;
+}
+
+.project-intent,
+.skill-card h3 {
+  font-family: var(--font);
+  font-size: clamp(1rem, 1.8vw, 1.16rem);
+  font-weight: 850;
+  line-height: 1.28;
+  text-wrap: pretty;
+}
+
+.project-summary,
+.skill-heading span {
+  max-width: 28rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.48;
+}
+
+.project-tags,
+.skill-facts {
+  display: none;
+}
+
+.project-footer,
+.skill-footer {
+  grid-area: action;
+  display: flex;
+  gap: 0.42rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  color: var(--muted);
+}
+
+.project-get,
+.skill-actions button {
+  min-height: 30px;
+  padding: 0 0.78rem;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+  font-family: var(--latin);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.project-get:hover,
+.project-get:focus-visible,
+.skill-actions button:hover,
+.skill-actions button:focus-visible {
+  color: #ffffff;
+  background: #111111;
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.project-source,
+.skill-actions a {
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  font-size: 0.74rem;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.project-source:hover,
+.project-source:focus-visible,
+.skill-actions a:hover,
+.skill-actions a:focus-visible {
+  color: var(--ink);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+}
+
+.skill-actions {
+  justify-content: flex-end;
+}
+
+@media (max-width: 560px) {
+  .project-card,
+  .skill-card {
+    grid-template-columns: 50px minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    min-height: 68px;
+  }
+
+  .app-icon,
+  .skill-app-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .project-intent,
+  .skill-card h3 {
+    font-size: 0.98rem;
+  }
+
+  .project-summary,
+  .skill-heading span {
+    font-size: 0.8rem;
+    line-height: 1.42;
+  }
+
+  .project-source,
+  .skill-actions a {
+    display: none;
+  }
+}
+
+:root:not([data-theme="dark"]) .project-card .app-icon,
+:root:not([data-theme="dark"]) .skill-card .app-icon,
+:root:not([data-theme="dark"]) .project-card:hover .app-icon,
+:root:not([data-theme="dark"]) .skill-card:hover .app-icon {
+  color: #ffffff;
+  background: #111111;
+}
+
+:root:not([data-theme="dark"]) .project-card .project-get,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+}
+
+:root:not([data-theme="dark"]) .project-card .project-get:hover,
+:root:not([data-theme="dark"]) .project-card .project-get:focus-visible,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button:hover,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.project-card .project-get,
+.skill-card .skill-actions button {
+  transition: background 120ms var(--ease);
+}
+
 h2 {
   font-size: clamp(2.15rem, 5.4vw, 3.55rem);
   line-height: 1.08;
