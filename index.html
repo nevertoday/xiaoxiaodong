@@ -15,14 +15,8 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nevertoday.github.io/xiaoxiaodong/" />
-    <meta name="theme-color" content="#f6f2e8" data-theme-color />
+    <meta name="theme-color" content="#ffffff" data-theme-color />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Serif+SC:wght@700;900&display=swap"
-      rel="stylesheet"
-    />
     <script>
       (() => {
         try {
@@ -51,6 +45,7 @@
 
       <nav class="site-nav" aria-label="主要导航">
         <a href="#community">知识星球</a>
+        <a href="#contact">认识小小东</a>
         <a href="#projects">项目</a>
         <a href="#skills">Skills</a>
       </nav>
@@ -120,476 +115,100 @@
       <section id="community" class="community-section" data-motion="community">
         <div class="community-intro">
           <p class="eyebrow">zhishixingqiu</p>
-          <h2>知识星球计划</h2>
-          <p>这里不做空泛灵感库。每个类目先开源 50 套可改写样板；超过 50 套的扩展、拆解和课件，放在知识星球。</p>
-          <button class="community-contact" type="button" data-contact-open>
-            <span aria-hidden="true">东</span>
-            认识小小东
-          </button>
+          <h2>知识星球</h2>
+          <p>不用看复杂路线图。星球负责会员入口、更新通知和兑换码；真正使用提示词，直接去会员提示词库。</p>
         </div>
         <div class="community-copy">
-          <div class="plan-board" aria-label="知识星球近期计划">
+          <div class="plan-board" aria-label="知识星球会员入口">
             <div class="plan-board-head">
               <div>
-                <p class="eyebrow">prompt roadmap</p>
-                <h3>提示词路线图</h3>
+                <p class="eyebrow">vip prompt library</p>
+                <h3>像会员站一样，先给你可用入口</h3>
               </div>
-              <p>先看方向，需要细项再展开。</p>
+              <p>少讲计划，多给结果。</p>
             </div>
             <div class="plan-summary" aria-label="公开计划规模">
-              <div data-mark="20">
-                <b>20</b>
-                <span>计划任务</span>
+              <div>
+                <b>3763</b>
+                <span>会员风格</span>
               </div>
-              <div data-mark="50">
-                <b>50</b>
-                <span>每类起步</span>
+              <div>
+                <b>10+</b>
+                <span>常用分类</span>
               </div>
-              <div data-mark="1950">
-                <b>1950</b>
-                <span>提示词总量</span>
+              <div>
+                <b>1</b>
+                <span>直接入口</span>
               </div>
             </div>
-            <div class="plan-groups" aria-label="提示词计划分组">
+            <div class="plan-groups" aria-label="会员提示词常用分类">
               <section>
-                <span>商业素材</span>
-                <h4>饮料、餐饮、海报、PPT、字体、封面</h4>
-                <p>面向门店、课程、品牌和自媒体，优先解决“要发图、要上新、要做活动”的日常交付。</p>
+                <span>做图</span>
+                <h4>海报版式、饮品广告、字体设计</h4>
+                <p>适合门店上新、社媒封面、活动图和广告图。</p>
               </section>
               <section>
-                <span>人像写真</span>
-                <h4>人像、男生、女生、婚纱、私房</h4>
-                <p>把光线、构图、情绪、风格和拍摄场景拆开，减少“看起来像随机图”的问题。</p>
+                <span>人像</span>
+                <h4>人物肖像、写真、婚纱</h4>
+                <p>直接按风格挑选，再复制提示词改主体。</p>
               </section>
               <section>
-                <span>行业场景</span>
-                <h4>宠物店、花店、学校、政府单位</h4>
-                <p>写给具体从业者，不只给关键词，而是给能改成海报、通知、宣传图的结构。</p>
+                <span>节日</span>
+                <h4>生日祝福、父亲节、二十四节气</h4>
+                <p>面向朋友圈、社群和品牌节点内容。</p>
               </section>
               <section>
-                <span>长期任务</span>
-                <h4>直播间、手绘插画、生日卡片、24 节气、早晚安</h4>
-                <p>200 组级别的内容进入课件扩展，保留过程拆解、版本对比和使用边界。</p>
+                <span>日常</span>
+                <h4>早安问候、体育运动、婚礼邀请函</h4>
+                <p>常用场景优先放前面，减少翻找成本。</p>
               </section>
             </div>
-            <details class="plan-detail">
-              <summary>展开全部 20 个计划</summary>
-            <ol class="plan-timeline">
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>01</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套饮料行业提示词</h4>
-                  <p>茶饮、咖啡、酒水、功能饮料：海报、包装、菜单和社媒图都要能直接改着用。</p>
-                  <div class="plan-tags" aria-label="饮料提示词场景">
-                    <span>茶饮</span>
-                    <span>包装</span>
-                    <span>菜单图</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>02</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套人像提示词</h4>
-                  <p>头像、职业照、情绪肖像、写真风格和商业视觉，整理成稳定可复用的模板。</p>
-                  <div class="plan-tags" aria-label="人像提示词场景">
-                    <span>头像</span>
-                    <span>职业照</span>
-                    <span>写真</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>03</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套餐饮提示词</h4>
-                  <p>门店菜品、套餐海报、菜单视觉、探店图和外卖素材，优先覆盖能直接交付的场景。</p>
-                  <div class="plan-tags" aria-label="餐饮提示词场景">
-                    <span>菜品</span>
-                    <span>套餐</span>
-                    <span>外卖素材</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>04</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套婚纱提示词</h4>
-                  <p>婚纱样片、婚礼跟拍、棚拍风格、旅拍情绪和修图方向，方便快速生成参考稿。</p>
-                  <div class="plan-tags" aria-label="婚纱提示词场景">
-                    <span>样片</span>
-                    <span>旅拍</span>
-                    <span>修图方向</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>05</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套海报提示词</h4>
-                  <p>活动、节日、促销、课程和品牌海报，按可复用版式和明确视觉目标来整理。</p>
-                  <div class="plan-tags" aria-label="海报提示词场景">
-                    <span>活动</span>
-                    <span>促销</span>
-                    <span>课程</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>06</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套 PPT 提示词</h4>
-                  <p>封面、目录、章节页、方案页和汇报页，重点解决页面结构、信息层级和视觉风格。</p>
-                  <div class="plan-tags" aria-label="PPT 提示词场景">
-                    <span>封面</span>
-                    <span>方案页</span>
-                    <span>汇报页</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="200" data-unit="条">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>07</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 200 条直播间提示词</h4>
-                  <p>围绕直播间开场、留人、互动、转化、逼单、复盘和脚本优化，整理成能直接套用和改写的提示词任务库。</p>
-                  <div class="plan-tags" aria-label="直播间提示词场景">
-                    <span>开场留人</span>
-                    <span>互动转化</span>
-                    <span>复盘优化</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/200 条</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="200" data-unit="组">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>08</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 200 组自媒体封面提示词</h4>
-                  <p>围绕公众号、视频号、小红书、知识付费和课程封面，整理标题视觉、人物主体、版式层级和风格参考都能直接复用的封面提示词。</p>
-                  <div class="plan-tags" aria-label="自媒体封面提示词场景">
-                    <span>标题视觉</span>
-                    <span>人物封面</span>
-                    <span>课程封面</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/200 组</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="100" data-unit="组">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>09</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 100 组字体设计提示词</h4>
-                  <p>围绕中文标题字、品牌字形、海报字体、手写感和商业字体风格，整理成能控制字形气质、结构变化和应用场景的提示词。</p>
-                  <div class="plan-tags" aria-label="字体设计提示词场景">
-                    <span>标题字</span>
-                    <span>品牌字形</span>
-                    <span>海报字体</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/100 组</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>10</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套男生写真提示词</h4>
-                  <p>围绕清爽日常、商务形象、运动感、街头感和情绪肖像，整理适合男生写真拍摄和 AI 出图的提示词。</p>
-                  <div class="plan-tags" aria-label="男生写真提示词场景">
-                    <span>商务形象</span>
-                    <span>街头感</span>
-                    <span>情绪肖像</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>11</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套女生写真提示词</h4>
-                  <p>围绕生活感、氛围感、轻复古、甜酷风、职业形象和情绪表达，整理稳定可复用的女生写真提示词。</p>
-                  <div class="plan-tags" aria-label="女生写真提示词场景">
-                    <span>氛围感</span>
-                    <span>甜酷风</span>
-                    <span>职业形象</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>12</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套成人私房写真提示词</h4>
-                  <p>围绕成人私房写真、光影氛围、室内场景、情绪表达和高级感构图，整理有边界、可审美控制的提示词。</p>
-                  <div class="plan-tags" aria-label="成人私房写真提示词场景">
-                    <span>光影氛围</span>
-                    <span>室内场景</span>
-                    <span>高级感</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>13</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套宠物店主提示词</h4>
-                  <p>围绕宠物写真、门店活动、洗护服务、寄养服务、会员招募和社媒宣传，整理适合宠物店主直接改用的提示词。</p>
-                  <div class="plan-tags" aria-label="宠物店主提示词场景">
-                    <span>宠物写真</span>
-                    <span>洗护服务</span>
-                    <span>门店活动</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>14</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套花店店主提示词</h4>
-                  <p>围绕花束展示、节日营销、门店橱窗、婚礼花艺、探店内容和朋友圈海报，整理适合花店店主复用的提示词。</p>
-                  <div class="plan-tags" aria-label="花店店主提示词场景">
-                    <span>花束展示</span>
-                    <span>节日营销</span>
-                    <span>婚礼花艺</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>15</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套学校场景提示词</h4>
-                  <p>围绕招生宣传、校园活动、社团招新、班级文化、课程海报和家校沟通，整理适合学校和教育机构使用的提示词。</p>
-                  <div class="plan-tags" aria-label="学校场景提示词">
-                    <span>招生宣传</span>
-                    <span>校园活动</span>
-                    <span>课程海报</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item" data-plan-progress data-done="0" data-total="50">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>16</span>
-                    <span>进行中</span>
-                  </div>
-                  <h4>开源 50 套政府单位提示词</h4>
-                  <p>围绕政策宣传、政务海报、便民服务、活动通知、文明创建和工作汇报，整理稳重、清晰、合规取向的提示词。</p>
-                  <div class="plan-tags" aria-label="政府单位提示词场景">
-                    <span>政策宣传</span>
-                    <span>便民服务</span>
-                    <span>工作汇报</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/50 套</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="200" data-unit="组">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>17</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 200 组手绘插画提示词</h4>
-                  <p>围绕儿童绘本、手账风、品牌插画、节日插画、人物小场景和商业海报插画，整理能控制笔触、色彩、构图和情绪的提示词。</p>
-                  <div class="plan-tags" aria-label="手绘插画提示词场景">
-                    <span>绘本风</span>
-                    <span>手账风</span>
-                    <span>品牌插画</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/200 组</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="200" data-unit="组">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>18</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 200 组生日祝福卡片提示词</h4>
-                  <p>围绕亲友生日、儿童生日、情侣生日、长辈祝福、品牌会员生日和社群活动，整理能控制祝福语气、画面风格和卡片版式的提示词。</p>
-                  <div class="plan-tags" aria-label="生日祝福卡片提示词场景">
-                    <span>亲友祝福</span>
-                    <span>儿童生日</span>
-                    <span>会员卡片</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/200 组</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="200" data-unit="组">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>19</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 200 组 24 节气提示词</h4>
-                  <p>围绕立春、清明、立夏、秋分、冬至等节气节点，整理适合海报、社媒卡片、品牌借势和生活美学内容的节气提示词。</p>
-                  <div class="plan-tags" aria-label="24 节气提示词场景">
-                    <span>节气海报</span>
-                    <span>品牌借势</span>
-                    <span>生活美学</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/200 组</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="plan-item plan-item-featured" data-plan-progress data-done="0" data-total="200" data-unit="组">
-                <div class="plan-content">
-                  <div class="plan-meta">
-                    <span>20</span>
-                    <span>重点任务</span>
-                  </div>
-                  <h4>开发 200 组早安晚安提示词</h4>
-                  <p>围绕早安问候、晚安问候、朋友圈日签、社群运营和情绪陪伴，整理能控制画面氛围、文案语气和发布场景的提示词。</p>
-                  <div class="plan-tags" aria-label="早安晚安提示词场景">
-                    <span>早安日签</span>
-                    <span>晚安心语</span>
-                    <span>社群问候</span>
-                  </div>
-                  <div class="plan-progress" aria-hidden="true"><span></span></div>
-                  <div class="plan-count">
-                    <span data-progress-count>0/200 组</span>
-                    <span data-progress-percent>完成 0%</span>
-                  </div>
-                </div>
-              </li>
-            </ol>
-            </details>
+            <div class="community-actions" aria-label="知识星球入口">
+              <a class="community-primary" href="https://vip.xiaoxiaodong.ai/" target="_blank" rel="noopener noreferrer">打开会员提示词库</a>
+              <a class="community-secondary" href="assets/zsxq-qr.svg" target="_blank" rel="noopener noreferrer">查看知识星球二维码</a>
+            </div>
           </div>
           <aside class="community-side" aria-label="知识星球课件说明">
             <div class="courseware-note">
-              <p class="eyebrow">courseware only</p>
-              <h3>公开版给样板，星球里放扩展课件</h3>
-              <p>你先拿 50 套判断质量；需要更完整的案例、拆解、改写过程和多版本课件，再看星球。</p>
+              <p class="eyebrow">join flow</p>
+              <h3>先加入星球，再进会员库</h3>
+              <p>星球里拿兑换码和更新通知；提示词库负责分类、收藏和复制使用。</p>
             </div>
             <a class="community-qr" href="assets/zsxq-qr.svg" target="_blank" rel="noopener noreferrer">
-              <img src="assets/zsxq-qr.svg" alt="知识星球二维码" />
+              <img src="assets/zsxq-qr.svg" alt="知识星球二维码" width="112" height="112" loading="lazy" decoding="async" />
               <span>扫码进入知识星球</span>
             </a>
           </aside>
         </div>
+      </section>
+      <section id="contact" class="contact-section" data-motion="contact">
+        <div class="contact-copy">
+          <p class="eyebrow">say hi</p>
+          <h2>认识小小东</h2>
+          <p>如果你也在琢磨 AI 怎么用到内容、项目、门店或副业里，可以从一个轻量入口开始。看提示词库、看开源项目，或者直接发一句你正在做什么。</p>
+        </div>
+        <div class="contact-options" aria-label="认识小小东入口">
+          <a href="https://vip.xiaoxiaodong.ai/" target="_blank" rel="noopener noreferrer">
+            <span>会员提示词</span>
+            <b>先看可直接使用的提示词库</b>
+          </a>
+          <a href="https://x.com/nevertoday" target="_blank" rel="noopener noreferrer">
+            <span>X 私信</span>
+            <b>发一句“认识小小东”</b>
+          </a>
+          <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
+            <span>GitHub</span>
+            <b>看项目和源码</b>
+          </a>
+        </div>
+        <a class="contact-qr" href="assets/zsxq-qr.svg" target="_blank" rel="noopener noreferrer">
+          <img src="assets/zsxq-qr.svg" alt="知识星球二维码" width="112" height="112" loading="lazy" decoding="async" />
+          <div>
+            <p class="eyebrow">zhishixingqiu</p>
+            <h3>知识星球入口</h3>
+            <p>扫码进入星球，获取会员兑换码、更新通知和扩展课件。</p>
+          </div>
+        </a>
       </section>
       <section id="projects" class="projects-section">
         <div class="section-head compact-head" data-motion="section-head">
@@ -624,45 +243,6 @@
       </div>
 
     </main>
-
-    <button class="contact-float" type="button" data-contact-open aria-label="认识小小东">
-      <span aria-hidden="true">东</span>
-      <b>认识小小东</b>
-    </button>
-
-    <div class="contact-modal" data-contact-modal hidden>
-      <div class="contact-modal-backdrop" data-contact-close></div>
-      <article class="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1">
-        <button class="contact-close" type="button" data-contact-close aria-label="关闭联系弹窗">×</button>
-        <div class="contact-copy">
-          <p class="eyebrow">say hi</p>
-          <h2 id="contact-title">认识一下小小东</h2>
-          <p>如果你也在琢磨 AI 怎么用到自己的内容、项目、门店或副业里，可以先加个入口。别写很正式，简单说一句你正在做什么就行。</p>
-        </div>
-        <div class="contact-options">
-          <a href="https://x.com/nevertoday" target="_blank" rel="noopener noreferrer">
-            <span>X 私信</span>
-            <b>发一句“认识小小东”</b>
-          </a>
-          <a href="https://x.com/nevertoday" target="_blank" rel="noopener noreferrer">
-            <span>加微信</span>
-            <b>私信发“加微信”</b>
-          </a>
-          <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">
-            <span>GitHub</span>
-            <b>看项目，顺手找到我</b>
-          </a>
-        </div>
-        <div class="contact-qr">
-          <img src="assets/zsxq-qr.svg" alt="知识星球二维码" />
-          <div>
-            <p class="eyebrow">zhishixingqiu</p>
-            <h3>也可以先从知识星球进来</h3>
-            <p>提示词计划、课件扩展和后续更新会集中放在这里。</p>
-          </div>
-        </div>
-      </article>
-    </div>
 
     <footer class="site-footer">
       <span>小小东做过的项目</span>
