@@ -19,8 +19,10 @@ const state = {
   repos: [],
 };
 
+let reposSignature = "";
+
 const themeColors = {
-  light: "#f6f2e8",
+  light: "#ffffff",
   dark: "#151412",
 };
 
@@ -317,6 +319,37 @@ function filterDisplayRepos(repos) {
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
 }
 
+function getReposSignature(repos) {
+  return repos.map((repo) => `${repo.name}:${repo.pushed_at}:${repo.stargazers_count}:${repo.forks_count}`).join("|");
+}
+
+function updateRepos(repos) {
+  const filteredRepos = filterDisplayRepos(repos);
+  const nextSignature = getReposSignature(filteredRepos);
+  if (nextSignature === reposSignature) return false;
+
+  reposSignature = nextSignature;
+  state.repos = filteredRepos;
+  renderAll();
+  return true;
+}
+
+function scheduleIdleTask(task) {
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(task, { timeout: 3500 });
+    return;
+  }
+
+  window.setTimeout(task, 1600);
+}
+
+function shouldRefreshGithub() {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!connection) return true;
+  if (connection.saveData) return false;
+  return !["slow-2g", "2g"].includes(connection.effectiveType);
+}
+
 function setTheme(theme) {
   const normalized = theme === "dark" ? "dark" : "light";
   const nextMode = normalized === "dark" ? "light" : "dark";
@@ -487,48 +520,6 @@ function initSkillModal() {
   });
 }
 
-function openContactModal() {
-  const modal = document.querySelector("[data-contact-modal]");
-  const panel = modal?.querySelector(".contact-panel");
-  if (!modal || !panel) return;
-
-  modal.hidden = false;
-  document.body.classList.add("modal-open");
-  window.requestAnimationFrame(() => {
-    modal.classList.add("is-open");
-    panel.focus();
-  });
-}
-
-function closeContactModal() {
-  const modal = document.querySelector("[data-contact-modal]");
-  if (!modal) return;
-
-  modal.classList.remove("is-open");
-  document.body.classList.remove("modal-open");
-  window.setTimeout(() => {
-    if (!modal.classList.contains("is-open")) modal.hidden = true;
-  }, 180);
-}
-
-function initContactModal() {
-  document.addEventListener("click", (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (target?.closest("[data-contact-open]")) {
-      openContactModal();
-      return;
-    }
-
-    if (target?.closest("[data-contact-close]")) {
-      closeContactModal();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeContactModal();
-  });
-}
-
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, topics, homepage } = view;
   const safeName = escapeHtml(repo.name);
@@ -597,33 +588,14 @@ function renderAll() {
   renderProjects();
 }
 
-function initPlanProgress() {
-  document.querySelectorAll("[data-plan-progress]").forEach((item) => {
-    const total = Number(item.dataset.total) || 0;
-    const done = Math.min(Math.max(Number(item.dataset.done) || 0, 0), total);
-    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
-    const unit = item.dataset.unit || "套";
-    const title = item.querySelector("h4")?.textContent?.trim() || "计划";
-    const count = item.querySelector("[data-progress-count]");
-    const percentLabel = item.querySelector("[data-progress-percent]");
-
-    item.style.setProperty("--progress", `${percent}%`);
-    item.setAttribute("aria-label", `${title}，已完成 ${done} / ${total} ${unit}，完成 ${percent}%`);
-    if (count) count.textContent = `${done}/${total} ${unit}`;
-    if (percentLabel) percentLabel.textContent = `完成 ${percent}%`;
-  });
-}
-
 async function loadSnapshotRepos() {
   try {
-    const response = await fetch(REPO_SNAPSHOT_URL, { cache: "no-store" });
+    const response = await fetch(REPO_SNAPSHOT_URL);
     if (!response.ok) throw new Error(`Snapshot returned ${response.status}`);
 
-    state.repos = filterDisplayRepos(await response.json());
-    renderAll();
+    updateRepos(await response.json());
   } catch {
-    state.repos = fallbackRepos;
-    renderAll();
+    updateRepos(fallbackRepos);
     setStatus("显示本地项目。", "warning");
   }
 }
@@ -638,14 +610,12 @@ async function refreshReposFromGithub() {
 
     if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
 
-    state.repos = filterDisplayRepos(await response.json());
-    renderAll();
+    updateRepos(await response.json());
   } catch {
     if (state.repos.length) {
-      renderAll();
+      setStatus(`${state.repos.length} 个可用项目`, "ready");
     } else {
-      state.repos = fallbackRepos;
-      renderAll();
+      updateRepos(fallbackRepos);
       setStatus("GitHub 暂时不可用。", "warning");
     }
   }
@@ -664,9 +634,9 @@ function initPage() {
   initMotion();
   renderSkills();
   initSkillModal();
-  initContactModal();
-  initPlanProgress();
-  loadSnapshotRepos().then(refreshReposFromGithub);
+  loadSnapshotRepos().then(() => {
+    if (shouldRefreshGithub()) scheduleIdleTask(refreshReposFromGithub);
+  });
 }
 
 if (document.readyState === "loading") {
