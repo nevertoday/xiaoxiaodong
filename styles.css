@@ -3481,6 +3481,27 @@ body {
   transition: background 120ms var(--ease);
 }
 
+.site-header,
+:root:not([data-theme="dark"]) .site-header {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.site-header .brand {
+  justify-self: start;
+}
+
+.site-header .site-nav {
+  justify-content: flex-end;
+  justify-self: end;
+}
+
+.site-header .header-tools {
+  justify-self: end;
+}
+
 h2 {
   font-size: clamp(2.15rem, 5.4vw, 3.55rem);
   line-height: 1.08;
