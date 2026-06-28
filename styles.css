@@ -3100,12 +3100,61 @@ body {
   text-decoration: none;
 }
 
+:root:not([data-theme="dark"]) .community-actions .community-primary:hover,
+:root:not([data-theme="dark"]) .community-actions .community-primary:focus-visible,
+:root:not([data-theme="dark"]) .skill-actions button:hover,
+:root:not([data-theme="dark"]) .skill-actions button:focus-visible {
+  color: #ffffff;
+  background: #111111;
+  border: 0;
+}
+
 :root:not([data-theme="dark"]) .community-actions .community-secondary,
 :root:not([data-theme="dark"]) .project-get,
 :root:not([data-theme="dark"]) .skill-actions a {
   color: var(--ink-soft);
   background: #ffffff;
   border: 0;
+}
+
+:root:not([data-theme="dark"]) .nav-icon-link:hover,
+:root:not([data-theme="dark"]) .nav-icon-link:focus-visible,
+:root:not([data-theme="dark"]) .theme-toggle:hover,
+:root:not([data-theme="dark"]) .theme-toggle:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  border: 0;
+}
+
+:root:not([data-theme="dark"]) .skip-link,
+:root:not([data-theme="dark"]) .skip-link:hover,
+:root:not([data-theme="dark"]) .skip-link:focus {
+  color: #ffffff;
+  background: #111111;
+  border: 0;
+}
+
+:root:not([data-theme="dark"]) .project-get:hover,
+:root:not([data-theme="dark"]) .project-get:focus-visible,
+:root:not([data-theme="dark"]) .skill-actions a:hover,
+:root:not([data-theme="dark"]) .skill-actions a:focus-visible,
+:root:not([data-theme="dark"]) .community-actions .community-secondary:hover,
+:root:not([data-theme="dark"]) .community-actions .community-secondary:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  border: 0;
+}
+
+.nav-icon-link,
+.theme-toggle,
+.community-actions a,
+.project-get,
+.skill-actions a,
+.skill-actions button {
+  transition:
+    color 120ms var(--ease),
+    background 120ms var(--ease),
+    transform 180ms var(--ease);
 }
 
 .project-tags span,
@@ -3130,6 +3179,215 @@ body {
     min-height: 38px;
     padding-inline: 0.25rem;
     font-size: 0.72rem;
+  }
+}
+
+/* Final editorial pass: quiet navigation, footer modeled after colors.xiaoxiaodong.ai, tighter typography. */
+:root:not([data-theme="dark"]) .site-header,
+:root:not([data-theme="dark"]) .bottom-nav,
+:root:not([data-theme="dark"]) .site-footer {
+  background: #ffffff;
+  border: 0;
+  box-shadow: none;
+}
+
+.site-header {
+  border: 0;
+  box-shadow: none;
+}
+
+.site-header::before,
+.site-header::after,
+.bottom-nav::before,
+.bottom-nav::after {
+  display: none;
+  content: none;
+}
+
+h2 {
+  font-size: clamp(2.15rem, 5.4vw, 3.55rem);
+  line-height: 1.08;
+}
+
+h3,
+.project-intent,
+.skill-card h3 {
+  font-size: clamp(1.28rem, 2.4vw, 1.68rem);
+  line-height: 1.2;
+}
+
+p,
+.project-summary,
+.skill-heading span,
+.section-head p,
+.community-intro p:not(.eyebrow),
+.contact-copy p:not(.eyebrow),
+.contact-qr p:not(.eyebrow) {
+  max-width: 34rem;
+  color: var(--ink-soft);
+  font-size: clamp(0.96rem, 1.25vw, 1.04rem);
+  line-height: 1.82;
+}
+
+.eyebrow,
+.repo-status,
+.project-title p,
+.project-tags,
+.project-footer,
+.skill-index,
+.skill-facts dt,
+.footer-links,
+.footer-meta {
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.community-section,
+.contact-section,
+.projects-section,
+.skills-section {
+  padding-top: clamp(4.2rem, 8vw, 7.2rem);
+  padding-bottom: clamp(4.4rem, 9vw, 7.8rem);
+}
+
+.community-intro,
+.contact-copy,
+.section-head {
+  gap: 0.58rem;
+}
+
+.community-count {
+  margin-top: 0.8rem;
+}
+
+.community-count strong {
+  font-size: clamp(3.8rem, 11vw, 6.8rem);
+}
+
+.bottom-nav {
+  min-height: 46px;
+  padding: 0.18rem;
+  box-shadow: none;
+}
+
+.bottom-nav a {
+  min-height: 36px;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 760;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a:focus-visible {
+  color: var(--ink);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.34em;
+  transform: none;
+}
+
+.site-footer {
+  grid-template-columns: minmax(16rem, 1fr) minmax(12rem, 0.72fr) minmax(9rem, auto);
+  gap: clamp(1.6rem, 4vw, 3.25rem);
+  align-items: end;
+  justify-items: stretch;
+  width: 100%;
+  padding: clamp(2.6rem, 6vw, 3.9rem) var(--edge) calc(clamp(5.2rem, 10vw, 7rem) + env(safe-area-inset-bottom));
+  text-align: left;
+}
+
+.footer-main {
+  justify-items: start;
+  width: auto;
+}
+
+.site-footer .footer-main {
+  display: grid;
+}
+
+.footer-mark {
+  width: fit-content;
+}
+
+.footer-main p {
+  max-width: 26rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.footer-links {
+  justify-content: flex-start;
+  gap: 0.45rem 0.9rem;
+}
+
+.footer-spectrum {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(10px, 1fr));
+  align-items: end;
+  align-self: end;
+  width: min(100%, 22rem);
+  height: 28px;
+  justify-self: center;
+  overflow: hidden;
+}
+
+.site-footer .footer-spectrum {
+  display: grid;
+}
+
+.footer-spectrum span {
+  display: block;
+  height: calc(10px + var(--i, 1) * 2px);
+  min-height: 12px;
+  background: var(--tone, var(--ink));
+}
+
+.footer-spectrum .tone-ink { --tone: #111111; }
+.footer-spectrum .tone-iron { --tone: #3f3f3c; }
+.footer-spectrum .tone-mid { --tone: #777771; }
+.footer-spectrum .tone-stone { --tone: #9a9a94; }
+.footer-spectrum .tone-line { --tone: #b8b8b2; }
+
+.footer-spectrum span:nth-child(1) { --i: 1; }
+.footer-spectrum span:nth-child(2) { --i: 2; }
+.footer-spectrum span:nth-child(3) { --i: 3; }
+.footer-spectrum span:nth-child(4) { --i: 4; }
+.footer-spectrum span:nth-child(5) { --i: 3; }
+.footer-spectrum span:nth-child(6) { --i: 5; }
+.footer-spectrum span:nth-child(7) { --i: 2; }
+.footer-spectrum span:nth-child(8) { --i: 4; }
+
+.footer-meta {
+  display: grid;
+  gap: 0.45rem;
+  justify-items: end;
+  color: var(--muted);
+  text-align: right;
+}
+
+.site-footer .footer-meta {
+  display: grid;
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footer-main,
+  .footer-links,
+  .footer-meta {
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-spectrum {
+    justify-self: center;
+    width: min(100%, 18rem);
   }
 }
 
