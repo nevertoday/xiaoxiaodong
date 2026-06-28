@@ -385,36 +385,21 @@ function setStatus(message, type = "default") {
 }
 
 function createSkillCard(skill, index) {
+  const glyph = escapeHtml(skill.label.slice(0, 1));
   return `
     <article class="skill-card" style="--card-delay: ${80 + index * 52}ms">
+      <div class="app-icon skill-app-icon" aria-hidden="true">${glyph}</div>
       <div class="skill-index">
-        <span>${String(index + 1).padStart(2, "0")}</span>
         <b>${escapeHtml(skill.label)}</b>
       </div>
       <div class="skill-heading">
-        <p>${escapeHtml(skill.name)}</p>
         <h3>${escapeHtml(skill.title)}</h3>
         <span>${escapeHtml(skill.summary)}</span>
       </div>
-      <dl class="skill-facts">
-        <div>
-          <dt>触发</dt>
-          <dd>${escapeHtml(skill.trigger)}</dd>
-        </div>
-        <div>
-          <dt>场景</dt>
-          <dd>${escapeHtml(skill.scene)}</dd>
-        </div>
-        <div>
-          <dt>产物</dt>
-          <dd>${escapeHtml(skill.output)}</dd>
-        </div>
-      </dl>
       <div class="skill-footer">
-        <span>${escapeHtml(skill.source)}</span>
         <div class="skill-actions">
-          <button type="button" data-skill-detail="${escapeHtml(skill.name)}">了解详情</button>
-          <a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">查看源码</a>
+          <button type="button" data-skill-detail="${escapeHtml(skill.name)}">详情</button>
+          <a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">源码</a>
         </div>
       </div>
     </article>
@@ -542,7 +527,6 @@ function createProjectCard(view, visibleIndex) {
           <p>${escapeHtml(profile.kind)}</p>
           <span>${safeName}</span>
         </div>
-        <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
       </div>
       <div class="project-copy">
         <h3 class="project-intent">${projectTitle}</h3>
@@ -554,10 +538,8 @@ function createProjectCard(view, visibleIndex) {
         ${topicMarkup}
       </div>
       <div class="project-footer">
-        <span>${repo.stargazers_count ?? 0} stars</span>
-        <span>${repo.forks_count ?? 0} forks</span>
-        <span>${formatDate(repo.pushed_at)}</span>
-        ${homepage ? `<a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>` : ""}
+        <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
+        ${homepage ? `<a class="project-source" href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>` : ""}
       </div>
     </article>
   `;
