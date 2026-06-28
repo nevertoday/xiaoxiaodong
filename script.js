@@ -38,8 +38,8 @@ const projectPalette = [
 const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
-    title: "把传统色变成可查、可复制的配色资料",
-    summary: "给设计、海报和内容创作找颜色依据，避免每次从零试色。",
+    title: "传统色，直接查。",
+    summary: "做海报、配色、内容图时少试错。",
     format: "开源网页",
     intent: "查传统色。",
     colorName: "墨黑",
@@ -47,8 +47,8 @@ const projectProfiles = {
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
-    title: "把传统色变成可查、可复制的配色资料",
-    summary: "给设计、海报和内容创作找颜色依据，避免每次从零试色。",
+    title: "传统色，直接查。",
+    summary: "做海报、配色、内容图时少试错。",
     format: "开源网页",
     intent: "查传统色。",
     colorName: "墨黑",
@@ -63,8 +63,8 @@ const projectProfiles = {
   },
   xposter: {
     kind: "发布插件",
-    title: "把写好的 Markdown 直接发布出去",
-    summary: "减少复制、改格式、拆段落这些重复步骤，让写作者把时间留给内容本身。",
+    title: "Markdown 直接发布到 X。",
+    summary: "少复制、少改格式。",
     format: "Chrome MV3",
     intent: "把 Markdown 发到 X。",
     colorName: "墨黑",
@@ -72,8 +72,8 @@ const projectProfiles = {
   },
   "100-layout-compositions": {
     kind: "构图参考",
-    title: "用 100 种版式解决画面没结构的问题",
-    summary: "给海报、卡片、封面提供构图起点，先定信息层级，再进入视觉细化。",
+    title: "100 种版式参考。",
+    summary: "先定结构，再做画面。",
     format: "视觉资料",
     intent: "看构图。",
     colorName: "中灰",
@@ -81,8 +81,8 @@ const projectProfiles = {
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
-    title: "把 Chrome 插件上架资料一次整理清楚",
-    summary: "商店描述、权限说明、隐私披露和提交检查放在同一套流程里，减少审核前返工。",
+    title: "Chrome 上架资料生成。",
+    summary: "权限说明、隐私披露、商店文案一次整理。",
     format: "提交流程",
     intent: "准备 Chrome 上架材料。",
     colorName: "铁灰",
@@ -90,8 +90,8 @@ const projectProfiles = {
   },
   "tampermonkey-scripts": {
     kind: "油猴脚本集",
-    title: "把图片素材收集从手工点击里解放出来",
-    summary: "支持 Pinterest、小红书、微信公众号、堆糖、500px，勾选后导出链接、逐张下载或打包 ZIP。",
+    title: "批量收集图片素材。",
+    summary: "勾选、导出、下载、打包。",
     format: "Tampermonkey",
     intent: "批量下载图片。",
     colorName: "墨黑",
@@ -99,8 +99,8 @@ const projectProfiles = {
   },
   image: {
     kind: "图片实验",
-    title: "批量处理图片实验素材",
-    summary: "围绕图片生成、整理和脚本化处理做实验，适合沉淀视觉工作流。",
+    title: "图片实验素材。",
+    summary: "生成、整理、批处理。",
     format: "脚本仓库",
     intent: "做图片实验。",
     colorName: "石灰",
@@ -141,8 +141,8 @@ const openSkills = [
   {
     name: "xxd-article-poster",
     label: "文章海报",
-    title: "把长文生成可发布的海报卡片",
-    summary: "文章不是直接搬上社媒就有人读，这个 Skill 先提炼传播重点，再整理成卡片结构。",
+    title: "长文转海报卡片。",
+    summary: "先提炼重点，再生成可发版本。",
     trigger: "$xxd-article-poster",
     scene: "长文转海报。",
     output: "海报 / 卡片",
@@ -150,16 +150,16 @@ const openSkills = [
     url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-article-poster",
     colorName: "墨黑",
     color: "#111111",
-    pain: "长文章适合阅读，但不适合直接发到社媒；手动提炼标题、摘要、层级和卡片版式，很容易越改越散。",
-    highlights: ["从长文中提炼传播重点", "把标题、摘要和视觉层级一起整理", "适合做小红书、公众号配图、社媒海报的首版"],
+    pain: "长文直接发，没人看完。",
+    highlights: ["提炼传播重点", "整理标题和层级", "输出社媒卡片首版"],
     usage: ["准备一篇文章或笔记", "调用 $xxd-article-poster", "让 Agent 先提炼重点，再生成可发布的海报卡片方案"],
-    tips: ["先给文章的目标读者，不要只贴正文", "适合先出 3 个标题方向，再选一个继续细化", "如果文章很长，先让 Agent 摘出核心段落再生成卡片"],
+    tips: ["先给目标读者", "先出 3 个标题方向", "长文先摘核心段落"],
   },
   {
     name: "chrome-store-submission",
     label: "插件上架",
-    title: "自动整理 Chrome 插件上架资料",
-    summary: "上架卡住通常不是代码，而是权限解释、隐私披露和商店文案，这个 Skill 专门处理这些材料。",
+    title: "Chrome 插件上架资料。",
+    summary: "减少权限说明和隐私披露返工。",
     trigger: "$chrome-store-submission",
     scene: "Chrome 插件上架。",
     output: "文案 / 权限说明",
@@ -167,16 +167,16 @@ const openSkills = [
     url: "https://github.com/nevertoday/chrome-store-submission",
     colorName: "铁灰",
     color: "#3F3F3C",
-    pain: "Chrome 插件上架不是只传代码，还要解释权限、隐私、商店描述和审核材料；很多返工都发生在这些文字和披露表述上。",
-    highlights: ["按扩展代码整理上架所需资料", "生成权限说明、隐私披露和商店介绍", "减少审核前反复补材料的时间"],
+    pain: "插件能跑，不代表能过审。",
+    highlights: ["整理商店资料", "生成权限说明", "补齐隐私披露"],
     usage: ["把插件仓库交给 Agent 分析", "运行 chrome-store-submission Skill", "按输出清单补齐商店文案、权限解释和隐私说明"],
     tips: ["上架前先确认 manifest 权限是否真的必要", "权限说明要写用户收益，不要只复述 API 名称", "隐私披露要和代码行为一致"],
   },
   {
     name: "claude_skill_vibe-writing",
     label: "写作流程",
-    title: "把写作过程拆成可复用工作流",
-    summary: "把选题、结构、改写和风格标准拆开，让 Agent 按流程写，而不是每次重新猜你的口味。",
+    title: "写作流程 Skill。",
+    summary: "把选题、结构、改写拆成固定流程。",
     trigger: "安装 Skill",
     scene: "写作工作流。",
     output: "Skill zip",
@@ -184,8 +184,8 @@ const openSkills = [
     url: "https://github.com/nevertoday/claude_skill_vibe-writing",
     colorName: "中灰",
     color: "#777771",
-    pain: "写作任务如果只靠一句提示词，风格、结构和修改标准都不稳定；每次都要重新解释一遍需求。",
-    highlights: ["把写作拆成可复用流程", "控制选题、结构、改写和风格", "适合把个人写作方法沉淀成 Agent 可执行的规范"],
+    pain: "一句提示词写作，不稳定。",
+    highlights: ["固定写作流程", "控制结构和风格", "沉淀个人方法"],
     usage: ["安装 Skill", "给出写作目标、读者和素材", "让 Agent 按流程完成选题、成稿、改写或风格统一"],
     tips: ["先定义读者和发布场景，再让 Agent 写", "不要一次要求又写又改又排版，分阶段更稳定", "把你满意的文章样例作为风格参考"],
   },
@@ -274,7 +274,7 @@ function inferProjectProfile(repo, index) {
   return {
     kind: "开源项目",
     title: repo.description || "公开一个可复用的代码项目",
-    summary: repo.language ? `用 ${repo.language} 做的公开项目。` : "公开代码和项目实现，方便查看、复用或二次开发。",
+    summary: repo.language ? `${repo.language} 公开项目。` : "可查看、可复用。",
     format: repo.language || "代码仓库",
     intent: "公开代码。",
     colorName: palette.name,
@@ -634,9 +634,7 @@ function initPage() {
   initMotion();
   renderSkills();
   initSkillModal();
-  loadSnapshotRepos().then(() => {
-    if (shouldRefreshGithub()) scheduleIdleTask(refreshReposFromGithub);
-  });
+  loadSnapshotRepos();
 }
 
 if (document.readyState === "loading") {
