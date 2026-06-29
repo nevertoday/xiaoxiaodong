@@ -1,5 +1,6 @@
 const GITHUB_USER = "nevertoday";
 const REPO_SNAPSHOT_URL = "repos.json";
+const VIP_PUBLIC_STATS_URL = "https://vip.xiaoxiaodong.ai/api/public-stats";
 
 const fallbackRepos = [
   {
@@ -23,20 +24,20 @@ let reposSignature = "";
 
 const themeColors = {
   light: "#ffffff",
-  dark: "#151412",
+  dark: "#151515",
 };
 
 const FOOTER_COLOR_SELECTOR = "[data-footer-color]";
 const FOOTER_COPIED_MS = 900;
-const COPY_TOAST_MS = 1200;
+const FOOTER_COPY_TOAST_MS = 1400;
 
 const projectPalette = [
   { name: "墨黑", color: "#111111" },
-  { name: "铁灰", color: "#3F3F3C" },
-  { name: "中灰", color: "#777771" },
-  { name: "石灰", color: "#9A9A94" },
-  { name: "线灰", color: "#B8B8B2" },
-  { name: "纸白", color: "#F7F7F4" },
+  { name: "铁灰", color: "#3F3F3F" },
+  { name: "中灰", color: "#777777" },
+  { name: "石灰", color: "#9A9A9A" },
+  { name: "线灰", color: "#B8B8B8" },
+  { name: "纸白", color: "#F7F7F7" },
 ];
 
 const footerColorPalette = [
@@ -86,7 +87,7 @@ const projectProfiles = {
     format: "主页",
     intent: "个人入口",
     colorName: "铁灰",
-    color: "#3F3F3C",
+    color: "#3F3F3F",
   },
   xposter: {
     kind: "发布插件",
@@ -104,7 +105,7 @@ const projectProfiles = {
     format: "视觉资料",
     intent: "看构图",
     colorName: "中灰",
-    color: "#777771",
+    color: "#777777",
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
@@ -113,7 +114,7 @@ const projectProfiles = {
     format: "提交流程",
     intent: "准备 Chrome 上架材料",
     colorName: "铁灰",
-    color: "#3F3F3C",
+    color: "#3F3F3F",
   },
   "tampermonkey-scripts": {
     kind: "油猴脚本集",
@@ -131,21 +132,21 @@ const projectProfiles = {
     format: "脚本仓库",
     intent: "做图片实验",
     colorName: "石灰",
-    color: "#9A9A94",
+    color: "#9A9A9A",
   },
   bootstrap: {
     kind: "早期实验",
     format: "前端存档",
     intent: "早期前端练习",
     colorName: "线灰",
-    color: "#B8B8B2",
+    color: "#B8B8B8",
   },
   "phpcms-zhongnanlinye": {
     kind: "旧站存档",
     format: "PHP 项目",
     intent: "早期网站源码",
     colorName: "中灰",
-    color: "#777771",
+    color: "#777777",
   },
 };
 
@@ -191,7 +192,7 @@ const openSkills = [
     url: "https://github.com/nevertoday/chrome-store-submission",
     icon: "assets/icons/chrome-submission.svg",
     colorName: "铁灰",
-    color: "#3F3F3C",
+    color: "#3F3F3F",
     pain: "插件能跑，不代表能过审",
     highlights: ["整理商店资料", "生成权限说明", "补齐隐私披露"],
     usage: ["把插件仓库交给 Agent 分析", "运行 chrome-store-submission Skill", "按输出清单补齐商店文案、权限解释和隐私说明"],
@@ -229,6 +230,37 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
+function formatPlainCount(value) {
+  const count = Number(value);
+  if (!Number.isFinite(count) || count < 1) return "";
+  return new Intl.NumberFormat("zh-CN").format(Math.round(count));
+}
+
+async function syncStyleCount() {
+  const counts = [...document.querySelectorAll("[data-style-count]")];
+  if (!counts.length) return;
+
+  try {
+    const response = await fetch(VIP_PUBLIC_STATS_URL, {
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) throw new Error(`Stats returned ${response.status}`);
+
+    const stats = await response.json();
+    const nextCount = formatPlainCount(stats.styles);
+    if (nextCount) {
+      counts.forEach((count) => {
+        count.textContent = nextCount;
+      });
+    }
+  } catch {
+    // Keep the static fallback when the stats endpoint is unavailable or blocked by CORS.
+  }
+}
+
 function inferProjectProfile(repo, index) {
   if (projectProfiles[repo.name]) return projectProfiles[repo.name];
 
@@ -259,7 +291,7 @@ function inferProjectProfile(repo, index) {
       format: "工作流模块",
       intent: "复用工作流",
       colorName: "铁灰",
-      color: "#3F3F3C",
+      color: "#3F3F3F",
     };
   }
 
@@ -316,13 +348,13 @@ function getProjectIcon(repo) {
 function getProjectAction(view) {
   if (view.homepage) {
     return {
-      label: "打开网页",
+      label: "官网",
       url: view.homepage,
     };
   }
 
   return {
-    label: "看源码",
+    label: "GitHub",
     url: view.repo.html_url,
   };
 }
@@ -371,6 +403,11 @@ function setTheme(theme) {
   const nextMode = normalized === "dark" ? "light" : "dark";
   const nextModeLabel = nextMode === "dark" ? "暗色" : "淡色";
   document.documentElement.dataset.theme = normalized;
+  document.documentElement.classList.add("theme-changing");
+  window.clearTimeout(setTheme.timeoutId);
+  setTheme.timeoutId = window.setTimeout(() => {
+    document.documentElement.classList.remove("theme-changing");
+  }, 260);
   document.querySelector("[data-theme-color]")?.setAttribute("content", themeColors[normalized]);
 
   const toggle = document.querySelector("[data-theme-toggle]");
@@ -493,16 +530,16 @@ function markFooterButtonCopied(button) {
   }, FOOTER_COPIED_MS);
 }
 
-function showCopyToast(message) {
-  const toast = document.querySelector("[data-copy-toast]");
+function showFooterCopyToast(message) {
+  const toast = document.querySelector("[data-footer-copy-toast]");
   if (!toast) return;
 
   toast.textContent = message;
-  toast.hidden = false;
-  window.clearTimeout(showCopyToast.timeoutId);
-  showCopyToast.timeoutId = window.setTimeout(() => {
-    toast.hidden = true;
-  }, COPY_TOAST_MS);
+  toast.dataset.visible = "true";
+  window.clearTimeout(showFooterCopyToast.timeoutId);
+  showFooterCopyToast.timeoutId = window.setTimeout(() => {
+    delete toast.dataset.visible;
+  }, FOOTER_COPY_TOAST_MS);
 }
 
 function initFooterSpectrum() {
@@ -512,14 +549,15 @@ function initFooterSpectrum() {
     const button = target?.closest(FOOTER_COLOR_SELECTOR);
     if (!button) return;
 
-    const copied = await copyText(button.dataset.footerCopyValue);
+    const copyValue = button.dataset.footerCopyValue;
+    const copied = await copyText(copyValue);
     if (!copied) {
-      showCopyToast("浏览器未允许复制");
+      showFooterCopyToast("浏览器未允许复制");
       return;
     }
 
     markFooterButtonCopied(button);
-    showCopyToast(`已复制 ${button.dataset.footerCopyValue}`);
+    showFooterCopyToast(`已复制 ${copyValue}`);
   });
 }
 
@@ -559,8 +597,9 @@ function initSectionNav() {
 
 function createSkillCard(skill, index) {
   const icon = escapeHtml(skill.icon || "assets/icons/project-default.svg");
+  const tone = escapeHtml(skill.color || "#111111");
   return `
-    <article class="skill-card" style="--card-delay: ${80 + index * 52}ms">
+    <article class="skill-card" style="--card-delay: ${80 + index * 52}ms; --skill-tone: ${tone}">
       <img class="app-icon skill-app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div class="skill-index">
         <b>${escapeCopy(skill.label)}</b>
@@ -690,7 +729,7 @@ function initSkillModal() {
 }
 
 function createProjectCard(view, visibleIndex) {
-  const { repo, profile, topics, homepage } = view;
+  const { repo, profile, homepage } = view;
   const safeName = escapeHtml(repo.name);
   const projectTitle = escapeCopy(profile.title || profile.intent || repo.description || repo.name);
   const projectSummary = escapeCopy(profile.summary || repo.description || profile.format || "公开代码项目");
@@ -699,12 +738,10 @@ function createProjectCard(view, visibleIndex) {
   const actionUrl = escapeHtml(action.url);
   const actionLabel = escapeHtml(action.label);
   const icon = escapeHtml(getProjectIcon(repo));
-  const topicMarkup = topics.length
-    ? topics.map((topic) => `<span>${escapeCopy(topic)}</span>`).join("")
-    : "";
+  const tone = escapeHtml(profile.color || "#111111");
 
   return `
-    <article class="project-card" style="--card-delay: ${90 + visibleIndex * 48}ms">
+    <article class="project-card" style="--card-delay: ${90 + visibleIndex * 48}ms; --project-tone: ${tone}">
       <div class="project-card-top">
         <img class="app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="project-title">
@@ -715,12 +752,6 @@ function createProjectCard(view, visibleIndex) {
       <div class="project-copy">
         <h3 class="project-intent">${projectTitle}</h3>
         <p class="project-summary">${projectSummary}</p>
-      </div>
-      <div class="project-tags">
-        <span>${escapeCopy(profile.kind)}</span>
-        <span>${escapeCopy(profile.format)}</span>
-        ${repo.language ? `<span>${escapeCopy(repo.language)}</span>` : ""}
-        ${topicMarkup}
       </div>
       <div class="project-footer">
         <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
@@ -804,6 +835,7 @@ function initPage() {
   initSectionNav();
   renderSkills();
   initSkillModal();
+  syncStyleCount();
   loadSnapshotRepos();
 }
 

@@ -1,11 +1,11 @@
 :root {
   color-scheme: light;
   --rubai: #ffffff;
-  --suji: #d8d8d4;
+  --suji: #d8d8d8;
   --juebian: #111111;
-  --tenghuang: #9a9a94;
-  --zhuqing: #5f5f5a;
-  --bolinlan: #3a3a37;
+  --tenghuang: #9a9a9a;
+  --zhuqing: #5f5f5f;
+  --bolinlan: #3a3a3a;
   --xuan: #111111;
 
   --paper: #ffffff;
@@ -13,13 +13,13 @@
   --surface: #ffffff;
   --surface-soft: #ffffff;
   --ink: #111111;
-  --ink-soft: #3f3f3c;
-  --muted: #777771;
-  --line: #d9d9d4;
-  --line-strong: #b8b8b2;
+  --ink-soft: #3f3f3f;
+  --muted: #777777;
+  --line: #d9d9d9;
+  --line-strong: #b8b8b8;
   --accent: #111111;
-  --accent-2: #3f3f3c;
-  --accent-3: #777771;
+  --accent-2: #3f3f3f;
+  --accent-3: #777777;
   --neutral-mark: color-mix(in srgb, var(--ink) 78%, var(--muted));
   --focus: color-mix(in srgb, var(--ink) 18%, transparent);
   --shadow: 0 14px 34px rgba(17, 17, 17, 0.08);
@@ -41,12 +41,12 @@
   --surface-soft: #242424;
   --ink: #f4f4f4;
   --ink-soft: #d8d8d8;
-  --muted: #a0a09a;
+  --muted: #a0a0a0;
   --line: #343434;
-  --line-strong: #5a5a54;
+  --line-strong: #5a5a5a;
   --accent: #f4f4f4;
   --accent-2: #d8d8d8;
-  --accent-3: #a0a09a;
+  --accent-3: #a0a0a0;
   --neutral-mark: color-mix(in srgb, var(--ink) 74%, var(--muted));
   --focus: color-mix(in srgb, var(--ink) 22%, transparent);
   --shadow: 0 24px 68px rgba(0, 0, 0, 0.36);
@@ -236,9 +236,9 @@ main {
   height: 34px;
   flex: 0 0 auto;
   place-items: center;
-  color: #f7f7f4;
-  background: #11100e;
-  box-shadow: inset 0 0 0 1px rgba(247, 247, 244, 0.18);
+  color: #f7f7f7;
+  background: #111111;
+  box-shadow: inset 0 0 0 1px rgba(247, 247, 247, 0.18);
   font-family: var(--font-logo);
   font-size: 1.18rem;
   font-weight: 900;
@@ -1103,7 +1103,7 @@ h3 {
 .community-qr img {
   width: 112px;
   height: 112px;
-  background: #f7f7f4;
+  background: #f7f7f7;
   image-rendering: pixelated;
 }
 
@@ -1273,7 +1273,7 @@ h3 {
 .contact-qr img {
   width: 112px;
   height: 112px;
-  background: #f7f7f4;
+  background: #f7f7f7;
   image-rendering: pixelated;
 }
 
@@ -3521,70 +3521,6 @@ p,
   gap: 0.45rem 0.9rem;
 }
 
-.footer-spectrum {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(10px, 1fr));
-  align-items: end;
-  align-self: end;
-  width: min(100%, 22rem);
-  height: 34px;
-  justify-self: center;
-  overflow: hidden;
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-}
-
-.footer-spectrum button {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  height: calc(10px + var(--spectrum-index, 1) * 2px);
-  min-height: 12px;
-  padding: 0;
-  border: 0;
-  background: var(--spectrum-color, #fbda41);
-  cursor: pointer;
-  opacity: 0.9;
-  transform-origin: bottom;
-  transition:
-    opacity 160ms var(--ease),
-    transform 160ms var(--ease),
-    outline-color 160ms var(--ease);
-}
-
-.footer-spectrum button:hover,
-.footer-spectrum button:focus-visible {
-  opacity: 1;
-  outline: 1px solid var(--ink);
-  outline-offset: -1px;
-  transform: scaleY(1.08);
-}
-
-.footer-spectrum button[data-copied="true"] {
-  opacity: 1;
-  outline: 2px solid var(--ink);
-  outline-offset: -2px;
-}
-
-.copy-toast {
-  position: fixed;
-  right: max(18px, env(safe-area-inset-right));
-  bottom: calc(18px + env(safe-area-inset-bottom));
-  z-index: 90;
-  max-width: min(22rem, calc(100vw - 36px));
-  margin: 0;
-  padding: 0.54rem 0.72rem;
-  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-  color: var(--paper);
-  background: var(--ink);
-  font-size: 0.78rem;
-  font-weight: 820;
-  line-height: 1.35;
-}
-
-.copy-toast[hidden] {
-  display: none;
-}
-
 .footer-meta {
   display: grid;
   gap: 0.45rem;
@@ -3638,10 +3574,6 @@ p,
     text-align: center;
   }
 
-  .footer-spectrum {
-    justify-self: center;
-    width: min(100%, 18rem);
-  }
 }
 
 /* Final card and contact consolidation pass. */
@@ -4313,12 +4245,6 @@ p,
   background: var(--ink);
 }
 
-:root[data-theme="dark"] .copy-toast {
-  border-color: color-mix(in srgb, var(--ink) 20%, transparent);
-  color: var(--paper);
-  background: var(--ink);
-}
-
 :root[data-theme="dark"] .community-section::after,
 :root[data-theme="dark"] .projects-section::before,
 :root[data-theme="dark"] .projects-section::after,
@@ -4369,9 +4295,8 @@ p,
 .wechat-qr,
 .project-card,
 .skill-card,
-.project-get,
-.skill-actions button,
-.footer-spectrum button {
+  .project-get,
+  .skill-actions button {
   transition:
     border-color 180ms var(--ease),
     color 180ms var(--ease),
@@ -4404,10 +4329,9 @@ p,
   transform: translateY(-2px);
 }
 
-.community-actions a:active,
-.project-get:active,
-.skill-actions button:active,
-.footer-spectrum button:active {
+  .community-actions a:active,
+  .project-get:active,
+  .skill-actions button:active {
   transform: translateY(0) scale(0.98);
 }
 
@@ -4466,17 +4390,6 @@ p,
   width: 100%;
   min-height: 34px;
   padding-inline: 0.72rem;
-}
-
-.footer-spectrum:hover button {
-  opacity: 0.72;
-}
-
-.footer-spectrum button:hover,
-.footer-spectrum button:focus-visible {
-  opacity: 1;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 24px color-mix(in srgb, var(--spectrum-color) 28%, transparent);
 }
 
 :root[data-theme="dark"] .plan-board:hover,
@@ -4548,5 +4461,1180 @@ p,
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
+  }
+}
+
+/* Latest final lock: project cards keep only real action links; footer is full-width with color ladder. */
+.project-card {
+  grid-template-areas:
+    "icon label action"
+    "icon body action" !important;
+}
+
+.project-tags {
+  display: none !important;
+}
+
+.project-footer {
+  display: flex !important;
+  grid-area: action !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.project-footer a::before {
+  content: none !important;
+}
+
+.project-get,
+.project-source,
+:root:not([data-theme="dark"]) .project-card .project-get,
+:root:not([data-theme="dark"]) .project-card .project-source,
+:root[data-theme="dark"] .project-get,
+:root[data-theme="dark"] .project-source {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px !important;
+  padding: 0 0.82rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  background: var(--surface);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.project-get:hover,
+.project-get:focus-visible,
+.project-source:hover,
+.project-source:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-get:hover,
+:root:not([data-theme="dark"]) .project-card .project-get:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-source:hover,
+:root:not([data-theme="dark"]) .project-card .project-source:focus-visible {
+  border-color: var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: none;
+  transform: none;
+}
+
+.site-footer {
+  display: grid !important;
+  grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 0.76fr) minmax(12rem, auto) !important;
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: end;
+  width: 100vw !important;
+  max-width: none !important;
+  margin-inline: calc(50% - 50vw) !important;
+  padding: clamp(2.4rem, 5vw, 3rem) var(--edge) !important;
+  text-align: left;
+}
+
+.site-footer .footer-main {
+  justify-self: start;
+}
+
+.footer-spectrum-panel {
+  display: grid !important;
+  grid-template-rows: minmax(1.3em, auto) auto;
+  gap: 0.72rem;
+  align-self: end;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.footer-spectrum {
+  display: grid !important;
+  grid-template-columns: repeat(8, minmax(10px, 1fr)) !important;
+  align-items: end;
+  width: 100% !important;
+  min-height: 34px;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.footer-spectrum button {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0;
+  height: calc(10px + var(--spectrum-index, 0) * 2px) !important;
+  min-height: 12px;
+  padding: 0;
+  border: 0;
+  background: var(--spectrum-color) !important;
+  cursor: pointer;
+  opacity: 0.84;
+  transform-origin: bottom;
+}
+
+.footer-spectrum button:hover,
+.footer-spectrum button:focus-visible {
+  opacity: 1;
+  outline: 1px solid var(--ink);
+  outline-offset: -1px;
+  transform: scaleY(1.08);
+}
+
+.footer-spectrum button[data-copied="true"] {
+  opacity: 1;
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.footer-copy-toast {
+  min-height: 1.3em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.footer-copy-toast[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-footer .footer-meta {
+  justify-self: end;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .project-card {
+    grid-template-areas:
+      "icon"
+      "label"
+      "body"
+      "action" !important;
+  }
+
+  .project-footer {
+    width: 100%;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .site-footer .footer-main,
+  .site-footer .footer-meta {
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .footer-spectrum-panel {
+    width: min(100%, 22rem);
+    justify-self: center;
+  }
+}
+
+/* Final project/footer overrides: no metadata label row, only real actions. */
+.project-card {
+  grid-template-areas:
+    "icon label action"
+    "icon body action" !important;
+}
+
+.project-tags {
+  display: none !important;
+}
+
+.project-footer {
+  display: flex !important;
+  grid-area: action !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0;
+}
+
+.project-footer a::before {
+  content: none !important;
+}
+
+.project-get,
+.project-source,
+:root:not([data-theme="dark"]) .project-card .project-get,
+:root:not([data-theme="dark"]) .project-card .project-source,
+:root[data-theme="dark"] .project-get,
+:root[data-theme="dark"] .project-source {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px !important;
+  padding: 0 0.82rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  background: var(--surface);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.project-get:hover,
+.project-get:focus-visible,
+.project-source:hover,
+.project-source:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-get:hover,
+:root:not([data-theme="dark"]) .project-card .project-get:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-source:hover,
+:root:not([data-theme="dark"]) .project-card .project-source:focus-visible {
+  border-color: var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: none;
+  transform: none;
+}
+
+.site-footer {
+  grid-template-columns: minmax(16rem, 1fr) minmax(14rem, 0.68fr) minmax(12rem, auto) !important;
+  align-items: end;
+  gap: clamp(1.6rem, 4vw, 3rem);
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: clamp(2.4rem, 5vw, 3rem) var(--edge);
+}
+
+.footer-spectrum-panel {
+  display: grid;
+  grid-template-rows: minmax(1.3em, auto) auto;
+  gap: 0.72rem;
+  align-self: end;
+  min-width: 0;
+}
+
+.footer-spectrum {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(10px, 1fr));
+  align-items: end;
+  width: 100%;
+  min-height: 34px;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.footer-spectrum button {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: calc(10px + var(--spectrum-index, 0) * 2px);
+  min-height: 12px;
+  padding: 0;
+  border: 0;
+  background: var(--spectrum-color);
+  cursor: pointer;
+  opacity: 0.84;
+  transform-origin: bottom;
+  transition:
+    opacity 160ms var(--ease),
+    transform 160ms var(--ease),
+    outline-color 160ms var(--ease);
+}
+
+.footer-spectrum button:hover,
+.footer-spectrum button:focus-visible {
+  opacity: 1;
+  outline: 1px solid var(--ink);
+  outline-offset: -1px;
+  transform: scaleY(1.08);
+}
+
+.footer-spectrum button[data-copied="true"] {
+  opacity: 1;
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.footer-copy-toast {
+  min-height: 1.3em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.footer-copy-toast[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 760px) {
+  .project-card {
+    grid-template-areas:
+      "icon"
+      "label"
+      "body"
+      "action" !important;
+  }
+
+  .project-footer {
+    width: 100%;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr !important;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  .footer-spectrum-panel {
+    width: min(100%, 22rem);
+    justify-self: center;
+  }
+}
+
+/* True final overrides: metadata is quiet text; external actions stay inline. */
+.project-tags,
+.skill-facts {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
+  width: min(100%, 34rem);
+  padding: 0 !important;
+  color: var(--muted);
+}
+
+.project-tags span,
+.skill-facts div,
+:root:not([data-theme="dark"]) .project-tags span,
+:root[data-theme="dark"] .project-tags span,
+:root[data-theme="dark"] .skill-facts div,
+.project-card:hover .project-tags span,
+.project-card:focus-within .project-tags span,
+.skill-card:hover .skill-facts div,
+.skill-card:focus-within .skill-facts div {
+  display: inline !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: var(--muted) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 0.76rem;
+  font-weight: 560;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.project-tags span + span::before,
+.skill-facts div + div::before {
+  color: color-mix(in srgb, var(--muted) 58%, transparent);
+  content: "/";
+  margin-inline: 0.5rem;
+}
+
+.skill-facts dt,
+.skill-facts dd,
+:root[data-theme="dark"] .skill-facts dt {
+  display: inline !important;
+  margin: 0;
+  color: inherit !important;
+  font: inherit;
+}
+
+.skill-facts dt::after {
+  content: " ";
+}
+
+.project-footer,
+.skill-footer,
+.skill-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.skill-actions {
+  max-width: 100%;
+}
+
+.project-get,
+.project-source,
+.skill-actions button,
+.skill-actions a {
+  width: auto !important;
+  min-width: 0;
+}
+
+/* Footer replica from colors.xiaoxiaodong.ai: full-width, two-sided, no link bar. */
+.site-footer {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: center;
+  width: 100vw;
+  max-width: none;
+  min-height: 158px;
+  margin-inline: calc(50% - 50vw);
+  padding: clamp(2.3rem, 5vw, 3rem) var(--edge);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: var(--paper);
+  text-align: left;
+}
+
+.site-footer .footer-main {
+  display: grid !important;
+  gap: 0.78rem;
+  justify-items: start;
+  width: min(100%, 34rem);
+}
+
+.footer-mark {
+  display: inline-flex !important;
+  gap: 0.62rem;
+  align-items: center;
+  color: var(--ink);
+  text-decoration: none !important;
+}
+
+.footer-mark span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  color: var(--paper);
+  background: var(--ink);
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.footer-mark strong {
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.footer-main p {
+  max-width: 28rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 760;
+  line-height: 1.72;
+}
+
+.site-footer .footer-meta {
+  display: grid !important;
+  gap: 0.45rem;
+  justify-items: end;
+  min-width: 14rem;
+  width: auto;
+  color: var(--muted);
+  font-family: var(--latin);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.footer-meta span:first-child {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    gap: 1.4rem;
+    min-height: 0;
+    margin-inline: 0;
+    text-align: center;
+  }
+
+  .site-footer .footer-main,
+  .site-footer .footer-meta {
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/* Final section divider: separate the membership block from the WeChat block. */
+.contact-section::before {
+  position: absolute;
+  top: 0;
+  left: max(var(--edge), calc((100vw - 680px) / 2));
+  right: max(var(--edge), calc((100vw - 680px) / 2));
+  display: block;
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+  content: "";
+}
+
+/* Final metadata override: keep card metadata as quiet inline text. */
+.project-tags span,
+.skill-facts div,
+:root:not([data-theme="dark"]) .project-tags span,
+:root[data-theme="dark"] .project-tags span,
+:root[data-theme="dark"] .skill-facts div,
+.project-card:hover .project-tags span,
+.project-card:focus-within .project-tags span,
+.skill-card:hover .skill-facts div,
+.skill-card:focus-within .skill-facts div {
+  display: inline !important;
+  width: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: var(--muted) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 0.76rem;
+  font-weight: 560;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.project-tags,
+.skill-facts {
+  display: flex !important;
+  flex-wrap: nowrap;
+  gap: 0;
+  justify-content: center;
+}
+
+.project-tags span + span::before,
+.skill-facts div + div::before {
+  color: color-mix(in srgb, var(--muted) 58%, transparent);
+  content: "/";
+  margin-inline: 0.48rem;
+}
+
+/* Footer should span the full viewport, not the narrow content measure. */
+.site-footer {
+  width: 100vw;
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
+  grid-template-columns: minmax(18rem, 0.8fr) minmax(18rem, 1fr) minmax(10rem, 0.4fr);
+  padding-inline: var(--edge);
+}
+
+.footer-main,
+.footer-meta {
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    margin-inline: 0;
+    padding-inline: var(--edge);
+  }
+}
+
+/* Card metadata reads as one quiet line, not a button group. */
+.project-tags,
+.skill-facts {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  justify-content: center;
+  width: min(100%, 30rem);
+  padding-top: 0.1rem;
+  color: var(--muted);
+}
+
+.project-tags span,
+.skill-facts div,
+:root:not([data-theme="dark"]) .project-tags span,
+:root[data-theme="dark"] .project-tags span,
+:root[data-theme="dark"] .skill-facts div,
+.project-card:hover .project-tags span,
+.project-card:focus-within .project-tags span,
+.skill-card:hover .skill-facts div,
+.skill-card:focus-within .skill-facts div {
+  display: inline;
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 560;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.project-tags span + span::before,
+.skill-facts div + div::before {
+  color: color-mix(in srgb, var(--muted) 58%, transparent);
+  content: "/";
+  margin-inline: 0.48rem;
+}
+
+.skill-facts dt,
+.skill-facts dd,
+:root[data-theme="dark"] .skill-facts dt {
+  display: inline;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.skill-facts dt::after {
+  content: " ";
+}
+
+.project-tags span,
+.skill-facts div {
+  width: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 560px) {
+  .project-tags,
+  .skill-facts {
+    flex-wrap: wrap;
+    row-gap: 0.12rem;
+  }
+}
+
+/* Login and registration are paired actions, so keep them on one row. */
+.community-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: center;
+  justify-items: stretch;
+  width: min(100%, 18rem);
+  margin-inline: auto;
+}
+
+.community-actions a {
+  width: 100%;
+}
+
+/* Motion pass: monochrome UI with restrained tactile feedback. */
+:root {
+  --paper: #ffffff;
+  --paper-wash: #ffffff;
+  --surface: #ffffff;
+  --surface-soft: #f5f5f5;
+  --mono: #111111;
+  --mono-soft: #3f3f3f;
+  --mono-muted: #777777;
+  --accent: var(--mono);
+  --accent-2: var(--mono-soft);
+  --accent-3: var(--mono-muted);
+  --focus: color-mix(in srgb, var(--mono) 24%, transparent);
+  --shadow: 0 18px 42px color-mix(in srgb, var(--mono) 8%, transparent);
+}
+
+:root[data-theme="dark"] {
+  --paper: #151515;
+  --paper-wash: #191919;
+  --surface: #1f1f1f;
+  --surface-soft: #282828;
+  --mono: #f4f4f4;
+  --mono-soft: #d8d8d8;
+  --mono-muted: #a0a0a0;
+  --accent: var(--mono);
+  --accent-2: var(--mono-soft);
+  --accent-3: var(--mono-muted);
+  --focus: color-mix(in srgb, var(--mono) 28%, transparent);
+}
+
+html,
+body,
+:root:not([data-theme="dark"]) .site-header,
+:root:not([data-theme="dark"]) .site-footer {
+  background: var(--paper);
+}
+
+body {
+  background: var(--paper);
+}
+
+::selection {
+  color: var(--paper);
+  background: var(--mono);
+}
+
+.brand-logo,
+.footer-mark span,
+:root:not([data-theme="dark"]) .brand-logo {
+  border: 0;
+  color: var(--paper);
+  background: var(--mono);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 18%, transparent);
+}
+
+.eyebrow,
+.site-nav a[aria-current="true"],
+.repo-status[data-type="ready"] {
+  color: var(--accent);
+}
+
+.site-nav a[aria-current="true"],
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.site-header,
+:root:not([data-theme="dark"]) .site-header {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.community-count strong {
+  color: var(--mono);
+  text-shadow: 0 10px 28px color-mix(in srgb, var(--mono) 10%, transparent);
+}
+
+.community-primary,
+:root:not([data-theme="dark"]) .community-actions .community-primary,
+.skill-actions button,
+:root:not([data-theme="dark"]) .skill-actions button {
+  color: var(--paper);
+  background: var(--mono);
+}
+
+.community-secondary,
+:root:not([data-theme="dark"]) .community-actions .community-secondary {
+  color: var(--mono-soft);
+  background: color-mix(in srgb, var(--mono) 6%, transparent);
+  text-decoration: none;
+}
+
+.community-actions a:hover,
+.community-actions a:focus-visible,
+.project-get:hover,
+.project-get:focus-visible,
+.skill-actions button:hover,
+.skill-actions button:focus-visible,
+:root:not([data-theme="dark"]) .community-actions .community-primary:hover,
+:root:not([data-theme="dark"]) .community-actions .community-primary:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-get:hover,
+:root:not([data-theme="dark"]) .project-card .project-get:focus-visible,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button:hover,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button:focus-visible {
+  border-color: var(--mono);
+  color: var(--paper);
+  background: var(--mono);
+}
+
+.project-card,
+.skill-card {
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 22%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 5%, transparent), transparent 46%),
+    var(--surface);
+  transform-origin: center;
+}
+
+.project-card::before,
+.skill-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  display: block;
+  height: 3px;
+  background: var(--project-tone, var(--skill-tone, var(--mono)));
+  content: "";
+  opacity: 0.82;
+  transform: scaleX(0.24);
+  transform-origin: center;
+  transition:
+    opacity 220ms var(--ease),
+    transform 260ms var(--ease-out-quint);
+}
+
+.project-card:hover::before,
+.project-card:focus-within::before,
+.skill-card:hover::before,
+.skill-card:focus-within::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.project-card:hover,
+.project-card:focus-within,
+.skill-card:hover,
+.skill-card:focus-within {
+  border-color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 42%, transparent);
+  box-shadow: 0 18px 34px color-mix(in srgb, var(--mono) 8%, transparent);
+  transform: translateY(-4px);
+}
+
+.project-tags span,
+.skill-facts div,
+:root:not([data-theme="dark"]) .project-tags span {
+  border-color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 18%, transparent);
+  color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 72%, var(--ink));
+  background: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 5%, var(--surface));
+}
+
+.project-card:hover .project-tags span,
+.project-card:focus-within .project-tags span,
+.skill-card:hover .skill-facts div,
+.skill-card:focus-within .skill-facts div {
+  border-color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 30%, transparent);
+  background: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 8%, var(--surface));
+}
+
+.project-get,
+.skill-actions button,
+:root:not([data-theme="dark"]) .project-card .project-get,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button {
+  border-color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 24%, transparent);
+  color: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 68%, var(--ink));
+  background: color-mix(in srgb, var(--project-tone, var(--skill-tone, var(--mono))) 6%, var(--surface));
+}
+
+.contact-card .wechat-qr,
+.community-qr img {
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--mono) 8%, transparent);
+}
+
+.skill-modal-backdrop {
+  background: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.skill-modal-panel {
+  border-color: color-mix(in srgb, var(--mono) 22%, var(--line));
+  background: var(--surface);
+  transform: translateY(12px) scale(0.985);
+}
+
+.skill-modal.is-open .skill-modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.theme-changing body,
+.theme-changing .site-header,
+.theme-changing .project-card,
+.theme-changing .skill-card,
+.theme-changing .community-primary,
+.theme-changing .skill-actions button {
+  transition-duration: 260ms;
+}
+
+@media (max-width: 620px) {
+  .project-card:hover,
+  .project-card:focus-within,
+  .skill-card:hover,
+  .skill-card:focus-within {
+    transform: translateY(-2px);
+  }
+}
+
+/* Small-screen compatibility pass: preserve one-row actions with touch-safe targets. */
+.brand,
+.footer-mark {
+  min-height: 44px;
+}
+
+.nav-icon-link,
+.theme-toggle,
+.menu-toggle {
+  width: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.community-actions a,
+.project-get,
+.project-source,
+.skill-actions button,
+.skill-actions a {
+  min-height: 44px !important;
+}
+
+.project-footer,
+.skill-actions {
+  flex-wrap: nowrap !important;
+}
+
+.project-source,
+.skill-actions a {
+  display: inline-flex !important;
+}
+
+@media (max-width: 620px) {
+  .project-footer,
+  .skill-footer,
+  .skill-actions {
+    justify-content: center !important;
+    width: 100%;
+  }
+
+  .project-get,
+  .project-source,
+  .skill-actions button,
+  .skill-actions a {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding-inline: 0.72rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 820px), (max-height: 420px) {
+  .community-section,
+  .contact-section,
+  .projects-section,
+  .skills-section {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+
+  .motion-ready .project-card,
+  .motion-ready .skill-card,
+  .project-card,
+  .skill-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .motion-ready [data-motion],
+  .motion-ready .project-card,
+  .motion-ready .skill-card,
+  .project-card,
+  .skill-card,
+  .contact-card,
+  .community-qr {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* EOF final lock: project cards keep only real action links; footer is full-width with color ladder. */
+.project-card {
+  grid-template-areas:
+    "icon label action"
+    "icon body action" !important;
+}
+
+.project-tags {
+  display: none !important;
+}
+
+.project-footer {
+  display: flex !important;
+  grid-area: action !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.project-footer a::before {
+  content: none !important;
+}
+
+.project-get,
+.project-source,
+:root:not([data-theme="dark"]) .project-card .project-get,
+:root:not([data-theme="dark"]) .project-card .project-source,
+:root[data-theme="dark"] .project-get,
+:root[data-theme="dark"] .project-source {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px !important;
+  padding: 0 0.82rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  background: var(--surface);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.project-get:hover,
+.project-get:focus-visible,
+.project-source:hover,
+.project-source:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-get:hover,
+:root:not([data-theme="dark"]) .project-card .project-get:focus-visible,
+:root:not([data-theme="dark"]) .project-card .project-source:hover,
+:root:not([data-theme="dark"]) .project-card .project-source:focus-visible {
+  border-color: var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: none;
+  transform: none;
+}
+
+.site-footer {
+  display: grid !important;
+  grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 0.76fr) minmax(12rem, auto) !important;
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: end;
+  width: 100vw !important;
+  max-width: none !important;
+  margin-inline: calc(50% - 50vw) !important;
+  padding: clamp(2.4rem, 5vw, 3rem) var(--edge) !important;
+  text-align: left;
+}
+
+.site-footer .footer-main {
+  justify-self: start;
+}
+
+.footer-spectrum-panel {
+  display: grid !important;
+  grid-template-rows: minmax(1.3em, auto) auto;
+  gap: 0.72rem;
+  align-self: end;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.footer-spectrum {
+  display: grid !important;
+  grid-template-columns: repeat(8, minmax(10px, 1fr)) !important;
+  align-items: end;
+  width: 100% !important;
+  min-height: 34px;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.footer-spectrum button {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0;
+  height: calc(10px + var(--spectrum-index, 0) * 2px) !important;
+  min-height: 12px;
+  padding: 0;
+  border: 0;
+  background: var(--spectrum-color) !important;
+  cursor: pointer;
+  opacity: 0.84;
+  transform-origin: bottom;
+}
+
+.footer-spectrum button:hover,
+.footer-spectrum button:focus-visible {
+  opacity: 1;
+  outline: 1px solid var(--ink);
+  outline-offset: -1px;
+  transform: scaleY(1.08);
+}
+
+.footer-spectrum button[data-copied="true"] {
+  opacity: 1;
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.footer-copy-toast {
+  min-height: 1.3em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.footer-copy-toast[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-footer .footer-meta {
+  justify-self: end;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .project-card {
+    grid-template-areas:
+      "icon"
+      "label"
+      "body"
+      "action" !important;
+  }
+
+  .project-footer {
+    width: 100%;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .site-footer .footer-main,
+  .site-footer .footer-meta {
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .footer-spectrum-panel {
+    width: min(100%, 22rem);
+    justify-self: center;
   }
 }
