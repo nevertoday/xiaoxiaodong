@@ -391,10 +391,21 @@ function createSkillCard(skill, index) {
       <div class="app-icon skill-app-icon" aria-hidden="true">${glyph}</div>
       <div class="skill-index">
         <b>${escapeHtml(skill.label)}</b>
+        <span>${escapeHtml(skill.output)}</span>
       </div>
       <div class="skill-heading">
         <h3>${escapeHtml(skill.title)}</h3>
         <span>${escapeHtml(skill.summary)}</span>
+      </div>
+      <div class="skill-facts">
+        <div>
+          <dt>适合</dt>
+          <dd>${escapeHtml(skill.scene)}</dd>
+        </div>
+        <div>
+          <dt>调用</dt>
+          <dd>${escapeHtml(skill.trigger)}</dd>
+        </div>
       </div>
       <div class="skill-footer">
         <div class="skill-actions">
@@ -533,6 +544,7 @@ function createProjectCard(view, visibleIndex) {
         <p class="project-summary">${projectSummary}</p>
       </div>
       <div class="project-tags">
+        <span>${escapeHtml(profile.kind)}</span>
         <span>${escapeHtml(profile.format)}</span>
         ${repo.language ? `<span>${escapeHtml(repo.language)}</span>` : ""}
         ${topicMarkup}

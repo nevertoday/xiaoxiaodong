@@ -3715,6 +3715,435 @@ p,
   }
 }
 
+/* Final card and contact consolidation pass. */
+.contact-section {
+  display: grid;
+  justify-items: center;
+}
+
+.contact-card {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.45rem);
+  justify-items: center;
+  width: min(100%, 420px);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.contact-card .contact-copy {
+  display: grid;
+  gap: 0.58rem;
+  justify-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.contact-card .qr-fallback {
+  width: min(68vw, 250px);
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  background: #ffffff;
+}
+
+.contact-note {
+  max-width: 20rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 760;
+  line-height: 1.55;
+}
+
+.project-grid,
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.9rem, 2.2vw, 1.25rem);
+  width: min(100%, 680px);
+  margin-inline: auto;
+  border: 0;
+}
+
+.project-card,
+.skill-card {
+  display: grid;
+  grid-template-areas:
+    "icon label action"
+    "icon body action"
+    "meta meta meta";
+  grid-template-columns: 50px minmax(0, 1fr) auto;
+  gap: 0.58rem 0.95rem;
+  align-items: start;
+  justify-items: stretch;
+  width: 100%;
+  min-height: 0;
+  padding: clamp(1rem, 2.4vw, 1.35rem);
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  background: #ffffff;
+  box-shadow: none;
+  text-align: left;
+  transform: none;
+}
+
+.project-card:hover,
+.project-card:focus-within,
+.skill-card:hover,
+.skill-card:focus-within {
+  border-color: color-mix(in srgb, var(--ink) 30%, transparent);
+  background: #ffffff;
+  box-shadow: none;
+  transform: none;
+}
+
+.project-card::before,
+.project-card::after,
+.skill-index b::before {
+  display: none;
+  content: none;
+}
+
+.project-card-top {
+  grid-area: icon;
+  display: contents;
+}
+
+.app-icon,
+.skill-app-icon {
+  grid-area: icon;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  background: #111111;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.project-title,
+.skill-index {
+  grid-area: label;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem 0.55rem;
+  align-items: baseline;
+  justify-content: flex-start;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.project-title p,
+.project-title span,
+.skill-index b,
+.skill-index span {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.project-title span,
+.skill-index span {
+  color: color-mix(in srgb, var(--ink) 54%, transparent);
+}
+
+.project-copy,
+.skill-heading {
+  grid-area: body;
+  display: grid;
+  gap: 0.32rem;
+  justify-items: start;
+  text-align: left;
+}
+
+.project-intent,
+.skill-card h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: clamp(1.08rem, 2vw, 1.36rem);
+  font-weight: 850;
+  line-height: 1.24;
+}
+
+.project-summary,
+.skill-heading span {
+  max-width: 34rem;
+  color: var(--ink-soft);
+  font-size: clamp(0.9rem, 1.05vw, 0.98rem);
+  line-height: 1.62;
+}
+
+.project-tags,
+.skill-facts {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0.24rem;
+}
+
+.project-tags span,
+.skill-facts div {
+  display: inline-flex;
+  gap: 0.28rem;
+  align-items: baseline;
+  min-height: 28px;
+  padding: 0 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  color: var(--muted);
+  background: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 820;
+  line-height: 1;
+}
+
+.skill-facts dt,
+.skill-facts dd {
+  margin: 0;
+}
+
+.skill-facts dt {
+  color: color-mix(in srgb, var(--ink) 50%, transparent);
+}
+
+.skill-facts dd {
+  color: var(--ink-soft);
+}
+
+.project-footer,
+.skill-footer {
+  grid-area: action;
+  display: flex;
+  align-items: start;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.skill-actions {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.project-get,
+.skill-actions button {
+  min-height: 34px;
+  padding: 0 0.82rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  color: var(--ink);
+  background: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 900;
+  transition: none;
+}
+
+:root:not([data-theme="dark"]) .project-card .project-get,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button {
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  color: var(--ink);
+  background: #ffffff;
+}
+
+.project-source,
+.skill-actions a {
+  min-height: 34px;
+  padding: 0 0.1rem;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.74rem;
+  font-weight: 850;
+}
+
+.project-get:hover,
+.project-get:focus-visible,
+.skill-actions button:hover,
+.skill-actions button:focus-visible {
+  border-color: #111111;
+  color: #ffffff;
+  background: #111111;
+  box-shadow: none;
+  transform: none;
+}
+
+:root:not([data-theme="dark"]) .project-card .project-get:hover,
+:root:not([data-theme="dark"]) .project-card .project-get:focus-visible,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button:hover,
+:root:not([data-theme="dark"]) .skill-card .skill-actions button:focus-visible {
+  border-color: #111111;
+  color: #ffffff;
+  background: #111111;
+}
+
+.project-source:hover,
+.project-source:focus-visible,
+.skill-actions a:hover,
+.skill-actions a:focus-visible {
+  color: var(--ink);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+}
+
+.community-section::after,
+.contact-section::after,
+.projects-section::after,
+.skills-section::after {
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.bottom-nav,
+:root:not([data-theme="dark"]) .bottom-nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 70;
+  display: flex;
+  gap: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(48px + env(safe-area-inset-bottom));
+  margin: 0;
+  padding: 0 var(--edge) env(safe-area-inset-bottom);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: #ffffff;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.bottom-nav a {
+  flex: 0 1 8.5rem;
+  min-height: 48px;
+  padding: 0 0.7rem;
+  color: var(--ink-soft);
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 780;
+  text-decoration: none;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a:focus-visible {
+  color: var(--ink);
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.34em;
+  transform: none;
+}
+
+:root[data-theme="dark"] .site-header,
+:root[data-theme="dark"] .bottom-nav,
+:root[data-theme="dark"] .site-footer {
+  border-color: color-mix(in srgb, var(--ink) 14%, transparent);
+  background: var(--paper);
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .site-nav a,
+:root[data-theme="dark"] .bottom-nav a,
+:root[data-theme="dark"] .project-source,
+:root[data-theme="dark"] .skill-actions a {
+  color: var(--ink-soft);
+  background: transparent;
+}
+
+:root[data-theme="dark"] .site-nav a:hover,
+:root[data-theme="dark"] .site-nav a:focus-visible,
+:root[data-theme="dark"] .bottom-nav a:hover,
+:root[data-theme="dark"] .bottom-nav a:focus-visible,
+:root[data-theme="dark"] .project-source:hover,
+:root[data-theme="dark"] .project-source:focus-visible,
+:root[data-theme="dark"] .skill-actions a:hover,
+:root[data-theme="dark"] .skill-actions a:focus-visible {
+  color: var(--ink);
+  background: transparent;
+}
+
+:root[data-theme="dark"] .contact-card .qr-fallback,
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .skill-card,
+:root[data-theme="dark"] .project-tags span,
+:root[data-theme="dark"] .skill-facts div,
+:root[data-theme="dark"] .project-get,
+:root[data-theme="dark"] .skill-actions button {
+  border-color: color-mix(in srgb, var(--ink) 16%, transparent);
+  color: var(--ink);
+  background: var(--surface);
+}
+
+:root[data-theme="dark"] .project-card:hover,
+:root[data-theme="dark"] .project-card:focus-within,
+:root[data-theme="dark"] .skill-card:hover,
+:root[data-theme="dark"] .skill-card:focus-within {
+  border-color: color-mix(in srgb, var(--ink) 34%, transparent);
+  background: var(--surface);
+}
+
+:root[data-theme="dark"] .app-icon,
+:root[data-theme="dark"] .skill-app-icon,
+:root[data-theme="dark"] .project-card:hover .app-icon,
+:root[data-theme="dark"] .skill-card:hover .app-icon {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+:root[data-theme="dark"] .project-title span,
+:root[data-theme="dark"] .skill-index span,
+:root[data-theme="dark"] .skill-facts dt {
+  color: color-mix(in srgb, var(--ink) 58%, transparent);
+}
+
+:root[data-theme="dark"] .project-tags span,
+:root[data-theme="dark"] .skill-facts div {
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface-soft) 70%, var(--surface));
+}
+
+:root[data-theme="dark"] .project-get:hover,
+:root[data-theme="dark"] .project-get:focus-visible,
+:root[data-theme="dark"] .skill-actions button:hover,
+:root[data-theme="dark"] .skill-actions button:focus-visible {
+  border: 1px solid var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+}
+
+:root[data-theme="dark"] .community-section::after,
+:root[data-theme="dark"] .contact-section::after,
+:root[data-theme="dark"] .projects-section::after,
+:root[data-theme="dark"] .skills-section::after {
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+@media (max-width: 620px) {
+  .project-card,
+  .skill-card {
+    grid-template-areas:
+      "icon label"
+      "body body"
+      "meta meta"
+      "action action";
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 0.68rem 0.78rem;
+    padding: 1rem;
+  }
+
+  .project-footer,
+  .skill-footer,
+  .skill-actions {
+    justify-content: flex-start;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
