@@ -26,6 +26,9 @@ const themeColors = {
   dark: "#151412",
 };
 
+const FOOTER_COLOR_SELECTOR = "[data-footer-color]";
+const FOOTER_COPIED_MS = 900;
+
 const projectPalette = [
   { name: "墨黑", color: "#111111" },
   { name: "铁灰", color: "#3F3F3C" },
@@ -426,36 +429,49 @@ async function copyText(value) {
   }
 }
 
-function buildFooterSpectrum() {
-  const buttons = [...document.querySelectorAll("[data-footer-color]")];
+function footerColorButtons() {
+  return [...document.querySelectorAll(FOOTER_COLOR_SELECTOR)];
+}
+
+function footerCopyValue(color) {
+  return `${color.name} ${color.hex}`;
+}
+
+function setFooterButtonColor(button, color, index) {
+  const copyValue = footerCopyValue(color);
+  button.style.setProperty("--spectrum-color", color.hex);
+  button.style.setProperty("--spectrum-index", String((index % 9) + 1));
+  button.dataset.footerCopyValue = copyValue;
+  button.title = `复制 ${copyValue}`;
+  button.setAttribute("aria-label", `复制 ${color.name} 色值 ${color.hex}`);
+}
+
+function buildFooterSpectrum(buttons = footerColorButtons()) {
   if (!buttons.length) return;
 
-  const colors = randomItems(footerColorPalette, buttons.length);
-  buttons.forEach((button, index) => {
-    const color = colors[index % colors.length];
-    const copyValue = `${color.name} ${color.hex}`;
-    button.style.setProperty("--spectrum-color", color.hex);
-    button.style.setProperty("--spectrum-index", String((index % 9) + 1));
-    button.dataset.footerCopyValue = copyValue;
-    button.title = `复制 ${copyValue}`;
-    button.setAttribute("aria-label", `复制 ${color.name} 色值 ${color.hex}`);
+  randomItems(footerColorPalette, buttons.length).forEach((color, index) => {
+    setFooterButtonColor(buttons[index], color, index);
   });
+}
+
+function markFooterButtonCopied(button) {
+  button.dataset.copied = "true";
+  window.setTimeout(() => {
+    if (button.dataset.copied === "true") delete button.dataset.copied;
+  }, FOOTER_COPIED_MS);
 }
 
 function initFooterSpectrum() {
   buildFooterSpectrum();
   document.addEventListener("click", async (event) => {
     const target = event.target instanceof Element ? event.target : null;
-    const button = target?.closest("[data-footer-color]");
+    const button = target?.closest(FOOTER_COLOR_SELECTOR);
     if (!button) return;
 
     const copied = await copyText(button.dataset.footerCopyValue);
     if (!copied) return;
 
-    button.dataset.copied = "true";
-    window.setTimeout(() => {
-      if (button.dataset.copied === "true") delete button.dataset.copied;
-    }, 900);
+    markFooterButtonCopied(button);
   });
 }
 

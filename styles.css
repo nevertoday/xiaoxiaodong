@@ -3631,10 +3631,6 @@ p,
   border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
 }
 
-.site-footer .footer-spectrum {
-  display: grid;
-}
-
 .footer-spectrum button {
   display: block;
   width: 100%;
