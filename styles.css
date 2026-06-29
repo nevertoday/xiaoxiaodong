@@ -2794,10 +2794,6 @@ h3 {
   box-shadow: none;
 }
 
-body {
-  padding-bottom: calc(82px + env(safe-area-inset-bottom));
-}
-
 .site-header {
   grid-template-columns: minmax(0, 1fr) auto;
   min-height: 58px;
@@ -2809,57 +2805,11 @@ body {
   justify-self: end;
 }
 
-.bottom-nav {
-  position: fixed;
-  right: max(16px, env(safe-area-inset-right));
-  bottom: calc(14px + env(safe-area-inset-bottom));
-  left: max(16px, env(safe-area-inset-left));
-  z-index: 70;
-  display: flex;
-  gap: 0.22rem;
-  align-items: center;
-  justify-content: center;
-  width: min(100% - 32px, 520px);
-  min-height: 52px;
-  margin-inline: auto;
-  padding: 0.36rem;
-  color: var(--ink);
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
-  box-shadow: 0 18px 54px color-mix(in srgb, var(--ink) 14%, transparent);
-  backdrop-filter: blur(18px);
-}
-
-.bottom-nav a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  min-height: 40px;
-  padding: 0 0.78rem;
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  font-weight: 900;
-  line-height: 1;
-  white-space: nowrap;
-  transition:
-    color 180ms var(--ease),
-    background 180ms var(--ease),
-    transform 180ms var(--ease);
-}
-
-.bottom-nav a:hover,
-.bottom-nav a:focus-visible {
-  color: var(--paper);
-  background: var(--ink);
-  outline: none;
-  transform: translateY(-1px);
-}
-
 .site-footer {
   display: grid;
   justify-items: center;
   justify-content: center;
-  padding: clamp(3rem, 7vw, 5rem) var(--edge) clamp(6.5rem, 12vw, 8rem);
+  padding: clamp(3rem, 7vw, 5rem) var(--edge);
   text-align: center;
 }
 
@@ -2912,20 +2862,6 @@ body {
   color: var(--ink-soft);
   text-decoration: underline;
   text-underline-offset: 0.24em;
-}
-
-@media (max-width: 560px) {
-  .bottom-nav {
-    gap: 0.12rem;
-    min-height: 50px;
-    padding: 0.28rem;
-  }
-
-  .bottom-nav a {
-    flex: 1 1 0;
-    padding: 0 0.35rem;
-    font-size: 0.76rem;
-  }
 }
 
 .community-section,
@@ -3042,43 +2978,9 @@ body {
 }
 
 .contact-qr-primary img,
-.qr-fallback {
-  width: min(68vw, 250px);
+.wechat-qr {
+  width: min(72vw, 280px);
   height: auto;
-  aspect-ratio: 1;
-}
-
-.qr-fallback {
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-  color: var(--ink);
-  background: #ffffff;
-  font-family: var(--font-title);
-  font-size: clamp(1.4rem, 6vw, 2.3rem);
-  font-weight: 900;
-  line-height: 1.1;
-  text-align: center;
-}
-
-.bottom-nav {
-  width: min(100% - 28px, 500px);
-  min-height: 48px;
-  padding: 0.22rem;
-  background: #ffffff;
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 10%, transparent);
-}
-
-.bottom-nav a {
-  min-height: 38px;
-  color: var(--muted);
-  font-weight: 800;
-}
-
-.bottom-nav a:hover,
-.bottom-nav a:focus-visible {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
 .footer-links a {
@@ -3171,20 +3073,10 @@ body {
     padding-inline: clamp(18px, 5vw, 28px);
   }
 
-  .bottom-nav {
-    width: calc(100% - 20px);
-  }
-
-  .bottom-nav a {
-    min-height: 38px;
-    padding-inline: 0.25rem;
-    font-size: 0.72rem;
-  }
 }
 
 /* Final editorial pass: quiet navigation, footer modeled after colors.xiaoxiaodong.ai, tighter typography. */
 :root:not([data-theme="dark"]) .site-header,
-:root:not([data-theme="dark"]) .bottom-nav,
 :root:not([data-theme="dark"]) .site-footer {
   background: #ffffff;
   border: 0;
@@ -3197,9 +3089,7 @@ body {
 }
 
 .site-header::before,
-.site-header::after,
-.bottom-nav::before,
-.bottom-nav::after {
+.site-header::after {
   display: none;
   content: none;
 }
@@ -3563,28 +3453,6 @@ p,
   font-size: clamp(3.8rem, 11vw, 6.8rem);
 }
 
-.bottom-nav {
-  min-height: 46px;
-  padding: 0.18rem;
-  box-shadow: none;
-}
-
-.bottom-nav a {
-  min-height: 36px;
-  color: var(--ink-soft);
-  font-size: 0.76rem;
-  font-weight: 760;
-}
-
-.bottom-nav a:hover,
-.bottom-nav a:focus-visible {
-  color: var(--ink);
-  background: transparent;
-  text-decoration: underline;
-  text-underline-offset: 0.34em;
-  transform: none;
-}
-
 .site-footer {
   grid-template-columns: minmax(16rem, 1fr) minmax(12rem, 0.72fr) minmax(9rem, auto);
   gap: clamp(1.6rem, 4vw, 3.25rem);
@@ -3666,7 +3534,7 @@ p,
 .copy-toast {
   position: fixed;
   right: max(18px, env(safe-area-inset-right));
-  bottom: calc(58px + env(safe-area-inset-bottom));
+  bottom: calc(18px + env(safe-area-inset-bottom));
   z-index: 90;
   max-width: min(22rem, calc(100vw - 36px));
   margin: 0;
@@ -3765,10 +3633,9 @@ p,
   text-align: center;
 }
 
-.contact-card .qr-fallback {
-  width: min(68vw, 250px);
+.contact-card .wechat-qr {
+  width: min(72vw, 280px);
   height: auto;
-  aspect-ratio: 1;
   border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
   background: #ffffff;
 }
@@ -4025,50 +3892,7 @@ p,
   background: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
-.bottom-nav,
-:root:not([data-theme="dark"]) .bottom-nav {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 70;
-  display: flex;
-  gap: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: calc(48px + env(safe-area-inset-bottom));
-  margin: 0;
-  padding: 0 var(--edge) env(safe-area-inset-bottom);
-  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-  background: #ffffff;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-.bottom-nav a {
-  flex: 0 1 8.5rem;
-  min-height: 48px;
-  padding: 0 0.7rem;
-  color: var(--ink-soft);
-  background: transparent;
-  font-size: 0.76rem;
-  font-weight: 780;
-  text-decoration: none;
-}
-
-.bottom-nav a:hover,
-.bottom-nav a:focus-visible {
-  color: var(--ink);
-  background: transparent;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.34em;
-  transform: none;
-}
-
-.site-nav a[aria-current="true"],
-.bottom-nav a[aria-current="true"] {
+.site-nav a[aria-current="true"] {
   color: var(--ink);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -4076,7 +3900,6 @@ p,
 }
 
 :root[data-theme="dark"] .site-header,
-:root[data-theme="dark"] .bottom-nav,
 :root[data-theme="dark"] .site-footer {
   border-color: color-mix(in srgb, var(--ink) 14%, transparent);
   background: var(--paper);
@@ -4084,7 +3907,6 @@ p,
 }
 
 :root[data-theme="dark"] .site-nav a,
-:root[data-theme="dark"] .bottom-nav a,
 :root[data-theme="dark"] .project-source,
 :root[data-theme="dark"] .skill-actions a {
   color: var(--ink-soft);
@@ -4093,8 +3915,6 @@ p,
 
 :root[data-theme="dark"] .site-nav a:hover,
 :root[data-theme="dark"] .site-nav a:focus-visible,
-:root[data-theme="dark"] .bottom-nav a:hover,
-:root[data-theme="dark"] .bottom-nav a:focus-visible,
 :root[data-theme="dark"] .project-source:hover,
 :root[data-theme="dark"] .project-source:focus-visible,
 :root[data-theme="dark"] .skill-actions a:hover,
@@ -4103,7 +3923,7 @@ p,
   background: transparent;
 }
 
-:root[data-theme="dark"] .contact-card .qr-fallback,
+:root[data-theme="dark"] .contact-card .wechat-qr,
 :root[data-theme="dark"] .project-card,
 :root[data-theme="dark"] .skill-card,
 :root[data-theme="dark"] .project-tags span,
