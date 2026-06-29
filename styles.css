@@ -5638,3 +5638,157 @@ body {
     justify-self: center;
   }
 }
+
+/* True EOF center-flow lock: main content only, excluding navigation and footer. */
+main > .community-section,
+main > .contact-section,
+main > .projects-section,
+main > .skills-section {
+  display: grid !important;
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+main .community-intro,
+main .community-copy,
+main .contact-card,
+main .section-head,
+main .section-head > div,
+main .archive-main,
+main .project-grid,
+main .skills-grid {
+  width: min(100%, 720px) !important;
+  margin-inline: auto !important;
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+main .community-intro,
+main .community-copy,
+main .section-head,
+main .project-card,
+main .skill-card,
+main .project-card-top {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+main .project-card,
+main .skill-card {
+  grid-template-areas:
+    "icon"
+    "label"
+    "body"
+    "meta"
+    "action" !important;
+  justify-items: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+main .project-card-top {
+  display: flex !important;
+  flex-direction: column !important;
+  grid-area: label !important;
+  gap: 0.65rem !important;
+  align-items: center !important;
+  justify-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+main .project-card-top .app-icon {
+  grid-area: auto !important;
+}
+
+main .project-copy {
+  grid-area: body !important;
+}
+
+main .project-footer,
+main .skill-footer {
+  grid-area: action !important;
+}
+
+main .skill-app-icon,
+main .skill-card > .app-icon {
+  grid-area: icon !important;
+}
+
+main .skill-index {
+  grid-area: label !important;
+  display: grid !important;
+  gap: 0.35rem !important;
+}
+
+main .skill-heading {
+  grid-area: body !important;
+}
+
+main .skill-facts {
+  grid-area: meta !important;
+}
+
+main .community-intro .eyebrow,
+main .community-intro h2,
+main .community-intro p:not(.eyebrow),
+main .section-head > *,
+main .compact-head > *,
+main .skills-section .section-head > *,
+main .repo-status,
+main .plan-board,
+main .community-side,
+main .community-qr {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  justify-self: center !important;
+  margin-inline: auto !important;
+}
+
+main .community-intro p:not(.eyebrow),
+main .section-head > p,
+main .contact-card .contact-copy p,
+main .contact-note,
+main .project-summary,
+main .skill-heading span {
+  max-width: 38rem !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+main .project-title,
+main .project-copy,
+main .project-footer,
+main .skill-index,
+main .skill-heading,
+main .skill-facts,
+main .skill-footer,
+main .skill-actions {
+  justify-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+main .project-card:hover .project-intent,
+main .project-card:hover .project-summary,
+main .skill-card:hover h3,
+main .skill-card:hover .skill-heading span {
+  transform: translateY(-1px) !important;
+}
+
+@media (max-width: 760px) {
+  main .community-intro,
+  main .community-copy,
+  main .contact-card,
+  main .section-head,
+  main .archive-main,
+  main .project-grid,
+  main .skills-grid {
+    width: min(100%, 34rem) !important;
+  }
+
+  main .project-footer,
+  main .skill-actions {
+    flex-wrap: nowrap !important;
+    width: auto !important;
+  }
+}
