@@ -3138,8 +3138,17 @@ h3 {
   position: relative;
 }
 
+.projects-section::before {
+  position: absolute;
+  top: 0;
+  right: max(var(--edge), calc((100vw - 820px) / 2));
+  left: max(var(--edge), calc((100vw - 820px) / 2));
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  content: "";
+}
+
 .community-section::after,
-.contact-section::after,
 .projects-section::after,
 .skills-section::after {
   position: absolute;
@@ -3885,7 +3894,7 @@ p,
 }
 
 .community-section::after,
-.contact-section::after,
+.projects-section::before,
 .projects-section::after,
 .skills-section::after {
   height: 1px;
@@ -3979,7 +3988,7 @@ p,
 }
 
 :root[data-theme="dark"] .community-section::after,
-:root[data-theme="dark"] .contact-section::after,
+:root[data-theme="dark"] .projects-section::before,
 :root[data-theme="dark"] .projects-section::after,
 :root[data-theme="dark"] .skills-section::after {
   background: color-mix(in srgb, var(--ink) 14%, transparent);
