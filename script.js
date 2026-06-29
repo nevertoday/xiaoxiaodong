@@ -35,6 +35,29 @@ const projectPalette = [
   { name: "纸白", color: "#F7F7F4" },
 ];
 
+const footerColorPalette = [
+  { name: "乳白", hex: "#F9F4DC" },
+  { name: "杏仁黄", hex: "#F7E8AA" },
+  { name: "油菜花黄", hex: "#FBDA41" },
+  { name: "桂黄", hex: "#F8C387" },
+  { name: "朱砂", hex: "#FF461F" },
+  { name: "胭脂", hex: "#9D2933" },
+  { name: "海棠红", hex: "#F03752" },
+  { name: "酡颜", hex: "#F9906F" },
+  { name: "竹青", hex: "#789262" },
+  { name: "青葱", hex: "#0AA344" },
+  { name: "松花绿", hex: "#BCE672" },
+  { name: "湖蓝", hex: "#30DFF3" },
+  { name: "天青", hex: "#C3D7DF" },
+  { name: "群青", hex: "#177CB0" },
+  { name: "靛蓝", hex: "#065279" },
+  { name: "雪青", hex: "#B0A4E3" },
+  { name: "青莲", hex: "#801DAE" },
+  { name: "乌金", hex: "#A78E44" },
+  { name: "苍黄", hex: "#806332" },
+  { name: "藕荷", hex: "#E4C6D0" },
+];
+
 const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
@@ -384,6 +407,58 @@ function setStatus(message, type = "default") {
   status.dataset.type = type;
 }
 
+function randomItems(items, count) {
+  const pool = [...items];
+  for (let index = pool.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [pool[index], pool[swapIndex]] = [pool[swapIndex], pool[index]];
+  }
+  return pool.slice(0, count);
+}
+
+async function copyText(value) {
+  if (!value) return false;
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function buildFooterSpectrum() {
+  const buttons = [...document.querySelectorAll("[data-footer-color]")];
+  if (!buttons.length) return;
+
+  const colors = randomItems(footerColorPalette, buttons.length);
+  buttons.forEach((button, index) => {
+    const color = colors[index % colors.length];
+    const copyValue = `${color.name} ${color.hex}`;
+    button.style.setProperty("--spectrum-color", color.hex);
+    button.style.setProperty("--spectrum-index", String((index % 9) + 1));
+    button.dataset.footerCopyValue = copyValue;
+    button.title = `复制 ${copyValue}`;
+    button.setAttribute("aria-label", `复制 ${color.name} 色值 ${color.hex}`);
+  });
+}
+
+function initFooterSpectrum() {
+  buildFooterSpectrum();
+  document.addEventListener("click", async (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const button = target?.closest("[data-footer-color]");
+    if (!button) return;
+
+    const copied = await copyText(button.dataset.footerCopyValue);
+    if (!copied) return;
+
+    button.dataset.copied = "true";
+    window.setTimeout(() => {
+      if (button.dataset.copied === "true") delete button.dataset.copied;
+    }, 900);
+  });
+}
+
 function createSkillCard(skill, index) {
   const glyph = escapeHtml(skill.label.slice(0, 1));
   return `
@@ -626,6 +701,7 @@ function initMotion() {
 function initPage() {
   initTheme();
   initMotion();
+  initFooterSpectrum();
   renderSkills();
   initSkillModal();
   loadSnapshotRepos();
