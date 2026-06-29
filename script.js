@@ -65,85 +65,85 @@ const footerColorPalette = [
 const projectProfiles = {
   "chinese-traditional-colors": {
     kind: "色卡资料库",
-    title: "传统色，直接查。",
-    summary: "做海报、配色、内容图时少试错。",
+    title: "传统色，直接查",
+    summary: "做海报、配色、内容图时少试错",
     format: "开源网页",
-    intent: "查传统色。",
+    intent: "查传统色",
     colorName: "墨黑",
     color: "#111111",
   },
   "zhongguo-traditional-colors": {
     kind: "色卡资料库",
-    title: "传统色，直接查。",
-    summary: "做海报、配色、内容图时少试错。",
+    title: "传统色，直接查",
+    summary: "做海报、配色、内容图时少试错",
     format: "开源网页",
-    intent: "查传统色。",
+    intent: "查传统色",
     colorName: "墨黑",
     color: "#111111",
   },
   nevertoday: {
     kind: "个人主页",
     format: "主页",
-    intent: "个人入口。",
+    intent: "个人入口",
     colorName: "铁灰",
     color: "#3F3F3C",
   },
   xposter: {
     kind: "发布插件",
-    title: "Markdown 直接发布到 X。",
-    summary: "少复制、少改格式。",
+    title: "Markdown 直接发布到 X",
+    summary: "少复制、少改格式",
     format: "Chrome MV3",
-    intent: "把 Markdown 发到 X。",
+    intent: "把 Markdown 发到 X",
     colorName: "墨黑",
     color: "#111111",
   },
   "100-layout-compositions": {
     kind: "构图参考",
-    title: "100 种版式参考。",
-    summary: "先定结构，再做画面。",
+    title: "100 种版式参考",
+    summary: "先定结构，再做画面",
     format: "视觉资料",
-    intent: "看构图。",
+    intent: "看构图",
     colorName: "中灰",
     color: "#777771",
   },
   "chrome-store-submission": {
     kind: "开源 Skill",
-    title: "Chrome 上架资料生成。",
-    summary: "权限说明、隐私披露、商店文案一次整理。",
+    title: "Chrome 上架资料生成",
+    summary: "权限说明、隐私披露、商店文案一次整理",
     format: "提交流程",
-    intent: "准备 Chrome 上架材料。",
+    intent: "准备 Chrome 上架材料",
     colorName: "铁灰",
     color: "#3F3F3C",
   },
   "tampermonkey-scripts": {
     kind: "油猴脚本集",
-    title: "批量收集图片素材。",
-    summary: "勾选、导出、下载、打包。",
+    title: "批量收集图片素材",
+    summary: "勾选、导出、下载、打包",
     format: "Tampermonkey",
-    intent: "批量下载图片。",
+    intent: "批量下载图片",
     colorName: "墨黑",
     color: "#111111",
   },
   image: {
     kind: "图片实验",
-    title: "图片实验素材。",
-    summary: "生成、整理、批处理。",
+    title: "图片实验素材",
+    summary: "生成、整理、批处理",
     format: "脚本仓库",
-    intent: "做图片实验。",
+    intent: "做图片实验",
     colorName: "石灰",
     color: "#9A9A94",
   },
   bootstrap: {
     kind: "早期实验",
     format: "前端存档",
-    intent: "早期前端练习。",
+    intent: "早期前端练习",
     colorName: "线灰",
     color: "#B8B8B2",
   },
   "phpcms-zhongnanlinye": {
     kind: "旧站存档",
     format: "PHP 项目",
-    intent: "早期网站源码。",
+    intent: "早期网站源码",
     colorName: "中灰",
     color: "#777771",
   },
@@ -164,17 +164,17 @@ const openSkills = [
   {
     name: "xxd-article-poster",
     label: "文章海报",
-    title: "长文转海报卡片。",
-    summary: "先提炼重点，再生成可发版本。",
+    title: "长文转海报卡片",
+    summary: "先提炼重点，再生成可发版本",
     trigger: "$xxd-article-poster",
-    scene: "长文转海报。",
+    scene: "长文转海报",
     output: "海报 / 卡片",
     source: "skills/xxd-article-poster/SKILL.md",
     url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-article-poster",
     icon: "assets/icons/article-poster.svg",
     colorName: "墨黑",
     color: "#111111",
-    pain: "长文直接发，没人看完。",
+    pain: "长文直接发，没人看完",
     highlights: ["提炼传播重点", "整理标题和层级", "输出社媒卡片首版"],
     usage: ["准备一篇文章或笔记", "调用 $xxd-article-poster", "让 Agent 先提炼重点，再生成可发布的海报卡片方案"],
     tips: ["先给目标读者", "先出 3 个标题方向", "长文先摘核心段落"],
@@ -182,17 +182,17 @@ const openSkills = [
   {
     name: "chrome-store-submission",
     label: "插件上架",
-    title: "Chrome 插件上架资料。",
-    summary: "减少权限说明和隐私披露返工。",
+    title: "Chrome 插件上架资料",
+    summary: "减少权限说明和隐私披露返工",
     trigger: "$chrome-store-submission",
-    scene: "Chrome 插件上架。",
+    scene: "Chrome 插件上架",
     output: "文案 / 权限说明",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/chrome-store-submission",
     icon: "assets/icons/chrome-submission.svg",
     colorName: "铁灰",
     color: "#3F3F3C",
-    pain: "插件能跑，不代表能过审。",
+    pain: "插件能跑，不代表能过审",
     highlights: ["整理商店资料", "生成权限说明", "补齐隐私披露"],
     usage: ["把插件仓库交给 Agent 分析", "运行 chrome-store-submission Skill", "按输出清单补齐商店文案、权限解释和隐私说明"],
     tips: ["上架前先确认 manifest 权限是否真的必要", "权限说明要写用户收益，不要只复述 API 名称", "隐私披露要和代码行为一致"],
@@ -210,6 +210,14 @@ function escapeHtml(value) {
     };
     return entities[char];
   });
+}
+
+function stripEndingPunctuation(value) {
+  return String(value ?? "").replace(/[。！？!?；;：:，,、.。…\s]+$/u, "");
+}
+
+function escapeCopy(value) {
+  return escapeHtml(stripEndingPunctuation(value));
 }
 
 function formatDate(value) {
@@ -235,9 +243,9 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "浏览器插件",
       title: "做一个浏览器里的实用工具",
-      summary: repo.description || "把高频操作搬进浏览器，减少重复步骤。",
+      summary: repo.description || "把高频操作搬进浏览器，减少重复步骤",
       format: "Chrome 工具",
-      intent: "做浏览器工具。",
+      intent: "做浏览器工具",
       colorName: "墨黑",
       color: "#111111",
     };
@@ -247,9 +255,9 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "开源 Skill",
       title: "把一段工作流交给 Agent 执行",
-      summary: repo.description || "把常见任务拆成可复用步骤，让 Agent 按流程稳定产出。",
+      summary: repo.description || "把常见任务拆成可复用步骤，让 Agent 按流程稳定产出",
       format: "工作流模块",
-      intent: "复用工作流。",
+      intent: "复用工作流",
       colorName: "铁灰",
       color: "#3F3F3C",
     };
@@ -259,9 +267,9 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "视觉资料",
       title: "整理可复用的视觉参考",
-      summary: repo.description || "把颜色、图片或版式资料沉淀成可直接查阅的素材。",
+      summary: repo.description || "把颜色、图片或版式资料沉淀成可直接查阅的素材",
       format: "素材仓库",
-      intent: "做视觉参考。",
+      intent: "做视觉参考",
       colorName: palette.name,
       color: palette.color,
     };
@@ -271,9 +279,9 @@ function inferProjectProfile(repo, index) {
     return {
       kind: "网页入口",
       title: "打开就能使用的静态网页",
-      summary: repo.description || "轻量网页入口，适合快速查看内容或演示结果。",
+      summary: repo.description || "轻量网页入口，适合快速查看内容或演示结果",
       format: "静态页面",
-      intent: "打开就能看。",
+      intent: "打开就能看",
       colorName: palette.name,
       color: palette.color,
     };
@@ -282,9 +290,9 @@ function inferProjectProfile(repo, index) {
   return {
     kind: "开源项目",
     title: repo.description || "公开一个可复用的代码项目",
-    summary: repo.language ? `${repo.language} 公开项目。` : "可查看、可复用。",
+    summary: repo.language ? `${repo.language} 公开项目` : "可查看、可复用",
     format: repo.language || "代码仓库",
-    intent: "公开代码。",
+    intent: "公开代码",
     colorName: palette.name,
     color: palette.color,
   };
@@ -430,7 +438,7 @@ function initMobileNav() {
 function setStatus(message, type = "default") {
   const status = document.querySelector("[data-repo-status]");
   if (!status) return;
-  status.textContent = message;
+  status.textContent = stripEndingPunctuation(message);
   status.dataset.type = type;
 }
 
@@ -555,21 +563,21 @@ function createSkillCard(skill, index) {
     <article class="skill-card" style="--card-delay: ${80 + index * 52}ms">
       <img class="app-icon skill-app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div class="skill-index">
-        <b>${escapeHtml(skill.label)}</b>
-        <span>${escapeHtml(skill.output)}</span>
+        <b>${escapeCopy(skill.label)}</b>
+        <span>${escapeCopy(skill.output)}</span>
       </div>
       <div class="skill-heading">
-        <h3>${escapeHtml(skill.title)}</h3>
-        <span>${escapeHtml(skill.summary)}</span>
+        <h3>${escapeCopy(skill.title)}</h3>
+        <span>${escapeCopy(skill.summary)}</span>
       </div>
       <div class="skill-facts">
         <div>
           <dt>适合</dt>
-          <dd>${escapeHtml(skill.scene)}</dd>
+          <dd>${escapeCopy(skill.scene)}</dd>
         </div>
         <div>
           <dt>调用</dt>
-          <dd>${escapeHtml(skill.trigger)}</dd>
+          <dd>${escapeCopy(skill.trigger)}</dd>
         </div>
       </div>
       <div class="skill-footer">
@@ -583,20 +591,20 @@ function createSkillCard(skill, index) {
 }
 
 function createListMarkup(items) {
-  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  return items.map((item) => `<li>${escapeCopy(item)}</li>`).join("");
 }
 
 function createSkillDetailMarkup(skill) {
   return `
     <div class="skill-modal-heading">
-      <p class="eyebrow">${escapeHtml(skill.label)}</p>
-      <h3 id="skill-modal-title">${escapeHtml(skill.title)}</h3>
-      <p>${escapeHtml(skill.summary)}</p>
+      <p class="eyebrow">${escapeCopy(skill.label)}</p>
+      <h3 id="skill-modal-title">${escapeCopy(skill.title)}</h3>
+      <p>${escapeCopy(skill.summary)}</p>
     </div>
     <div class="skill-modal-grid">
       <section>
         <h4>解决的痛点</h4>
-        <p>${escapeHtml(skill.pain)}</p>
+        <p>${escapeCopy(skill.pain)}</p>
       </section>
       <section>
         <h4>详细亮点</h4>
@@ -614,7 +622,7 @@ function createSkillDetailMarkup(skill) {
     <dl class="skill-modal-links">
       <div>
         <dt>触发方式</dt>
-        <dd>${escapeHtml(skill.trigger)}</dd>
+        <dd>${escapeCopy(skill.trigger)}</dd>
       </div>
       <div>
         <dt>相关地址</dt>
@@ -684,15 +692,15 @@ function initSkillModal() {
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, topics, homepage } = view;
   const safeName = escapeHtml(repo.name);
-  const projectTitle = escapeHtml(profile.title || profile.intent || repo.description || repo.name);
-  const projectSummary = escapeHtml(profile.summary || repo.description || profile.format || "公开代码项目。");
+  const projectTitle = escapeCopy(profile.title || profile.intent || repo.description || repo.name);
+  const projectSummary = escapeCopy(profile.summary || repo.description || profile.format || "公开代码项目");
   const htmlUrl = escapeHtml(repo.html_url);
   const action = getProjectAction(view);
   const actionUrl = escapeHtml(action.url);
   const actionLabel = escapeHtml(action.label);
   const icon = escapeHtml(getProjectIcon(repo));
   const topicMarkup = topics.length
-    ? topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")
+    ? topics.map((topic) => `<span>${escapeCopy(topic)}</span>`).join("")
     : "";
 
   return `
@@ -700,7 +708,7 @@ function createProjectCard(view, visibleIndex) {
       <div class="project-card-top">
         <img class="app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="project-title">
-          <p>${escapeHtml(profile.kind)}</p>
+          <p>${escapeCopy(profile.kind)}</p>
           <span>${safeName}</span>
         </div>
       </div>
@@ -709,9 +717,9 @@ function createProjectCard(view, visibleIndex) {
         <p class="project-summary">${projectSummary}</p>
       </div>
       <div class="project-tags">
-        <span>${escapeHtml(profile.kind)}</span>
-        <span>${escapeHtml(profile.format)}</span>
-        ${repo.language ? `<span>${escapeHtml(repo.language)}</span>` : ""}
+        <span>${escapeCopy(profile.kind)}</span>
+        <span>${escapeCopy(profile.format)}</span>
+        ${repo.language ? `<span>${escapeCopy(repo.language)}</span>` : ""}
         ${topicMarkup}
       </div>
       <div class="project-footer">
@@ -755,7 +763,7 @@ async function loadSnapshotRepos() {
     updateRepos(await response.json());
   } catch {
     updateRepos(fallbackRepos);
-    setStatus("显示本地项目。", "warning");
+    setStatus("显示本地项目", "warning");
   }
 }
 
@@ -775,7 +783,7 @@ async function refreshReposFromGithub() {
       setStatus(`${state.repos.length} 个可用项目`, "ready");
     } else {
       updateRepos(fallbackRepos);
-      setStatus("GitHub 暂时不可用。", "warning");
+      setStatus("GitHub 暂时不可用", "warning");
     }
   }
 }
