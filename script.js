@@ -404,6 +404,48 @@ function initTheme() {
   });
 }
 
+function setMobileNavOpen(open) {
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector("[data-menu-toggle]");
+  if (!header || !toggle) return;
+
+  header.dataset.navOpen = open ? "true" : "false";
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.setAttribute("aria-label", open ? "关闭导航菜单" : "打开导航菜单");
+}
+
+function initMobileNav() {
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const nav = document.querySelector("#primary-nav");
+  if (!toggle || !nav) return;
+
+  setMobileNavOpen(false);
+
+  toggle.addEventListener("click", () => {
+    setMobileNavOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  nav.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest('a[href^="#"]')) {
+      setMobileNavOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setMobileNavOpen(false);
+  });
+
+  const desktopQuery = window.matchMedia("(min-width: 761px)");
+  const closeOnDesktop = (event) => {
+    if (event.matches) setMobileNavOpen(false);
+  };
+  if (desktopQuery.addEventListener) {
+    desktopQuery.addEventListener("change", closeOnDesktop);
+  } else {
+    desktopQuery.addListener(closeOnDesktop);
+  }
+}
+
 function setStatus(message, type = "default") {
   const status = document.querySelector("[data-repo-status]");
   if (!status) return;
@@ -767,6 +809,7 @@ function initMotion() {
 
 function initPage() {
   initTheme();
+  initMobileNav();
   initMotion();
   initFooterSpectrum();
   initSectionNav();
