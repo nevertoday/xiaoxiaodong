@@ -149,17 +149,13 @@ const projectProfiles = {
   },
 };
 
-const projectGlyphs = {
-  "chinese-traditional-colors": "色",
-  "zhongguo-traditional-colors": "色",
-  nevertoday: "我",
-  xposter: "X",
-  "100-layout-compositions": "版",
-  "chrome-store-submission": "上",
-  "tampermonkey-scripts": "油",
-  image: "图",
-  bootstrap: "B",
-  "phpcms-zhongnanlinye": "站",
+const projectIcons = {
+  "chinese-traditional-colors": "assets/icons/traditional-colors.svg",
+  "zhongguo-traditional-colors": "assets/icons/traditional-colors.svg",
+  "tampermonkey-scripts": "assets/icons/tampermonkey-scripts.svg",
+  xposter: "assets/icons/xposter.svg",
+  "100-layout-compositions": "assets/icons/layout-compositions.svg",
+  "chrome-store-submission": "assets/icons/chrome-submission.svg",
 };
 
 const hiddenProjectNames = new Set(["xiaoxiaodong", "nevertoday", "image", "bootstrap", "phpcms-zhongnanlinye"]);
@@ -175,6 +171,7 @@ const openSkills = [
     output: "海报 / 卡片",
     source: "skills/xxd-article-poster/SKILL.md",
     url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-article-poster",
+    icon: "assets/icons/article-poster.svg",
     colorName: "墨黑",
     color: "#111111",
     pain: "长文直接发，没人看完。",
@@ -192,6 +189,7 @@ const openSkills = [
     output: "文案 / 权限说明",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/chrome-store-submission",
+    icon: "assets/icons/chrome-submission.svg",
     colorName: "铁灰",
     color: "#3F3F3C",
     pain: "插件能跑，不代表能过审。",
@@ -209,6 +207,7 @@ const openSkills = [
     output: "Skill zip",
     source: "独立开源仓库",
     url: "https://github.com/nevertoday/claude_skill_vibe-writing",
+    icon: "assets/icons/writing-flow.svg",
     colorName: "中灰",
     color: "#777771",
     pain: "一句提示词写作，不稳定。",
@@ -320,8 +319,8 @@ function getRepoView(repo, index) {
   };
 }
 
-function getProjectGlyph(repo) {
-  return projectGlyphs[repo.name] || repo.name.slice(0, 1).toUpperCase();
+function getProjectIcon(repo) {
+  return projectIcons[repo.name] || "assets/icons/project-default.svg";
 }
 
 function getProjectAction(view) {
@@ -569,10 +568,10 @@ function initSectionNav() {
 }
 
 function createSkillCard(skill, index) {
-  const glyph = escapeHtml(skill.label.slice(0, 1));
+  const icon = escapeHtml(skill.icon || "assets/icons/project-default.svg");
   return `
     <article class="skill-card" style="--card-delay: ${80 + index * 52}ms">
-      <div class="app-icon skill-app-icon" aria-hidden="true">${glyph}</div>
+      <img class="app-icon skill-app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div class="skill-index">
         <b>${escapeHtml(skill.label)}</b>
         <span>${escapeHtml(skill.output)}</span>
@@ -709,7 +708,7 @@ function createProjectCard(view, visibleIndex) {
   const action = getProjectAction(view);
   const actionUrl = escapeHtml(action.url);
   const actionLabel = escapeHtml(action.label);
-  const glyph = escapeHtml(getProjectGlyph(repo));
+  const icon = escapeHtml(getProjectIcon(repo));
   const topicMarkup = topics.length
     ? topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")
     : "";
@@ -717,7 +716,7 @@ function createProjectCard(view, visibleIndex) {
   return `
     <article class="project-card" style="--card-delay: ${90 + visibleIndex * 48}ms">
       <div class="project-card-top">
-        <div class="app-icon" aria-hidden="true">${glyph}</div>
+        <img class="app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="project-title">
           <p>${escapeHtml(profile.kind)}</p>
           <span>${safeName}</span>

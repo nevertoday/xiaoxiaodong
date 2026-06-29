@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="脚本集">
+  <rect width="64" height="64" rx="14" fill="#fff"/>
+  <rect x="14" y="15" width="36" height="30" rx="5" fill="#e8f2ff" stroke="#111" stroke-width="2"/>
+  <path d="M20 24h14M20 31h22M20 38h12" stroke="#177cb0" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 34v13m0 0 5-5m-5 5-5-5" stroke="#0aa344" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

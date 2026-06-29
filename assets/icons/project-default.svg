@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="开源项目">
+  <rect width="64" height="64" rx="14" fill="#fff"/>
+  <rect x="15" y="17" width="34" height="30" rx="5" fill="#e4c6d0" stroke="#111" stroke-width="2"/>
+  <path d="m27 27-6 5 6 5M37 27l6 5-6 5M34 24l-4 16" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

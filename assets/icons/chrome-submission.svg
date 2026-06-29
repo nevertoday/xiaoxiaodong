@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Chrome 上架">
+  <rect width="64" height="64" rx="14" fill="#fff"/>
+  <circle cx="32" cy="32" r="19" fill="#fff" stroke="#111" stroke-width="2"/>
+  <path d="M32 13a19 19 0 0 1 16.5 9.5H32z" fill="#ff461f"/>
+  <path d="M48.5 22.5A19 19 0 0 1 32 51l8.2-14.2z" fill="#0aa344"/>
+  <path d="M32 51A19 19 0 0 1 15.5 22.5h16.4l8.3 14.3z" fill="#fbda41"/>
+  <circle cx="32" cy="32" r="8" fill="#177cb0" stroke="#111" stroke-width="2"/>
+  <path d="M32 42V24m0 0-5 5m5-5 5 5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
