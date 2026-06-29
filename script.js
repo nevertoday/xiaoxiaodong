@@ -28,6 +28,7 @@ const themeColors = {
 
 const FOOTER_COLOR_SELECTOR = "[data-footer-color]";
 const FOOTER_COPIED_MS = 900;
+const COPY_TOAST_MS = 1200;
 
 const projectPalette = [
   { name: "墨黑", color: "#111111" },
@@ -326,13 +327,13 @@ function getProjectGlyph(repo) {
 function getProjectAction(view) {
   if (view.homepage) {
     return {
-      label: "打开",
+      label: "打开网页",
       url: view.homepage,
     };
   }
 
   return {
-    label: "源码",
+    label: "看源码",
     url: view.repo.html_url,
   };
 }
@@ -461,6 +462,18 @@ function markFooterButtonCopied(button) {
   }, FOOTER_COPIED_MS);
 }
 
+function showCopyToast(message) {
+  const toast = document.querySelector("[data-copy-toast]");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.hidden = false;
+  window.clearTimeout(showCopyToast.timeoutId);
+  showCopyToast.timeoutId = window.setTimeout(() => {
+    toast.hidden = true;
+  }, COPY_TOAST_MS);
+}
+
 function initFooterSpectrum() {
   buildFooterSpectrum();
   document.addEventListener("click", async (event) => {
@@ -469,10 +482,48 @@ function initFooterSpectrum() {
     if (!button) return;
 
     const copied = await copyText(button.dataset.footerCopyValue);
-    if (!copied) return;
+    if (!copied) {
+      showCopyToast("浏览器未允许复制");
+      return;
+    }
 
     markFooterButtonCopied(button);
+    showCopyToast(`已复制 ${button.dataset.footerCopyValue}`);
   });
+}
+
+function setActiveSection(sectionId) {
+  if (!sectionId) return;
+
+  document.querySelectorAll('.site-nav a[href^="#"], .bottom-nav a[href^="#"]').forEach((link) => {
+    const isActive = link.getAttribute("href") === `#${sectionId}`;
+    if (isActive) {
+      link.setAttribute("aria-current", "true");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+function initSectionNav() {
+  const sections = [...document.querySelectorAll("main > section[id]")];
+  if (!sections.length) return;
+
+  setActiveSection(sections[0].id);
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
+    if (visible?.target?.id) setActiveSection(visible.target.id);
+  }, {
+    rootMargin: "-32% 0px -52% 0px",
+    threshold: [0.08, 0.18, 0.32],
+  });
+
+  sections.forEach((section) => observer.observe(section));
 }
 
 function createSkillCard(skill, index) {
@@ -642,7 +693,7 @@ function createProjectCard(view, visibleIndex) {
       </div>
       <div class="project-footer">
         <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
-        ${homepage ? `<a class="project-source" href="${htmlUrl}" target="_blank" rel="noopener noreferrer">源码</a>` : ""}
+        ${homepage ? `<a class="project-source" href="${htmlUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>` : ""}
       </div>
     </article>
   `;
@@ -718,6 +769,7 @@ function initPage() {
   initTheme();
   initMotion();
   initFooterSpectrum();
+  initSectionNav();
   renderSkills();
   initSkillModal();
   loadSnapshotRepos();

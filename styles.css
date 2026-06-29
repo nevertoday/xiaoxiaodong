@@ -3663,6 +3663,26 @@ p,
   outline-offset: -2px;
 }
 
+.copy-toast {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: calc(58px + env(safe-area-inset-bottom));
+  z-index: 90;
+  max-width: min(22rem, calc(100vw - 36px));
+  margin: 0;
+  padding: 0.54rem 0.72rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  color: var(--paper);
+  background: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 820;
+  line-height: 1.35;
+}
+
+.copy-toast[hidden] {
+  display: none;
+}
+
 .footer-meta {
   display: grid;
   gap: 0.45rem;
@@ -4047,6 +4067,14 @@ p,
   transform: none;
 }
 
+.site-nav a[aria-current="true"],
+.bottom-nav a[aria-current="true"] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.34em;
+}
+
 :root[data-theme="dark"] .site-header,
 :root[data-theme="dark"] .bottom-nav,
 :root[data-theme="dark"] .site-footer {
@@ -4120,6 +4148,12 @@ p,
 :root[data-theme="dark"] .skill-actions button:hover,
 :root[data-theme="dark"] .skill-actions button:focus-visible {
   border: 1px solid var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+}
+
+:root[data-theme="dark"] .copy-toast {
+  border-color: color-mix(in srgb, var(--ink) 20%, transparent);
   color: var(--paper);
   background: var(--ink);
 }
