@@ -3953,11 +3953,29 @@ p,
 
 .project-tags {
   justify-content: center;
+  gap: 0.42rem;
 }
 
 .project-tags span {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  min-width: 0;
+  max-width: min(100%, 10.5rem);
+  min-height: 30px;
+  padding: 0 0.72rem;
   text-align: center;
+  color: var(--ink-soft);
+  background: #ffffff;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .project-footer {
