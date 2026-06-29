@@ -337,7 +337,7 @@ main {
 
 .menu-toggle {
   display: none;
-  gap: 4px;
+  gap: 3.5px;
   flex-direction: column;
 }
 
@@ -352,11 +352,15 @@ main {
 }
 
 .site-header[data-nav-open="true"] .menu-toggle span:first-child {
-  transform: translateY(2.75px) rotate(45deg);
+  transform: translateY(5px) rotate(45deg);
+}
+
+.site-header[data-nav-open="true"] .menu-toggle span:nth-child(2) {
+  opacity: 0;
 }
 
 .site-header[data-nav-open="true"] .menu-toggle span:last-child {
-  transform: translateY(-2.75px) rotate(-45deg);
+  transform: translateY(-5px) rotate(-45deg);
 }
 
 .nav-icon-link svg,
@@ -3664,8 +3668,11 @@ p,
 }
 
 .contact-card .wechat-qr {
+  display: block;
+  justify-self: center;
   width: min(72vw, 280px);
   height: auto;
+  margin-inline: auto;
   border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
   background: #ffffff;
 }
