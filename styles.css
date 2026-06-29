@@ -692,27 +692,18 @@ h3 {
 }
 
 .app-icon {
-  display: grid;
+  display: block;
   width: 46px;
   height: 46px;
   flex: 0 0 auto;
-  place-items: center;
   border: 1px solid color-mix(in srgb, var(--project-tone) 38%, var(--line-strong));
-  color: color-mix(in srgb, var(--project-tone) 44%, var(--ink));
-  background: color-mix(in srgb, var(--surface) 88%, var(--paper));
-  font-family: var(--font-title);
-  font-size: 1.18rem;
-  font-weight: 900;
-  line-height: 1;
+  background: #ffffff;
+  object-fit: cover;
   transition:
-    background 220ms var(--ease),
-    color 220ms var(--ease),
     transform 220ms var(--ease);
 }
 
 .project-card:hover .app-icon {
-  color: var(--paper);
-  background: var(--ink);
   transform: translate3d(0, -2px, 0) scale(1.04);
 }
 
@@ -1885,8 +1876,6 @@ h3 {
 
 :root:not([data-theme="dark"]) .brand-logo,
 :root:not([data-theme="dark"]) .skip-link,
-:root:not([data-theme="dark"]) .app-icon,
-:root:not([data-theme="dark"]) .project-card:hover .app-icon,
 :root:not([data-theme="dark"]) .project-get:hover,
 :root:not([data-theme="dark"]) .project-get:focus-visible,
 :root:not([data-theme="dark"]) .community-primary,
@@ -2806,7 +2795,7 @@ h3 {
 }
 
 .app-icon {
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 .project-card:hover,
@@ -3246,17 +3235,14 @@ h3 {
   grid-area: icon;
   width: 46px;
   height: 46px;
-  border: 0;
-  color: #ffffff;
-  background: #111111;
-  font-size: 1.08rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: #ffffff;
+  object-fit: cover;
   transform: none;
 }
 
 .project-card:hover .app-icon,
 .skill-card:hover .app-icon {
-  color: #ffffff;
-  background: #111111;
   transform: none;
 }
 
@@ -3391,8 +3377,8 @@ h3 {
 :root:not([data-theme="dark"]) .skill-card .app-icon,
 :root:not([data-theme="dark"]) .project-card:hover .app-icon,
 :root:not([data-theme="dark"]) .skill-card:hover .app-icon {
-  color: #ffffff;
-  background: #111111;
+  border-color: color-mix(in srgb, var(--ink) 10%, transparent);
+  background: #ffffff;
 }
 
 :root:not([data-theme="dark"]) .project-card .project-get,
@@ -3751,10 +3737,9 @@ p,
   grid-area: icon;
   width: 46px;
   height: 46px;
-  border: 0;
-  background: #111111;
-  color: #ffffff;
-  font-size: 1rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: #ffffff;
+  object-fit: cover;
 }
 
 .project-title,
@@ -4094,8 +4079,8 @@ p,
 :root[data-theme="dark"] .skill-app-icon,
 :root[data-theme="dark"] .project-card:hover .app-icon,
 :root[data-theme="dark"] .skill-card:hover .app-icon {
-  color: var(--paper);
-  background: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 18%, transparent);
+  background: #ffffff;
 }
 
 :root[data-theme="dark"] .project-title span,
