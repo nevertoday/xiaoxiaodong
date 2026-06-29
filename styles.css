@@ -3920,6 +3920,55 @@ p,
   text-underline-offset: 0.28em;
 }
 
+.project-card {
+  grid-template-areas:
+    "icon"
+    "label"
+    "body"
+    "meta"
+    "action";
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 0.72rem;
+  text-align: center;
+}
+
+.project-card .app-icon {
+  justify-self: center;
+}
+
+.project-title {
+  justify-content: center;
+  text-align: center;
+}
+
+.project-copy {
+  justify-items: center;
+  text-align: center;
+}
+
+.project-summary {
+  margin-inline: auto;
+}
+
+.project-tags {
+  justify-content: center;
+}
+
+.project-tags span {
+  justify-content: center;
+  text-align: center;
+}
+
+.project-footer {
+  justify-content: center;
+}
+
+.project-card .project-get {
+  width: 10rem;
+  max-width: 100%;
+}
+
 .skills-section .section-head,
 .skills-section .section-head > div {
   justify-items: center;
@@ -4182,6 +4231,40 @@ p,
   background: color-mix(in srgb, var(--ink) 14%, transparent);
 }
 
+.community-side,
+.community-qr {
+  justify-items: center;
+  justify-self: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.projects-section .section-head,
+.projects-section .section-head > div {
+  justify-items: center;
+  text-align: center;
+}
+
+.projects-section .repo-status {
+  justify-self: center;
+}
+
+:root[data-theme="dark"] .projects-section,
+:root[data-theme="dark"] .skills-section {
+  background: var(--paper);
+}
+
+:root[data-theme="dark"] .projects-section .section-head h2,
+:root[data-theme="dark"] .skills-section .section-head h2 {
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .repo-status {
+  border-color: color-mix(in srgb, var(--ink) 16%, transparent);
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+}
+
 @media (max-width: 620px) {
   .project-card,
   .skill-card {
@@ -4203,6 +4286,7 @@ p,
 }
 
 @media (max-width: 620px) {
+  .project-card,
   .skill-card {
     grid-template-areas:
       "icon"
@@ -4213,6 +4297,7 @@ p,
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .project-footer,
   .skill-footer,
   .skill-actions {
     justify-content: center;

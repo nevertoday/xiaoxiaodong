@@ -150,10 +150,10 @@ const projectProfiles = {
 };
 
 const projectIcons = {
-  "chinese-traditional-colors": "assets/icons/traditional-colors.svg",
-  "zhongguo-traditional-colors": "assets/icons/traditional-colors.svg",
-  "tampermonkey-scripts": "assets/icons/tampermonkey-scripts.svg",
-  xposter: "assets/icons/xposter.svg",
+  "chinese-traditional-colors": "assets/icons/traditional-colors-site.svg",
+  "zhongguo-traditional-colors": "assets/icons/traditional-colors-site.svg",
+  "tampermonkey-scripts": "assets/icons/tampermonkey-scripts.png",
+  xposter: "assets/icons/xposter.png",
   "100-layout-compositions": "assets/icons/layout-compositions.svg",
   "chrome-store-submission": "assets/icons/chrome-submission.svg",
 };
@@ -196,24 +196,6 @@ const openSkills = [
     highlights: ["整理商店资料", "生成权限说明", "补齐隐私披露"],
     usage: ["把插件仓库交给 Agent 分析", "运行 chrome-store-submission Skill", "按输出清单补齐商店文案、权限解释和隐私说明"],
     tips: ["上架前先确认 manifest 权限是否真的必要", "权限说明要写用户收益，不要只复述 API 名称", "隐私披露要和代码行为一致"],
-  },
-  {
-    name: "claude_skill_vibe-writing",
-    label: "写作流程",
-    title: "写作流程 Skill。",
-    summary: "把选题、结构、改写拆成固定流程。",
-    trigger: "安装 Skill",
-    scene: "写作工作流。",
-    output: "Skill zip",
-    source: "独立开源仓库",
-    url: "https://github.com/nevertoday/claude_skill_vibe-writing",
-    icon: "assets/icons/writing-flow.svg",
-    colorName: "中灰",
-    color: "#777771",
-    pain: "一句提示词写作，不稳定。",
-    highlights: ["固定写作流程", "控制结构和风格", "沉淀个人方法"],
-    usage: ["安装 Skill", "给出写作目标、读者和素材", "让 Agent 按流程完成选题、成稿、改写或风格统一"],
-    tips: ["先定义读者和发布场景，再让 Agent 写", "不要一次要求又写又改又排版，分阶段更稳定", "把你满意的文章样例作为风格参考"],
   },
 ];
 

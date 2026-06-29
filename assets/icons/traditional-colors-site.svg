@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="中国传统配色">
+  <rect width="64" height="64" fill="#111111"/>
+  <rect x="0" y="58" width="16" height="6" fill="#f9f4dc"/>
+  <rect x="16" y="58" width="16" height="6" fill="#fed71a"/>
+  <rect x="32" y="58" width="16" height="6" fill="#a7535a"/>
+  <rect x="48" y="58" width="16" height="6" fill="#1ba784"/>
+  <text x="32" y="43" fill="#f7f7f4" font-family="Noto Serif SC, Songti SC, STSong, serif" font-size="36" font-weight="900" text-anchor="middle">色</text>
+</svg>
