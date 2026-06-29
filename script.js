@@ -495,7 +495,7 @@ function initFooterSpectrum() {
 function setActiveSection(sectionId) {
   if (!sectionId) return;
 
-  document.querySelectorAll('.site-nav a[href^="#"], .bottom-nav a[href^="#"]').forEach((link) => {
+  document.querySelectorAll('.site-nav a[href^="#"]').forEach((link) => {
     const isActive = link.getAttribute("href") === `#${sectionId}`;
     if (isActive) {
       link.setAttribute("aria-current", "true");
