@@ -3935,6 +3935,9 @@ p,
 
 .project-card .app-icon {
   justify-self: center;
+  border-color: transparent;
+  background: transparent;
+  object-fit: contain;
 }
 
 .project-title {
@@ -3952,8 +3955,11 @@ p,
 }
 
 .project-tags {
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.42rem;
+  justify-content: center;
+  width: min(100%, 19rem);
 }
 
 .project-tags span {
@@ -3961,15 +3967,16 @@ p,
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: min(100%, 10.5rem);
+  width: 100%;
+  max-width: none;
   min-height: 30px;
-  padding: 0 0.72rem;
+  padding: 0 0.64rem;
   text-align: center;
   color: var(--ink-soft);
-  background: #ffffff;
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
   border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   font-size: 0.75rem;
-  font-weight: 650;
+  font-weight: 560;
   line-height: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -4058,6 +4065,29 @@ p,
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.34em;
+}
+
+.site-header,
+:root:not([data-theme="dark"]) .site-header {
+  padding-inline: clamp(14px, 1.5vw, 28px);
+}
+
+.site-header {
+  gap: clamp(0.72rem, 1.45vw, 1.12rem);
+}
+
+.site-header .site-nav {
+  gap: clamp(0.48rem, 0.85vw, 0.78rem);
+}
+
+.site-header .site-nav a {
+  min-height: 32px;
+  font-size: 0.81rem;
+  font-weight: 720;
+}
+
+.site-header .header-tools {
+  gap: 0.22rem;
 }
 
 @media (max-width: 760px) {
@@ -4215,6 +4245,12 @@ p,
   background: #ffffff;
 }
 
+:root[data-theme="dark"] .project-card .app-icon,
+:root[data-theme="dark"] .project-card:hover .app-icon {
+  border-color: transparent;
+  background: transparent;
+}
+
 :root[data-theme="dark"] .project-title span,
 :root[data-theme="dark"] .skill-index span,
 :root[data-theme="dark"] .skill-facts dt {
@@ -4225,6 +4261,12 @@ p,
 :root[data-theme="dark"] .skill-facts div {
   color: var(--muted);
   background: color-mix(in srgb, var(--surface-soft) 70%, var(--surface));
+}
+
+:root[data-theme="dark"] .project-tags span {
+  border-color: color-mix(in srgb, var(--ink) 14%, transparent);
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
 :root[data-theme="dark"] .project-get:hover,
