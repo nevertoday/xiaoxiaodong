@@ -5865,3 +5865,48 @@ main .skill-card:hover .skill-heading span {
     padding-inline: 0.78rem !important;
   }
 }
+
+/* EOF section rhythm lock: each nav target has a subtle hover field and divider. */
+main > .community-section,
+main > .contact-section,
+main > .projects-section,
+main > .skills-section {
+  position: relative !important;
+  border-bottom: 0 !important;
+  background: var(--paper) !important;
+  transition:
+    background-color 180ms var(--ease),
+    box-shadow 180ms var(--ease) !important;
+}
+
+main > .community-section::before,
+main > .contact-section::before,
+main > .projects-section::before,
+main > .skills-section::before {
+  position: absolute !important;
+  top: 0 !important;
+  right: clamp(14px, 1.5vw, 28px) !important;
+  left: clamp(14px, 1.5vw, 28px) !important;
+  display: block !important;
+  height: 1px !important;
+  background: color-mix(in srgb, var(--ink) 8%, transparent) !important;
+  content: "" !important;
+}
+
+main > .community-section::before {
+  content: none !important;
+}
+
+main > .community-section:hover,
+main > .contact-section:hover,
+main > .projects-section:hover,
+main > .skills-section:hover {
+  background: color-mix(in srgb, var(--ink) 3.5%, var(--paper)) !important;
+}
+
+:root[data-theme="dark"] main > .community-section:hover,
+:root[data-theme="dark"] main > .contact-section:hover,
+:root[data-theme="dark"] main > .projects-section:hover,
+:root[data-theme="dark"] main > .skills-section:hover {
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper)) !important;
+}
