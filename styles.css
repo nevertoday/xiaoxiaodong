@@ -6106,11 +6106,21 @@ main > .skills-section:hover {
   }
 }
 
-/* EOF prompt count hover lock: keep the membership hero calm while still interactive. */
+/* EOF prompt count hover lock: keep the membership hero hover field full-width and calm. */
+main > .community-section {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+}
+
 main > .community-section:hover,
-:root:not([data-theme="dark"]) main > .community-section:hover,
+:root:not([data-theme="dark"]) main > .community-section:hover {
+  background: color-mix(in srgb, var(--ink) 3.5%, var(--paper)) !important;
+  box-shadow: none !important;
+}
+
 :root[data-theme="dark"] main > .community-section:hover {
-  background: var(--paper) !important;
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper)) !important;
   box-shadow: none !important;
 }
 
