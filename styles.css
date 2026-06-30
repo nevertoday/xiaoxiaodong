@@ -5854,3 +5854,14 @@ main .skill-card:hover .skill-heading span {
     min-height: 92px !important;
   }
 }
+
+/* EOF header nav spacing lock: loosen desktop nav text rhythm. */
+@media (min-width: 761px) {
+  .site-header .site-nav {
+    gap: clamp(0.76rem, 1.15vw, 1.12rem) !important;
+  }
+
+  .site-header .site-nav a {
+    padding-inline: 0.78rem !important;
+  }
+}
