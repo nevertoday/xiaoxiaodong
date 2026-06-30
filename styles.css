@@ -6105,3 +6105,105 @@ main > .skills-section:hover {
     grid-column: auto !important;
   }
 }
+
+/* EOF prompt count hover lock: keep the membership hero calm while still interactive. */
+main > .community-section:hover,
+:root:not([data-theme="dark"]) main > .community-section:hover,
+:root[data-theme="dark"] main > .community-section:hover {
+  background: var(--paper) !important;
+  box-shadow: none !important;
+}
+
+main > .community-section .plan-board,
+:root:not([data-theme="dark"]) main > .community-section .plan-board,
+:root[data-theme="dark"] main > .community-section .plan-board {
+  position: relative !important;
+  isolation: isolate !important;
+  border: 1px solid transparent !important;
+  background: color-mix(in srgb, var(--surface) 96%, var(--paper)) !important;
+  box-shadow: 0 18px 48px color-mix(in srgb, var(--ink) 5%, transparent) !important;
+  transform: translateY(0) !important;
+  transition:
+    border-color 180ms var(--ease),
+    background-color 180ms var(--ease),
+    box-shadow 220ms var(--ease),
+    transform 220ms var(--ease) !important;
+}
+
+main > .community-section .plan-board::before {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  border: 1px solid transparent !important;
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--ink) 7%, transparent), transparent)
+    50% 100% / 48% 1px no-repeat !important;
+  opacity: 0 !important;
+  content: "" !important;
+  transition:
+    opacity 180ms var(--ease),
+    background-size 220ms var(--ease) !important;
+}
+
+main > .community-section:hover .plan-board,
+main > .community-section .plan-board:hover,
+main > .community-section .plan-board:focus-within,
+:root:not([data-theme="dark"]) main > .community-section:hover .plan-board,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:hover,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:focus-within {
+  border-color: color-mix(in srgb, var(--ink) 9%, transparent) !important;
+  background: color-mix(in srgb, var(--surface) 99%, var(--paper)) !important;
+  box-shadow:
+    0 22px 58px color-mix(in srgb, var(--ink) 7%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--ink) 3%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+main > .community-section:hover .plan-board::before,
+main > .community-section .plan-board:hover::before,
+main > .community-section .plan-board:focus-within::before {
+  background-size: 72% 1px !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] main > .community-section:hover .plan-board,
+:root[data-theme="dark"] main > .community-section .plan-board:hover,
+:root[data-theme="dark"] main > .community-section .plan-board:focus-within {
+  border-color: color-mix(in srgb, var(--ink) 14%, transparent) !important;
+  background: color-mix(in srgb, var(--surface) 94%, var(--paper)) !important;
+  box-shadow:
+    0 22px 58px color-mix(in srgb, #000 22%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--ink) 5%, transparent) !important;
+}
+
+main > .community-section .community-count strong {
+  transition:
+    color 180ms var(--ease),
+    transform 220ms var(--ease),
+    text-shadow 220ms var(--ease) !important;
+}
+
+main > .community-section:hover .community-count strong,
+main > .community-section .plan-board:hover .community-count strong,
+main > .community-section .plan-board:focus-within .community-count strong {
+  color: color-mix(in srgb, var(--ink) 94%, var(--muted)) !important;
+  text-shadow: 0 12px 28px color-mix(in srgb, var(--ink) 7%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > .community-section .plan-board,
+  main > .community-section .plan-board::before,
+  main > .community-section .community-count strong {
+    transition: none !important;
+  }
+
+  main > .community-section:hover .plan-board,
+  main > .community-section .plan-board:hover,
+  main > .community-section .plan-board:focus-within,
+  main > .community-section:hover .community-count strong,
+  main > .community-section .plan-board:hover .community-count strong,
+  main > .community-section .plan-board:focus-within .community-count strong {
+    transform: none !important;
+  }
+}
