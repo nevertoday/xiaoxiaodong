@@ -5910,3 +5910,24 @@ main > .skills-section:hover {
 :root[data-theme="dark"] main > .skills-section:hover {
   background: color-mix(in srgb, var(--ink) 4%, var(--paper)) !important;
 }
+
+/* EOF project status type lock: make the project count read as primary status text. */
+.projects-section .repo-status,
+:root:not([data-theme="dark"]) .projects-section .repo-status,
+:root[data-theme="dark"] .projects-section .repo-status {
+  min-height: 1.8rem !important;
+  color: var(--ink) !important;
+  background: transparent !important;
+  font-size: 1.05rem !important;
+  font-weight: 860 !important;
+  line-height: 1.35 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+@media (max-width: 560px) {
+  .projects-section .repo-status,
+  :root:not([data-theme="dark"]) .projects-section .repo-status,
+  :root[data-theme="dark"] .projects-section .repo-status {
+    font-size: 1rem !important;
+  }
+}
