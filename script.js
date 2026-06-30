@@ -118,11 +118,13 @@ const projectProfiles = {
     color: "#3F3F3F",
   },
   "tampermonkey-scripts": {
-    kind: "油猴脚本集",
-    title: "批量收集图片素材",
-    summary: "勾选、导出、下载、打包",
-    format: "Tampermonkey",
+    kind: "Chrome 插件",
+    displayName: "拾图",
+    title: "网页图片批量下载插件",
+    summary: "悬停拾取图片，侧边栏批量下载原图",
+    format: "Chrome MV3",
     intent: "批量下载图片",
+    chromeStoreUrl: "",
     colorName: "墨黑",
     color: "#111111",
   },
@@ -347,6 +349,14 @@ function getProjectIcon(repo) {
 }
 
 function getProjectAction(view) {
+  const chromeStoreUrl = view.profile.chromeStoreUrl;
+  if (chromeStoreUrl && chromeStoreUrl.startsWith("http")) {
+    return {
+      label: "Chrome 插件",
+      url: chromeStoreUrl,
+    };
+  }
+
   if (view.homepage) {
     return {
       label: "官网",
@@ -733,6 +743,7 @@ function initSkillModal() {
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, homepage } = view;
   const safeName = escapeHtml(repo.name);
+  const displayName = escapeCopy(profile.displayName || repo.name);
   const projectTitle = escapeCopy(profile.title || profile.intent || repo.description || repo.name);
   const projectSummary = escapeCopy(profile.summary || repo.description || profile.format || "公开代码项目");
   const htmlUrl = escapeHtml(repo.html_url);
@@ -748,7 +759,7 @@ function createProjectCard(view, visibleIndex) {
         <img class="app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="project-title">
           <p>${escapeCopy(profile.kind)}</p>
-          <span>${safeName}</span>
+          <span title="${safeName}">${displayName}</span>
         </div>
       </div>
       <div class="project-copy">
@@ -757,7 +768,7 @@ function createProjectCard(view, visibleIndex) {
       </div>
       <div class="project-footer">
         <a class="project-get" href="${actionUrl}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>
-        ${homepage ? `<a class="project-source" href="${htmlUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>` : ""}
+        ${action.url !== repo.html_url ? `<a class="project-source" href="${htmlUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>` : ""}
       </div>
     </article>
   `;
