@@ -5792,3 +5792,23 @@ main .skill-card:hover .skill-heading span {
     width: auto !important;
   }
 }
+
+/* EOF footer alignment lock: match the header edge and keep the top rule visible. */
+.site-footer,
+:root:not([data-theme="dark"]) .site-footer,
+:root[data-theme="dark"] .site-footer {
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.72fr) minmax(10rem, auto) !important;
+  gap: clamp(1rem, 2vw, 1.75rem) !important;
+  padding-inline: clamp(14px, 1.5vw, 28px) !important;
+  border-top: 1px solid var(--line) !important;
+}
+
+@media (max-width: 760px) {
+  .site-footer,
+  :root:not([data-theme="dark"]) .site-footer,
+  :root[data-theme="dark"] .site-footer {
+    grid-template-columns: 1fr !important;
+    gap: 1.4rem !important;
+    padding-inline: clamp(14px, 1.5vw, 28px) !important;
+  }
+}
