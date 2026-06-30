@@ -30,6 +30,7 @@ const themeColors = {
 const FOOTER_COLOR_SELECTOR = "[data-footer-color]";
 const FOOTER_COPIED_MS = 900;
 const FOOTER_COPY_TOAST_MS = 1400;
+const FOOTER_SPECTRUM_HEIGHTS = [52, 84, 44, 96, 64, 112, 56, 76];
 
 const projectPalette = [
   { name: "墨黑", color: "#111111" },
@@ -506,10 +507,10 @@ function footerCopyValue(color) {
   return `${color.name} ${color.hex}`;
 }
 
-function setFooterButtonColor(button, color, index) {
+function setFooterButtonColor(button, color, height) {
   const copyValue = footerCopyValue(color);
   button.style.setProperty("--spectrum-color", color.hex);
-  button.style.setProperty("--spectrum-index", String((index % 9) + 1));
+  button.style.setProperty("--spectrum-height", `${height}px`);
   button.dataset.footerCopyValue = copyValue;
   button.title = `复制 ${copyValue}`;
   button.setAttribute("aria-label", `复制 ${color.name} 色值 ${color.hex}`);
@@ -518,8 +519,9 @@ function setFooterButtonColor(button, color, index) {
 function buildFooterSpectrum(buttons = footerColorButtons()) {
   if (!buttons.length) return;
 
+  const heights = randomItems(FOOTER_SPECTRUM_HEIGHTS, buttons.length);
   randomItems(footerColorPalette, buttons.length).forEach((color, index) => {
-    setFooterButtonColor(buttons[index], color, index);
+    setFooterButtonColor(buttons[index], color, heights[index]);
   });
 }
 

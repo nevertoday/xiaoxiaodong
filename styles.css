@@ -5812,3 +5812,45 @@ main .skill-card:hover .skill-heading span {
     padding-inline: clamp(14px, 1.5vw, 28px) !important;
   }
 }
+
+/* EOF footer color ladder lock: larger copy targets with less mechanical heights. */
+.footer-spectrum-panel {
+  width: min(calc(100vw - 28px), 29rem) !important;
+  max-width: 100% !important;
+  gap: 0.9rem !important;
+}
+
+.footer-spectrum {
+  width: min(calc(100vw - 28px), 29rem) !important;
+  max-width: 100% !important;
+  min-height: clamp(76px, 7vw, 116px) !important;
+  grid-template-columns: repeat(8, minmax(24px, 1fr)) !important;
+  justify-self: stretch !important;
+  justify-content: stretch !important;
+  align-items: end !important;
+}
+
+.footer-spectrum button {
+  height: var(--spectrum-height, 72px) !important;
+  min-height: 44px !important;
+  opacity: 0.9 !important;
+  transition:
+    opacity 160ms var(--ease),
+    transform 180ms var(--ease-out-quint),
+    outline-color 160ms var(--ease) !important;
+}
+
+.footer-spectrum button:hover,
+.footer-spectrum button:focus-visible {
+  transform: translateY(-4px) scaleY(1.02) !important;
+}
+
+@media (max-width: 760px) {
+  .footer-spectrum-panel {
+    width: min(100%, 26rem) !important;
+  }
+
+  .footer-spectrum {
+    min-height: 92px !important;
+  }
+}
