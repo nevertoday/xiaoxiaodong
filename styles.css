@@ -5931,3 +5931,177 @@ main > .skills-section:hover {
     font-size: 1rem !important;
   }
 }
+
+/* EOF skill modal readability lock: clearer reading hierarchy and denser useful space. */
+.skill-modal {
+  padding: clamp(1rem, 3vw, 2rem) !important;
+}
+
+.skill-modal-panel,
+:root:not([data-theme="dark"]) .skill-modal-panel,
+:root[data-theme="dark"] .skill-modal-panel {
+  width: min(100%, 50rem) !important;
+  max-height: min(86dvh, 46rem) !important;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, var(--line)) !important;
+  background: var(--surface) !important;
+  box-shadow: 0 24px 72px color-mix(in srgb, var(--ink) 14%, transparent) !important;
+}
+
+.skill-modal-close,
+:root:not([data-theme="dark"]) .skill-modal-close {
+  position: absolute !important;
+  top: 0.95rem !important;
+  right: 0.95rem !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  border-color: color-mix(in srgb, var(--ink) 18%, transparent) !important;
+  background: color-mix(in srgb, var(--surface) 96%, transparent) !important;
+  font-size: 1.35rem !important;
+}
+
+.skill-modal-body {
+  align-items: stretch !important;
+  gap: clamp(1rem, 2vw, 1.4rem) !important;
+  padding: clamp(1.25rem, 3vw, 2rem) !important;
+  padding-right: clamp(1.25rem, 3vw, 2rem) !important;
+}
+
+.skill-modal-heading {
+  justify-items: start !important;
+  max-width: 58ch !important;
+  margin: 0 !important;
+  padding-right: 3.5rem !important;
+  padding-bottom: 1rem !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  text-align: left !important;
+}
+
+.skill-modal-heading .eyebrow,
+.skill-modal-heading h3 {
+  justify-self: start !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.skill-modal-heading h3 {
+  max-width: 18ch !important;
+  font-size: clamp(1.6rem, 3vw, 2.35rem) !important;
+  line-height: 1.12 !important;
+}
+
+.skill-modal-heading p:not(.eyebrow) {
+  max-width: 58ch !important;
+  color: var(--ink-soft) !important;
+  font-size: 1rem !important;
+  font-weight: 560 !important;
+  line-height: 1.68 !important;
+}
+
+.skill-modal-grid,
+:root:not([data-theme="dark"]) .skill-modal-grid,
+:root[data-theme="dark"] .skill-modal-grid,
+.skill-modal-links,
+:root:not([data-theme="dark"]) .skill-modal-links,
+:root[data-theme="dark"] .skill-modal-links {
+  gap: 0.85rem !important;
+  border: 0 !important;
+  background: transparent !important;
+  text-align: left !important;
+}
+
+.skill-modal-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.skill-modal-grid section,
+:root:not([data-theme="dark"]) .skill-modal-grid section,
+:root[data-theme="dark"] .skill-modal-grid section,
+.skill-modal-links div,
+:root:not([data-theme="dark"]) .skill-modal-links div,
+:root[data-theme="dark"] .skill-modal-links div {
+  align-content: start !important;
+  justify-items: start !important;
+  gap: 0.62rem !important;
+  padding: 1rem 1.05rem !important;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  background: color-mix(in srgb, var(--ink) 2.5%, var(--surface)) !important;
+  text-align: left !important;
+}
+
+.skill-modal-grid section:first-child {
+  grid-column: 1 / -1 !important;
+}
+
+.skill-modal-grid h4 {
+  color: var(--ink) !important;
+  font-size: 1rem !important;
+  font-weight: 900 !important;
+  line-height: 1.28 !important;
+}
+
+.skill-modal-grid p,
+.skill-modal-grid li {
+  color: var(--ink-soft) !important;
+  font-size: 0.96rem !important;
+  line-height: 1.68 !important;
+}
+
+.skill-modal-grid ul,
+.skill-modal-grid ol {
+  gap: 0.5rem !important;
+  padding-left: 1.1rem !important;
+  margin: 0 !important;
+}
+
+.skill-modal-grid li {
+  padding-left: 0.12rem !important;
+}
+
+.skill-modal-links {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.skill-modal-links dt {
+  color: var(--muted) !important;
+  font-size: 0.74rem !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}
+
+.skill-modal-links dd {
+  color: var(--ink) !important;
+  font-size: 0.96rem !important;
+  font-weight: 680 !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 760px) {
+  .skill-modal {
+    align-items: end !important;
+    padding: 0.75rem !important;
+  }
+
+  .skill-modal-panel {
+    width: 100% !important;
+    max-height: 90dvh !important;
+  }
+
+  .skill-modal-body {
+    padding: 1rem !important;
+    padding-top: 1.15rem !important;
+  }
+
+  .skill-modal-heading {
+    padding-right: 3rem !important;
+  }
+
+  .skill-modal-grid,
+  .skill-modal-links {
+    grid-template-columns: 1fr !important;
+  }
+
+  .skill-modal-grid section:first-child {
+    grid-column: auto !important;
+  }
+}
