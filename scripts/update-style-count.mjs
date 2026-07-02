@@ -1,5 +1,5 @@
-const STATS_URL = "https://vip.xiaoxiaodong.ai/api/public-stats";
 const INDEX_PATH = new URL("../index.html", import.meta.url);
+const MEMBER_STYLE_COUNT = 5567;
 
 function formatCount(value) {
   const count = Number(value);
@@ -7,22 +7,6 @@ function formatCount(value) {
     throw new Error(`Invalid style count: ${value}`);
   }
   return String(Math.round(count));
-}
-
-async function fetchStyleCount() {
-  const response = await fetch(STATS_URL, {
-    cache: "no-store",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Stats request failed: ${response.status}`);
-  }
-
-  const stats = await response.json();
-  return formatCount(stats.styles);
 }
 
 async function updateIndex(count) {
@@ -42,5 +26,5 @@ async function updateIndex(count) {
   console.log(`Updated style count to ${count}`);
 }
 
-const count = await fetchStyleCount();
+const count = formatCount(MEMBER_STYLE_COUNT);
 await updateIndex(count);

@@ -1,6 +1,6 @@
 const GITHUB_USER = "nevertoday";
 const REPO_SNAPSHOT_URL = "repos.json";
-const VIP_PUBLIC_STATS_URL = "https://vip.xiaoxiaodong.ai/api/public-stats";
+const MEMBER_STYLE_COUNT = 5567;
 
 const fallbackRepos = [
   {
@@ -13,6 +13,204 @@ const fallbackRepos = [
     forks_count: 44,
     pushed_at: new Date().toISOString(),
     topics: [],
+  },
+];
+
+const chromeStoreExtensions = [
+  {
+    name: "tampermonkey-scripts",
+    displayName: "拾图",
+    description: "悬停拾取网页图片，通过侧边栏批量下载原图，支持 ZIP、逐张保存和链接导出。",
+    html_url: "https://github.com/nevertoday/tampermonkey-scripts",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-06-30T00:00:00+08:00",
+    topics: ["chrome-extension", "image-downloader"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/apbkgpggnbpoppbfnehlnjeccnlcnkaj",
+    chromeStatus: "待审核",
+  },
+  {
+    name: "xposter",
+    displayName: "xPoster",
+    description: "A refined Markdown publishing console for X Articles.",
+    html_url: "https://github.com/nevertoday/xposter",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 115,
+    forks_count: 27,
+    pushed_at: "2026-06-17T00:00:00+08:00",
+    topics: ["chrome-extension", "markdown", "publishing", "x-articles"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/iimkimodgdjnnmdopeolboakhjmhfbbj",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "obsidian-todo-sync",
+    displayName: "曜记 - Obsidian 待办同步",
+    description: "在浏览器中管理 Obsidian 日记待办，支持双向同步、番茄钟、灵感捕获和新标签页工作台。",
+    html_url: "https://chromewebstore.google.com/detail/ebnjmpnagendlekalpopgeaiimdfpffi",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-06-16T00:00:00+08:00",
+    topics: ["chrome-extension", "obsidian", "todo"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/ebnjmpnagendlekalpopgeaiimdfpffi",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "image-crop-tool",
+    displayName: "图片裁剪工具",
+    description: "在新标签页中用参考线或自由框选裁剪本地图片，支持多图批量导出 PNG 和 ZIP。",
+    html_url: "https://chromewebstore.google.com/detail/phdjhhjbapkmagifbejfabimojmjngbe",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-06-04T00:00:00+08:00",
+    topics: ["chrome-extension", "image-crop"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/phdjhhjbapkmagifbejfabimojmjngbe",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "flomo-quick-post",
+    displayName: "Flomo 快捷发布",
+    description: "选中文字、图片或手动输入内容，一键发布到 Flomo，可附带当前页面标题与链接。",
+    html_url: "https://chromewebstore.google.com/detail/bknnikaaddepgmbejkaohijglgicdeih",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-05-27T00:00:00+08:00",
+    topics: ["chrome-extension", "flomo", "notes"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/bknnikaaddepgmbejkaohijglgicdeih",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "wechat-article-publisher-extension",
+    displayName: "闪电发布 - 微信公众号文章发布助手",
+    description: "快速批量发布文章到微信公众号草稿箱，支持模板、封面生成、图片排序和多账号管理。",
+    html_url: "https://chromewebstore.google.com/detail/nmhknbkojcfmolegpbonpgeogpgpddlj",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-05-15T00:00:00+08:00",
+    topics: ["chrome-extension", "wechat", "publishing"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/nmhknbkojcfmolegpbonpgeogpgpddlj",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "wechat-image-replacer",
+    displayName: "微信-换图",
+    description: "微信公众号编辑器图片批量替换工具，支持 Markdown 链接、小程序链接和智能排序。",
+    html_url: "https://chromewebstore.google.com/detail/plgafjeigmmokgakgphfiibkjnlcnadj",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-03-14T00:00:00+08:00",
+    topics: ["chrome-extension", "wechat", "images"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/plgafjeigmmokgakgphfiibkjnlcnadj",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "doubao-cache-cleaner",
+    displayName: "豆包页面缓存清理",
+    description: "为豆包网站添加一键缓存清理按钮，清除 Cookies、Storage、IndexedDB 和 Service Worker。",
+    html_url: "https://chromewebstore.google.com/detail/fmkhdfmiojddfefpfgieaeallalpkmpl",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-03-14T00:00:00+08:00",
+    topics: ["chrome-extension", "doubao", "cache"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/fmkhdfmiojddfefpfgieaeallalpkmpl",
+    chromeStatus: "草稿",
+  },
+  {
+    name: "ocr-image-text-recognition",
+    displayName: "OCR 图片文字识别",
+    description: "智能图片文字识别工具，支持拖拽、粘贴、URL 输入和多图批量处理。",
+    html_url: "https://chromewebstore.google.com/detail/dijgngefjhfdpakpoijekfjfjjfkcaif",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-03-13T00:00:00+08:00",
+    topics: ["chrome-extension", "ocr", "image"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/dijgngefjhfdpakpoijekfjfjjfkcaif",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "wechat-tag-tool",
+    displayName: "微信公众号标签工具",
+    description: "在微信公众号编辑页面添加智能标签栏，支持分组管理、导入导出和侧边栏编辑。",
+    html_url: "https://chromewebstore.google.com/detail/kmcpaafnllfohkeffbkioghfjiapfglp",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-03-13T00:00:00+08:00",
+    topics: ["chrome-extension", "wechat", "labels"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/kmcpaafnllfohkeffbkioghfjiapfglp",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "wechat-cover-generator",
+    displayName: "微信封面生成器",
+    description: "快速生成微信封面，自动提取公众号编辑器图片，支持多种模板布局。",
+    html_url: "https://chromewebstore.google.com/detail/goofplokifggamlmlplfchbkpplidkfg",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-03-13T00:00:00+08:00",
+    topics: ["chrome-extension", "wechat", "cover"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/goofplokifggamlmlplfchbkpplidkfg",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "transparent-element-screenshot",
+    displayName: "闪抠",
+    description: "页元素透明截图工具，支持对当前网页元素做透明背景截图与批量抠图。",
+    html_url: "https://chromewebstore.google.com/detail/pligfejomcfibihagmepbmneinndioom",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2026-03-07T00:00:00+08:00",
+    topics: ["chrome-extension", "screenshot", "image"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/pligfejomcfibihagmepbmneinndioom",
+    chromeStatus: "已发布 - 公开发布",
+  },
+  {
+    name: "bookmark-line-indicator",
+    displayName: "Bookmark Line Indicator",
+    description: "Shows a red line with folder path for bookmarked pages.",
+    html_url: "https://chromewebstore.google.com/detail/bhephhfakmbfbdokhkmhegaoimlogalh",
+    homepage: null,
+    language: "JavaScript",
+    fork: false,
+    stargazers_count: 0,
+    forks_count: 0,
+    pushed_at: "2025-05-07T00:00:00+08:00",
+    topics: ["chrome-extension", "bookmarks"],
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/bhephhfakmbfbdokhkmhegaoimlogalh",
+    chromeStatus: "已发布 - 公开发布",
   },
 ];
 
@@ -30,7 +228,7 @@ const themeColors = {
 const FOOTER_COLOR_SELECTOR = "[data-footer-color]";
 const FOOTER_COPIED_MS = 900;
 const FOOTER_COPY_TOAST_MS = 1400;
-const FOOTER_SPECTRUM_HEIGHTS = [52, 84, 44, 96, 64, 112, 56, 76];
+const FOOTER_SPECTRUM_STEP_COUNT = 9;
 
 const projectPalette = [
   { name: "墨黑", color: "#111111" },
@@ -42,26 +240,21 @@ const projectPalette = [
 ];
 
 const footerColorPalette = [
-  { name: "乳白", hex: "#F9F4DC" },
-  { name: "杏仁黄", hex: "#F7E8AA" },
-  { name: "油菜花黄", hex: "#FBDA41" },
-  { name: "桂黄", hex: "#F8C387" },
-  { name: "朱砂", hex: "#FF461F" },
-  { name: "胭脂", hex: "#9D2933" },
-  { name: "海棠红", hex: "#F03752" },
-  { name: "酡颜", hex: "#F9906F" },
-  { name: "竹青", hex: "#789262" },
-  { name: "青葱", hex: "#0AA344" },
-  { name: "松花绿", hex: "#BCE672" },
-  { name: "湖蓝", hex: "#30DFF3" },
-  { name: "天青", hex: "#C3D7DF" },
-  { name: "群青", hex: "#177CB0" },
-  { name: "靛蓝", hex: "#065279" },
-  { name: "雪青", hex: "#B0A4E3" },
-  { name: "青莲", hex: "#801DAE" },
-  { name: "乌金", hex: "#A78E44" },
-  { name: "苍黄", hex: "#806332" },
-  { name: "藕荷", hex: "#E4C6D0" },
+  { name: "月白", hex: "#F9F4DC" },
+  { name: "佛手黄", hex: "#FED71A" },
+  { name: "香叶红", hex: "#F07C82" },
+  { name: "银朱", hex: "#ED5126" },
+  { name: "竹绿", hex: "#1BA784" },
+  { name: "美蝶绿", hex: "#12AA9C" },
+  { name: "晴山蓝", hex: "#8EC3E6" },
+  { name: "釉蓝", hex: "#1781B5" },
+  { name: "花青", hex: "#1661AB" },
+  { name: "玫瑰紫", hex: "#BA2F7B" },
+  { name: "绛紫", hex: "#8B2671" },
+  { name: "枣红", hex: "#7C1823" },
+  { name: "赭罗", hex: "#9A8878" },
+  { name: "茶褐", hex: "#5C3719" },
+  { name: "玛瑙灰", hex: "#CFCCC9" },
 ];
 
 const projectProfiles = {
@@ -91,11 +284,13 @@ const projectProfiles = {
     color: "#3F3F3F",
   },
   xposter: {
-    kind: "发布插件",
-    title: "Markdown 直接发布到 X",
-    summary: "少复制、少改格式",
+    kind: "Chrome 插件",
+    displayName: "xPoster",
+    title: "Markdown 发布到 X Articles",
+    summary: "预览标题、表格、代码块和图片，再写入 X Article 草稿",
     format: "Chrome MV3",
     intent: "把 Markdown 发到 X",
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/iimkimodgdjnnmdopeolboakhjmhfbbj",
     colorName: "墨黑",
     color: "#111111",
   },
@@ -120,13 +315,112 @@ const projectProfiles = {
   "tampermonkey-scripts": {
     kind: "Chrome 插件",
     displayName: "拾图",
-    title: "网页图片批量下载插件",
-    summary: "悬停拾取图片，侧边栏批量下载原图",
+    title: "悬停拾图，批量下载原图",
+    summary: "侧边栏统一管理选图，导出链接、逐张保存或打包 ZIP",
     format: "Chrome MV3",
     intent: "批量下载图片",
-    chromeStoreUrl: "",
+    chromeStoreUrl: "https://chromewebstore.google.com/detail/apbkgpggnbpoppbfnehlnjeccnlcnkaj",
     colorName: "墨黑",
     color: "#111111",
+  },
+  "obsidian-todo-sync": {
+    kind: "Chrome 插件",
+    title: "Obsidian 待办搬进新标签页",
+    summary: "本地 REST API 双向同步日记任务，带番茄钟、快捷添加和灵感捕获",
+    format: "Chrome MV3",
+    intent: "管理 Obsidian 待办",
+    colorName: "铁灰",
+    color: "#3F3F3F",
+  },
+  "image-crop-tool": {
+    kind: "Chrome 插件",
+    title: "浏览器里的批量切图工作台",
+    summary: "参考线或自由框选拆图，支持多图导入、命名和 PNG/ZIP 导出",
+    format: "Chrome MV3",
+    intent: "裁剪图片",
+    colorName: "中灰",
+    color: "#777777",
+  },
+  "flomo-quick-post": {
+    kind: "Chrome 插件",
+    title: "网页摘录一键发到 Flomo",
+    summary: "划词、图片 OCR、AI 处理和侧边栏速记，自动带页面标题与链接",
+    format: "Chrome MV3",
+    intent: "记录网页灵感",
+    colorName: "墨黑",
+    color: "#111111",
+  },
+  "wechat-article-publisher-extension": {
+    kind: "Chrome 插件",
+    title: "公众号文章批量进草稿箱",
+    summary: "TXT 和图片文件夹批量上传，模板排版、封面生成、图片排序一体化",
+    format: "Chrome MV3",
+    intent: "批量发布公众号",
+    colorName: "铁灰",
+    color: "#3F3F3F",
+  },
+  "wechat-image-replacer": {
+    kind: "Chrome 插件",
+    title: "公众号编辑器批量替换图片",
+    summary: "URL 列表按顺序替换微信图片，支持小程序链接、宽度过滤和智能排序",
+    format: "Chrome MV3",
+    intent: "批量换图",
+    colorName: "中灰",
+    color: "#777777",
+  },
+  "doubao-cache-cleaner": {
+    kind: "Chrome 插件",
+    title: "一键清理豆包页面缓存",
+    summary: "清除 Cookies、Storage、IndexedDB 和 Service Worker，带安全开关与确认",
+    format: "Chrome MV3",
+    intent: "清理页面缓存",
+    colorName: "石灰",
+    color: "#9A9A9A",
+  },
+  "ocr-image-text-recognition": {
+    kind: "Chrome 插件",
+    title: "多图 OCR 识别和整理",
+    summary: "拖拽、粘贴、URL 或右键导入图片，支持多 API、历史记录和结果搜索",
+    format: "Chrome MV3",
+    intent: "识别图片文字",
+    colorName: "墨黑",
+    color: "#111111",
+  },
+  "wechat-tag-tool": {
+    kind: "Chrome 插件",
+    title: "公众号标题标签栏",
+    summary: "常用前缀和话术一键复制/替换，标签组本地管理、导入导出",
+    format: "Chrome MV3",
+    intent: "复用标题标签",
+    colorName: "铁灰",
+    color: "#3F3F3F",
+  },
+  "wechat-cover-generator": {
+    kind: "Chrome 插件",
+    title: "公众号封面侧边栏生成",
+    summary: "自动提取编辑器图片，内置多图和镜像模板，生成 940x400 PNG",
+    format: "Chrome MV3",
+    intent: "生成公众号封面",
+    colorName: "中灰",
+    color: "#777777",
+  },
+  "transparent-element-screenshot": {
+    kind: "Chrome 插件",
+    title: "网页元素透明截图",
+    summary: "对当前网页元素做透明背景截图和批量抠图",
+    format: "Chrome MV3",
+    intent: "透明截图",
+    colorName: "墨黑",
+    color: "#111111",
+  },
+  "bookmark-line-indicator": {
+    kind: "Chrome 插件",
+    title: "收藏页顶部红线提示",
+    summary: "打开已收藏页面时显示细红线和文件夹路径，快速识别保存状态",
+    format: "Chrome MV3",
+    intent: "识别收藏页",
+    colorName: "铁灰",
+    color: "#3F3F3F",
   },
   image: {
     kind: "图片实验",
@@ -243,25 +537,10 @@ async function syncStyleCount() {
   const counts = [...document.querySelectorAll("[data-style-count]")];
   if (!counts.length) return;
 
-  try {
-    const response = await fetch(VIP_PUBLIC_STATS_URL, {
-      cache: "no-store",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) throw new Error(`Stats returned ${response.status}`);
-
-    const stats = await response.json();
-    const nextCount = formatPlainCount(stats.styles);
-    if (nextCount) {
-      counts.forEach((count) => {
-        count.textContent = nextCount;
-      });
-    }
-  } catch {
-    // Keep the static fallback when the stats endpoint is unavailable or blocked by CORS.
-  }
+  const nextCount = String(MEMBER_STYLE_COUNT);
+  counts.forEach((count) => {
+    count.textContent = nextCount;
+  });
 }
 
 function inferProjectProfile(repo, index) {
@@ -349,10 +628,10 @@ function getProjectIcon(repo) {
 }
 
 function getProjectAction(view) {
-  const chromeStoreUrl = view.profile.chromeStoreUrl;
+  const chromeStoreUrl = view.profile.chromeStoreUrl || view.repo.chromeStoreUrl;
   if (chromeStoreUrl && chromeStoreUrl.startsWith("http")) {
     return {
-      label: "Chrome 插件",
+      label: view.repo.chromeStatus?.includes("已发布") ? "安装" : "商店页",
       url: chromeStoreUrl,
     };
   }
@@ -370,6 +649,50 @@ function getProjectAction(view) {
   };
 }
 
+function isGithubUrl(url) {
+  return /^https:\/\/github\.com\//i.test(String(url || ""));
+}
+
+function mergeProjectTopics(first = [], second = []) {
+  return [...new Set([...(Array.isArray(first) ? first : []), ...(Array.isArray(second) ? second : [])])];
+}
+
+function latestDate(first, second) {
+  const firstTime = new Date(first || 0).getTime();
+  const secondTime = new Date(second || 0).getTime();
+  return secondTime > firstTime ? second : first;
+}
+
+function mergeChromeStoreExtensions(repos) {
+  const byName = new Map(repos.map((repo) => [repo.name, { ...repo }]));
+
+  chromeStoreExtensions.forEach((extension) => {
+    const current = byName.get(extension.name);
+    if (!current) {
+      byName.set(extension.name, { ...extension });
+      return;
+    }
+
+    byName.set(extension.name, {
+      ...current,
+      displayName: extension.displayName || current.displayName,
+      description: extension.description || current.description,
+      html_url: isGithubUrl(current.html_url) ? current.html_url : extension.html_url,
+      homepage: current.homepage || extension.homepage,
+      language: current.language || extension.language,
+      fork: current.fork ?? extension.fork ?? false,
+      stargazers_count: current.stargazers_count ?? extension.stargazers_count ?? 0,
+      forks_count: current.forks_count ?? extension.forks_count ?? 0,
+      pushed_at: latestDate(current.pushed_at, extension.pushed_at),
+      topics: mergeProjectTopics(current.topics, extension.topics),
+      chromeStoreUrl: extension.chromeStoreUrl,
+      chromeStatus: extension.chromeStatus,
+    });
+  });
+
+  return [...byName.values()];
+}
+
 function filterDisplayRepos(repos) {
   return repos
     .filter((repo) => !repo.fork)
@@ -379,11 +702,11 @@ function filterDisplayRepos(repos) {
 }
 
 function getReposSignature(repos) {
-  return repos.map((repo) => `${repo.name}:${repo.pushed_at}:${repo.stargazers_count}:${repo.forks_count}`).join("|");
+  return repos.map((repo) => `${repo.name}:${repo.pushed_at}:${repo.stargazers_count}:${repo.forks_count}:${repo.chromeStoreUrl || ""}:${repo.chromeStatus || ""}`).join("|");
 }
 
 function updateRepos(repos) {
-  const filteredRepos = filterDisplayRepos(repos);
+  const filteredRepos = filterDisplayRepos(mergeChromeStoreExtensions(repos));
   const nextSignature = getReposSignature(filteredRepos);
   if (nextSignature === reposSignature) return false;
 
@@ -501,12 +824,43 @@ function randomItems(items, count) {
 
 async function copyText(value) {
   if (!value) return false;
+
   try {
-    await navigator.clipboard.writeText(value);
-    return true;
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
   } catch {
-    return false;
+    // Fall back to the textarea path below for browsers that block Clipboard API.
   }
+
+  const textarea = document.createElement("textarea");
+  const selection = document.getSelection();
+  const selectedRange = selection?.rangeCount ? selection.getRangeAt(0) : null;
+
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.top = "-9999px";
+  textarea.style.opacity = "0";
+  document.body.append(textarea);
+  textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length);
+
+  let copied = false;
+  try {
+    copied = document.execCommand("copy");
+  } catch {
+    copied = false;
+  }
+
+  textarea.remove();
+  if (selectedRange && selection) {
+    selection.removeAllRanges();
+    selection.addRange(selectedRange);
+  }
+
+  return copied;
 }
 
 function footerColorButtons() {
@@ -517,10 +871,31 @@ function footerCopyValue(color) {
   return `${color.name} ${color.hex}`;
 }
 
-function setFooterButtonColor(button, color, height) {
+function normalizeFooterColor(color) {
+  if (!color || typeof color !== "object") return null;
+
+  const hex = color.hex || color.color || color.value;
+  if (typeof hex !== "string" || !hex.startsWith("#")) return null;
+
+  return {
+    name: color.name || color.title || color.label || hex,
+    hex,
+  };
+}
+
+function footerSpectrumPalette() {
+  const injectedColors = Array.isArray(window.TRADITIONAL_COLOR_IMAGES)
+    ? window.TRADITIONAL_COLOR_IMAGES.map(normalizeFooterColor).filter(Boolean)
+    : [];
+
+  return injectedColors.length ? injectedColors : footerColorPalette;
+}
+
+function setFooterButtonColor(button, color, index) {
   const copyValue = footerCopyValue(color);
   button.style.setProperty("--spectrum-color", color.hex);
-  button.style.setProperty("--spectrum-height", `${height}px`);
+  button.style.setProperty("--spectrum-index", String((index % FOOTER_SPECTRUM_STEP_COUNT) + 1));
+  button.style.removeProperty("--spectrum-height");
   button.dataset.footerCopyValue = copyValue;
   button.title = `复制 ${copyValue}`;
   button.setAttribute("aria-label", `复制 ${color.name} 色值 ${color.hex}`);
@@ -529,9 +904,9 @@ function setFooterButtonColor(button, color, height) {
 function buildFooterSpectrum(buttons = footerColorButtons()) {
   if (!buttons.length) return;
 
-  const heights = randomItems(FOOTER_SPECTRUM_HEIGHTS, buttons.length);
-  randomItems(footerColorPalette, buttons.length).forEach((color, index) => {
-    setFooterButtonColor(buttons[index], color, heights[index]);
+  const colors = randomItems(footerSpectrumPalette(), buttons.length);
+  buttons.forEach((button, index) => {
+    setFooterButtonColor(button, colors[index % colors.length], index);
   });
 }
 
@@ -569,7 +944,7 @@ function initFooterSpectrum() {
     }
 
     markFooterButtonCopied(button);
-    showFooterCopyToast(`已复制 ${copyValue}`);
+    showFooterCopyToast(`已复制：${copyValue}`);
   });
 }
 
@@ -743,7 +1118,7 @@ function initSkillModal() {
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, homepage } = view;
   const safeName = escapeHtml(repo.name);
-  const displayName = escapeCopy(profile.displayName || repo.name);
+  const displayName = escapeCopy(profile.displayName || repo.displayName || repo.name);
   const projectTitle = escapeCopy(profile.title || profile.intent || repo.description || repo.name);
   const projectSummary = escapeCopy(profile.summary || repo.description || profile.format || "公开代码项目");
   const htmlUrl = escapeHtml(repo.html_url);
