@@ -1,5 +1,5 @@
 const INDEX_PATH = new URL("../index.html", import.meta.url);
-const MEMBER_STYLE_COUNT = 5567;
+const MEMBER_STYLE_COUNT = 6217;
 
 function formatCount(value) {
   const count = Number(value);
