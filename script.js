@@ -1,6 +1,6 @@
 const GITHUB_USER = "nevertoday";
 const REPO_SNAPSHOT_URL = "repos.json";
-const MEMBER_STYLE_COUNT = 5567;
+const MEMBER_STYLE_COUNT = 6217;
 
 const fallbackRepos = [
   {
