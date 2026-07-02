@@ -24,6 +24,7 @@
   --focus: color-mix(in srgb, var(--ink) 18%, transparent);
   --shadow: 0 14px 34px rgba(17, 17, 17, 0.08);
   --edge: clamp(18px, 3.2vw, 64px);
+  --chrome-edge: clamp(14px, 1.5vw, 28px);
   --header-h: 70px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
@@ -593,8 +594,21 @@ h3 {
   align-items: baseline;
 }
 
+.compact-head > div {
+  display: grid;
+  gap: 0.42rem;
+  min-width: 0;
+}
+
 .compact-head h2 {
   margin-top: 0;
+}
+
+.section-subcopy {
+  max-width: 38rem;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.65;
 }
 
 .repo-status {
@@ -4036,7 +4050,7 @@ p,
 
 .site-header,
 :root:not([data-theme="dark"]) .site-header {
-  padding-inline: clamp(14px, 1.5vw, 28px);
+  padding-inline: var(--chrome-edge);
 }
 
 .site-header {
@@ -5799,8 +5813,24 @@ main .skill-card:hover .skill-heading span {
 :root[data-theme="dark"] .site-footer {
   grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.72fr) minmax(10rem, auto) !important;
   gap: clamp(1rem, 2vw, 1.75rem) !important;
-  padding-inline: clamp(14px, 1.5vw, 28px) !important;
+  padding-inline: var(--chrome-edge) !important;
+  padding-block: clamp(26px, 2.5vw, 36px) !important;
   border-top: 1px solid var(--line) !important;
+}
+
+.site-footer .footer-main {
+  gap: 0.5rem !important;
+  justify-content: start !important;
+}
+
+.site-footer .footer-main p {
+  margin: 0 !important;
+  line-height: 1.45 !important;
+}
+
+.site-footer .footer-meta {
+  gap: 0.32rem !important;
+  line-height: 1.18 !important;
 }
 
 @media (max-width: 760px) {
@@ -5808,32 +5838,62 @@ main .skill-card:hover .skill-heading span {
   :root:not([data-theme="dark"]) .site-footer,
   :root[data-theme="dark"] .site-footer {
     grid-template-columns: 1fr !important;
-    gap: 1.4rem !important;
-    padding-inline: clamp(14px, 1.5vw, 28px) !important;
+    gap: 0.8rem !important;
+    padding-inline: var(--chrome-edge) !important;
+    padding-block: 22px !important;
+  }
+
+  .site-footer .footer-main {
+    gap: 0.38rem !important;
+  }
+
+  .site-footer .footer-main p {
+    max-width: 22rem !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .site-footer .footer-meta {
+    gap: 0.18rem !important;
+    min-width: 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .footer-mark {
+    min-height: 34px !important;
+  }
+
+  .footer-mark span {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.92rem !important;
   }
 }
 
-/* EOF footer color ladder lock: larger copy targets with less mechanical heights. */
+/* EOF footer color ladder lock: compact traditional-color copy strip. */
 .footer-spectrum-panel {
-  width: min(calc(100vw - 28px), 29rem) !important;
+  width: min(100%, 29rem) !important;
   max-width: 100% !important;
-  gap: 0.9rem !important;
+  grid-template-rows: minmax(1.1em, auto) auto !important;
+  gap: 0.45rem !important;
 }
 
 .footer-spectrum {
-  width: min(calc(100vw - 28px), 29rem) !important;
+  width: 100% !important;
   max-width: 100% !important;
-  min-height: clamp(76px, 7vw, 116px) !important;
-  grid-template-columns: repeat(8, minmax(24px, 1fr)) !important;
+  min-height: 34px !important;
+  grid-template-columns: repeat(12, minmax(8px, 1fr)) !important;
+  gap: 0 !important;
   justify-self: stretch !important;
   justify-content: stretch !important;
   align-items: end !important;
 }
 
 .footer-spectrum button {
-  height: var(--spectrum-height, 72px) !important;
-  min-height: 44px !important;
-  opacity: 0.9 !important;
+  height: calc(10px + var(--spectrum-index, 0) * 2px) !important;
+  min-height: 12px !important;
+  opacity: 0.88 !important;
   transition:
     opacity 160ms var(--ease),
     transform 180ms var(--ease-out-quint),
@@ -5842,16 +5902,47 @@ main .skill-card:hover .skill-heading span {
 
 .footer-spectrum button:hover,
 .footer-spectrum button:focus-visible {
-  transform: translateY(-4px) scaleY(1.02) !important;
+  transform: translateY(-1px) scaleY(1.04) !important;
+}
+
+.footer-copy-toast {
+  min-height: 1.05em !important;
+  font-size: 0.72rem !important;
+  line-height: 1.15 !important;
+}
+
+.footer-copy-toast[data-visible="true"] {
+  transform: translateY(0) !important;
 }
 
 @media (max-width: 760px) {
   .footer-spectrum-panel {
-    width: min(100%, 26rem) !important;
+    width: min(100%, 22rem) !important;
   }
 
   .footer-spectrum {
-    min-height: 92px !important;
+    min-height: 34px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .site-footer,
+  :root:not([data-theme="dark"]) .site-footer,
+  :root[data-theme="dark"] .site-footer {
+    justify-items: stretch !important;
+    text-align: left !important;
+  }
+
+  .site-footer .footer-main,
+  .site-footer .footer-meta {
+    justify-items: start !important;
+    justify-self: stretch !important;
+    text-align: left !important;
+  }
+
+  .footer-spectrum-panel {
+    width: 100% !important;
+    justify-self: stretch !important;
   }
 }
 
@@ -5929,6 +6020,22 @@ main > .skills-section:hover {
   :root:not([data-theme="dark"]) .projects-section .repo-status,
   :root[data-theme="dark"] .projects-section .repo-status {
     font-size: 1rem !important;
+  }
+
+  main .projects-section .section-head {
+    width: min(100%, calc(100vw - 28px)) !important;
+  }
+
+  main .projects-section h2 {
+    max-width: 8.5em !important;
+    margin-inline: auto !important;
+    font-size: 2.35rem !important;
+    line-height: 1.12 !important;
+  }
+
+  main .projects-section .section-subcopy,
+  main .projects-section .project-summary {
+    max-width: min(100%, 20rem) !important;
   }
 }
 
@@ -6216,4 +6323,305 @@ main > .community-section .plan-board:focus-within .community-count strong {
   main > .community-section .plan-board:focus-within .community-count strong {
     transform: none !important;
   }
+}
+
+/* EOF community middle lock: keep count and QR unframed, with no card container. */
+main > .community-section .plan-board,
+main > .community-section:hover .plan-board,
+main > .community-section .plan-board:hover,
+main > .community-section .plan-board:focus-within,
+:root:not([data-theme="dark"]) main > .community-section .plan-board,
+:root:not([data-theme="dark"]) main > .community-section:hover .plan-board,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:hover,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:focus-within,
+:root[data-theme="dark"] main > .community-section .plan-board,
+:root[data-theme="dark"] main > .community-section:hover .plan-board,
+:root[data-theme="dark"] main > .community-section .plan-board:hover,
+:root[data-theme="dark"] main > .community-section .plan-board:focus-within,
+main > .community-section .community-side,
+main > .community-section .community-qr,
+main > .community-section .community-qr:hover,
+main > .community-section .community-qr:focus-visible,
+:root:not([data-theme="dark"]) main > .community-section .community-qr,
+:root[data-theme="dark"] main > .community-section .community-qr {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+main > .community-section .plan-board::before,
+main > .community-section:hover .plan-board::before,
+main > .community-section .plan-board:hover::before,
+main > .community-section .plan-board:focus-within::before {
+  content: none !important;
+}
+
+main > .community-section .community-side {
+  width: auto !important;
+  justify-items: center !important;
+}
+
+main > .community-section .community-qr {
+  padding: 0 !important;
+}
+
+main > .community-section .community-qr img,
+main > .community-section .community-qr:hover img,
+main > .community-section .community-qr:focus-visible img,
+:root:not([data-theme="dark"]) main > .community-section .community-qr img {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+main > .community-section:hover .community-count strong,
+main > .community-section .plan-board:hover .community-count strong,
+main > .community-section .plan-board:focus-within .community-count strong {
+  color: var(--ink) !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+/* EOF section full-bleed lock: dividers and hover fields span the viewport. */
+main > .community-section,
+main > .contact-section,
+main > .projects-section,
+main > .skills-section {
+  position: relative !important;
+  isolation: isolate !important;
+  background: var(--paper) !important;
+  overflow: visible !important;
+}
+
+main > .community-section > *,
+main > .contact-section > *,
+main > .projects-section > *,
+main > .skills-section > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+main > .community-section::before,
+main > .contact-section::before,
+main > .projects-section::before,
+main > .skills-section::before {
+  position: absolute !important;
+  top: 0 !important;
+  right: auto !important;
+  left: 50% !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: 100vw !important;
+  height: 1px !important;
+  background: color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  content: "" !important;
+  transform: translateX(-50%) !important;
+  pointer-events: none !important;
+}
+
+main > .community-section::before {
+  content: none !important;
+}
+
+main > .community-section::after,
+main > .contact-section::after,
+main > .projects-section::after,
+main > .skills-section::after {
+  position: absolute !important;
+  inset: 0 auto 0 50% !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100vw !important;
+  height: auto !important;
+  background: color-mix(in srgb, var(--ink) 3.5%, var(--paper)) !important;
+  content: "" !important;
+  opacity: 0 !important;
+  transform: translateX(-50%) !important;
+  transition: opacity 180ms var(--ease) !important;
+  pointer-events: none !important;
+}
+
+main > .community-section:hover,
+main > .contact-section:hover,
+main > .projects-section:hover,
+main > .skills-section:hover,
+:root:not([data-theme="dark"]) main > .community-section:hover,
+:root:not([data-theme="dark"]) main > .contact-section:hover,
+:root:not([data-theme="dark"]) main > .projects-section:hover,
+:root:not([data-theme="dark"]) main > .skills-section:hover {
+  background: var(--paper) !important;
+  box-shadow: none !important;
+}
+
+main > .community-section:hover::after,
+main > .contact-section:hover::after,
+main > .projects-section:hover::after,
+main > .skills-section:hover::after {
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] main > .community-section::after,
+:root[data-theme="dark"] main > .contact-section::after,
+:root[data-theme="dark"] main > .projects-section::after,
+:root[data-theme="dark"] main > .skills-section::after {
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper)) !important;
+}
+
+/* EOF community metric surface lock: count and QR stay unframed on the section field. */
+main > .community-section .community-copy,
+main > .community-section .plan-board,
+main > .community-section:hover .plan-board,
+main > .community-section .plan-board:hover,
+main > .community-section .plan-board:focus-within,
+:root:not([data-theme="dark"]) main > .community-section .community-copy,
+:root:not([data-theme="dark"]) main > .community-section .plan-board,
+:root:not([data-theme="dark"]) main > .community-section:hover .plan-board,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:hover,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:focus-within,
+:root[data-theme="dark"] main > .community-section .community-copy,
+:root[data-theme="dark"] main > .community-section .plan-board,
+:root[data-theme="dark"] main > .community-section:hover .plan-board,
+:root[data-theme="dark"] main > .community-section .plan-board:hover,
+:root[data-theme="dark"] main > .community-section .plan-board:focus-within {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+main > .community-section .plan-board::before,
+main > .community-section:hover .plan-board::before,
+main > .community-section .plan-board:hover::before,
+main > .community-section .plan-board:focus-within::before,
+main > .community-section .plan-board::after,
+main > .community-section:hover .plan-board::after,
+main > .community-section .plan-board:hover::after,
+main > .community-section .plan-board:focus-within::after {
+  content: none !important;
+}
+
+/* EOF community static lock: count and QR do not use hover background fields. */
+main > .community-section::after,
+main > .community-section:hover::after,
+:root[data-theme="dark"] main > .community-section::after {
+  content: none !important;
+  opacity: 0 !important;
+}
+
+main > .community-section .community-copy,
+main > .community-section .plan-board,
+main > .community-section:hover .plan-board,
+main > .community-section .plan-board:hover,
+main > .community-section .plan-board:focus-within,
+main > .community-section .community-count,
+main > .community-section .community-count strong,
+main > .community-section:hover .community-count strong,
+main > .community-section .plan-board:hover .community-count strong,
+main > .community-section .plan-board:focus-within .community-count strong,
+main > .community-section .community-side,
+main > .community-section .community-qr,
+main > .community-section .community-qr:hover,
+main > .community-section .community-qr:focus-visible,
+main > .community-section .community-qr img,
+main > .community-section .community-qr:hover img,
+main > .community-section .community-qr:focus-visible img {
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+main > .community-section .plan-board,
+main > .community-section:hover .plan-board,
+main > .community-section .plan-board:hover,
+main > .community-section .plan-board:focus-within,
+:root:not([data-theme="dark"]) main > .community-section .plan-board,
+:root:not([data-theme="dark"]) main > .community-section:hover .plan-board,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:hover,
+:root:not([data-theme="dark"]) main > .community-section .plan-board:focus-within,
+:root[data-theme="dark"] main > .community-section .plan-board,
+:root[data-theme="dark"] main > .community-section:hover .plan-board,
+:root[data-theme="dark"] main > .community-section .plan-board:hover,
+:root[data-theme="dark"] main > .community-section .plan-board:focus-within,
+main > .community-section .community-count strong,
+main > .community-section:hover .community-count strong,
+main > .community-section .plan-board:hover .community-count strong,
+main > .community-section .plan-board:focus-within .community-count strong,
+main > .community-section .community-qr,
+main > .community-section .community-qr:hover,
+main > .community-section .community-qr:focus-visible,
+main > .community-section .community-qr img {
+  transition: none !important;
+}
+
+/* EOF nav-section field lock: nav targets hover and divide at full section width. */
+main > .community-section,
+main > .contact-section,
+main > .projects-section,
+main > .skills-section,
+:root:not([data-theme="dark"]) main > .community-section,
+:root:not([data-theme="dark"]) main > .contact-section,
+:root:not([data-theme="dark"]) main > .projects-section,
+:root:not([data-theme="dark"]) main > .skills-section,
+:root[data-theme="dark"] main > .community-section,
+:root[data-theme="dark"] main > .contact-section,
+:root[data-theme="dark"] main > .projects-section,
+:root[data-theme="dark"] main > .skills-section {
+  position: relative !important;
+  isolation: isolate !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  border-bottom: 0 !important;
+  background: var(--paper) !important;
+  box-shadow: none !important;
+  transition: background-color 180ms var(--ease) !important;
+}
+
+main > .community-section:hover,
+main > .contact-section:hover,
+main > .projects-section:hover,
+main > .skills-section:hover,
+:root:not([data-theme="dark"]) main > .community-section:hover,
+:root:not([data-theme="dark"]) main > .contact-section:hover,
+:root:not([data-theme="dark"]) main > .projects-section:hover,
+:root:not([data-theme="dark"]) main > .skills-section:hover {
+  background: color-mix(in srgb, var(--ink) 3.5%, var(--paper)) !important;
+}
+
+:root[data-theme="dark"] main > .community-section:hover,
+:root[data-theme="dark"] main > .contact-section:hover,
+:root[data-theme="dark"] main > .projects-section:hover,
+:root[data-theme="dark"] main > .skills-section:hover {
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper)) !important;
+}
+
+main > .community-section::before,
+main > .contact-section::before,
+main > .projects-section::before,
+main > .skills-section::before {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: auto !important;
+  height: 1px !important;
+  background: color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  content: "" !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+
+main > .community-section::after,
+main > .contact-section::after,
+main > .projects-section::after,
+main > .skills-section::after,
+main > .community-section:hover::after,
+main > .contact-section:hover::after,
+main > .projects-section:hover::after,
+main > .skills-section:hover::after {
+  content: none !important;
 }
