@@ -806,11 +806,19 @@ function initMobileNav() {
   }
 }
 
-function setStatus(message, type = "default") {
-  const status = document.querySelector("[data-repo-status]");
+function setElementStatus(selector, message, type = "default") {
+  const status = document.querySelector(selector);
   if (!status) return;
   status.textContent = stripEndingPunctuation(message);
   status.dataset.type = type;
+}
+
+function setStatus(message, type = "default") {
+  setElementStatus("[data-repo-status]", message, type);
+}
+
+function setChromeStatus(message, type = "default") {
+  setElementStatus("[data-chrome-status]", message, type);
 }
 
 function randomItems(items, count) {
@@ -1149,11 +1157,44 @@ function createProjectCard(view, visibleIndex) {
   `;
 }
 
+function isChromeStoreExtension(repo) {
+  return Boolean(repo.chromeStoreUrl);
+}
+
+function getChromeExtensionRepos() {
+  return state.repos.filter(isChromeStoreExtension);
+}
+
+function getProjectRepos() {
+  return state.repos.filter((repo) => !isChromeStoreExtension(repo));
+}
+
+function renderChromeExtensions() {
+  const grid = document.querySelector("[data-chrome-extension-grid]");
+  if (!grid) return;
+
+  const repos = getChromeExtensionRepos();
+  const views = repos.map(getRepoView);
+
+  grid.classList.remove("is-rendered");
+  grid.innerHTML = views.map(createProjectCard).join("");
+
+  window.requestAnimationFrame(() => {
+    grid.classList.add("is-rendered");
+  });
+
+  if (!repos.length) {
+    setChromeStatus("暂无插件", "empty");
+  } else {
+    setChromeStatus(`${repos.length} 个谷歌插件`, "ready");
+  }
+}
+
 function renderProjects() {
   const grid = document.querySelector("[data-project-grid]");
   if (!grid) return;
 
-  const repos = state.repos;
+  const repos = getProjectRepos();
   const views = repos.map(getRepoView);
 
   grid.classList.remove("is-rendered");
@@ -1171,6 +1212,7 @@ function renderProjects() {
 }
 
 function renderAll() {
+  renderChromeExtensions();
   renderProjects();
 }
 
@@ -1199,7 +1241,7 @@ async function refreshReposFromGithub() {
     updateRepos(await response.json());
   } catch {
     if (state.repos.length) {
-      setStatus(`${state.repos.length} 个可用项目`, "ready");
+      renderAll();
     } else {
       updateRepos(fallbackRepos);
       setStatus("GitHub 暂时不可用", "warning");

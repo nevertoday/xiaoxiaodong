@@ -194,12 +194,16 @@ main {
   order: 3;
 }
 
-#projects {
+#chrome-extensions {
   order: 4;
 }
 
-#skills {
+#projects {
   order: 5;
+}
+
+#skills {
+  order: 6;
 }
 
 .site-header {
@@ -402,6 +406,7 @@ main {
 }
 
 #top,
+#chrome-extensions,
 #projects,
 #community,
 #contact,
