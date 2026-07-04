@@ -7,7 +7,10 @@ const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8"
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
-const assetVersion = "20260704-footer-compact-v3";
+const footerStart = indexHtml.indexOf('<footer class="site-footer">');
+const footerEnd = indexHtml.indexOf("</footer>", footerStart);
+const footerMarkup = indexHtml.slice(footerStart, footerEnd);
+const assetVersion = "20260704-footer-brand-v4";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -96,19 +99,39 @@ assert.doesNotMatch(
 assert.match(
   stylesCss,
   /main #chrome-extensions \.project-card\.is-chrome-extension \.app-icon\s*{[^}]*object-fit:\s*cover/s,
-  "chrome extension icons should fill their square icon area"
+  "chrome extension icons should fill their icon area"
 );
 
 assert.match(
   indexHtml,
-  /class="footer-line-mark"/,
-  "footer should use the right-side line mark instead of the header logo block"
+  /class="footer-logo-outline"/,
+  "footer should use the outlined brand mark variant"
 );
 
 assert.doesNotMatch(
   indexHtml,
-  /class="footer-mark"|data-footer-color|footer-spectrum|footer-copy-toast/,
-  "footer should not include the old header-style mark or color-copy controls"
+  /class="footer-mark"|class="footer-line-mark"|data-footer-color|footer-spectrum|footer-copy-toast/,
+  "footer should not include the old header-style mark, custom line mark, or color-copy controls"
+);
+
+assert.ok(footerStart >= 0 && footerEnd > footerStart, "footer should exist");
+
+assert.equal(
+  (footerMarkup.match(/<(?:(?:div)|nav)\s+class="footer-(?:brand|links|meta)"/g) || []).length,
+  3,
+  "footer should have at most three direct information sections"
+);
+
+assert.match(
+  stylesCss,
+  /\.site-footer::before\s*{[^}]*content:\s*none\s*!important/s,
+  "footer should not draw a duplicate top rule"
+);
+
+assert.match(
+  stylesCss,
+  /main #chrome-extensions \.project-card\.is-chrome-extension \.app-icon\s*{[^}]*border-radius:\s*16px\s*!important/s,
+  "chrome extension icons should have app-like rounded corners"
 );
 
 assert.match(
