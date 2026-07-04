@@ -194,16 +194,12 @@ main {
   order: 3;
 }
 
-#chrome-extensions {
+#projects {
   order: 4;
 }
 
-#projects {
-  order: 5;
-}
-
 #skills {
-  order: 6;
+  order: 5;
 }
 
 .site-header {
@@ -407,6 +403,7 @@ main {
 
 #top,
 #chrome-extensions,
+#github-projects,
 #projects,
 #community,
 #contact,
@@ -632,6 +629,31 @@ h3 {
 
 .archive-main {
   min-width: 0;
+}
+
+.project-categories {
+  display: grid;
+  gap: clamp(2.2rem, 5vw, 4.6rem);
+}
+
+.project-category {
+  display: grid;
+  gap: clamp(0.82rem, 2vw, 1.15rem);
+  min-width: 0;
+}
+
+.project-category-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  min-width: 0;
+  text-align: left;
+}
+
+.project-category-head h3 {
+  margin-top: 0.22rem;
+  font-size: clamp(1.36rem, 2.2vw, 1.86rem);
 }
 
 .project-grid {

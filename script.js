@@ -821,6 +821,10 @@ function setChromeStatus(message, type = "default") {
   setElementStatus("[data-chrome-status]", message, type);
 }
 
+function setGithubProjectStatus(message, type = "default") {
+  setElementStatus("[data-github-project-status]", message, type);
+}
+
 function randomItems(items, count) {
   const pool = [...items];
   for (let index = pool.length - 1; index > 0; index -= 1) {
@@ -970,24 +974,47 @@ function setActiveSection(sectionId) {
 }
 
 function initSectionNav() {
-  const sections = [...document.querySelectorAll("main > section[id]")];
+  const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+  const sections = navLinks
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
   if (!sections.length) return;
 
   setActiveSection(sections[0].id);
 
-  if (!("IntersectionObserver" in window)) return;
+  const updateActiveFromScroll = () => {
+    const headerOffset = (document.querySelector(".site-header")?.getBoundingClientRect().height || 0) + 32;
+    const activeSection = sections.reduce((active, section) => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const activeTop = active.getBoundingClientRect().top;
+      if (sectionTop > headerOffset) return active;
+      if (activeTop > headerOffset || sectionTop > activeTop) return section;
+      return active;
+    }, sections[0]);
 
-  const observer = new IntersectionObserver((entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
-    if (visible?.target?.id) setActiveSection(visible.target.id);
-  }, {
-    rootMargin: "-32% 0px -52% 0px",
-    threshold: [0.08, 0.18, 0.32],
+    setActiveSection(activeSection.id);
+  };
+
+  let ticking = false;
+  const scheduleActiveUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      ticking = false;
+      updateActiveFromScroll();
+    });
+  };
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      const sectionId = link.getAttribute("href")?.slice(1);
+      setActiveSection(sectionId);
+    });
   });
 
-  sections.forEach((section) => observer.observe(section));
+  window.addEventListener("scroll", scheduleActiveUpdate, { passive: true });
+  window.addEventListener("resize", scheduleActiveUpdate);
+  scheduleActiveUpdate();
 }
 
 function createSkillCard(skill, index) {
@@ -1191,7 +1218,7 @@ function renderChromeExtensions() {
 }
 
 function renderProjects() {
-  const grid = document.querySelector("[data-project-grid]");
+  const grid = document.querySelector("[data-github-project-grid]");
   if (!grid) return;
 
   const repos = getProjectRepos();
@@ -1205,15 +1232,24 @@ function renderProjects() {
   });
 
   if (!repos.length) {
+    setGithubProjectStatus("暂无项目", "empty");
+  } else {
+    setGithubProjectStatus(`${repos.length} 个 GitHub 项目`, "ready");
+  }
+}
+
+function renderProjectSummary() {
+  if (!state.repos.length) {
     setStatus("暂无项目", "empty");
   } else {
-    setStatus(`${repos.length} 个可用项目`, "ready");
+    setStatus(`${state.repos.length} 个可用项目`, "ready");
   }
 }
 
 function renderAll() {
   renderChromeExtensions();
   renderProjects();
+  renderProjectSummary();
 }
 
 async function loadSnapshotRepos() {

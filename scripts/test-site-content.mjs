@@ -3,6 +3,9 @@ import { readFileSync } from "node:fs";
 
 const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const scriptJs = readFileSync(new URL("../script.js", import.meta.url), "utf8");
+const projectsStart = indexHtml.indexOf('<section id="projects"');
+const skillsStart = indexHtml.indexOf('<section id="skills"');
+const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 
 assert.match(
   indexHtml,
@@ -10,16 +13,30 @@ assert.match(
   "primary navigation should include a 谷歌插件 category"
 );
 
-assert.match(
+assert.ok(projectsStart >= 0 && skillsStart > projectsStart, "projects section should exist before skills");
+
+assert.doesNotMatch(
   indexHtml,
   /<section\s+id="chrome-extensions"[^>]*>/,
-  "page should expose a chrome extensions anchor section"
+  "chrome extensions should not be a standalone page section"
 );
 
 assert.match(
-  indexHtml,
+  projectsMarkup,
+  /id="chrome-extensions"/,
+  "projects section should include a chrome extensions category anchor"
+);
+
+assert.match(
+  projectsMarkup,
   /data-chrome-extension-grid/,
-  "chrome extensions section should include a render target"
+  "projects section should include a chrome extensions render target"
+);
+
+assert.match(
+  projectsMarkup,
+  /data-github-project-grid/,
+  "projects section should include a GitHub projects render target"
 );
 
 assert.match(
