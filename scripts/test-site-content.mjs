@@ -10,7 +10,7 @@ const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 const footerStart = indexHtml.indexOf('<footer class="site-footer">');
 const footerEnd = indexHtml.indexOf("</footer>", footerStart);
 const footerMarkup = indexHtml.slice(footerStart, footerEnd);
-const assetVersion = "20260704-footer-align-v5";
+const assetVersion = "20260704-footer-lockup-v6";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -136,8 +136,14 @@ assert.match(
 
 assert.match(
   stylesCss,
-  /\.site-footer \.footer-brand\s*{[^}]*justify-self:\s*start\s*!important[^}]*justify-content:\s*flex-start\s*!important/s,
-  "desktop footer brand should start at the header logo edge"
+  /\.site-footer \.footer-brand\s*{[^}]*display:\s*grid\s*!important[^}]*grid-template-columns:\s*auto minmax\(0,\s*max-content\)\s*!important[^}]*justify-self:\s*start\s*!important/s,
+  "desktop footer brand should use a compact logo/text lockup at the header logo edge"
+);
+
+assert.match(
+  stylesCss,
+  /\.site-footer \.footer-note\s*{[^}]*grid-area:\s*auto\s*!important/s,
+  "footer note should not keep the old footer grid area inside the brand lockup"
 );
 
 assert.match(
@@ -148,8 +154,8 @@ assert.match(
 
 assert.match(
   stylesCss,
-  /@media \(max-width:\s*960px\)[\s\S]*?\.site-footer \.footer-brand\s*{[^}]*flex-direction:\s*column\s*!important/s,
-  "narrow footer brand should stack and center the logo above the text"
+  /@media \(max-width:\s*960px\)[\s\S]*?\.site-footer \.footer-brand\s*{[^}]*justify-self:\s*center\s*!important[^}]*justify-content:\s*center\s*!important/s,
+  "narrow footer brand lockup should be centered as one unit"
 );
 
 assert.match(

@@ -7182,17 +7182,21 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 }
 
 .site-footer .footer-brand {
-  display: inline-flex !important;
+  display: grid !important;
   grid-area: brand !important;
+  grid-template-columns: auto minmax(0, max-content) !important;
   justify-self: start !important;
-  justify-content: flex-start !important;
-  gap: 0.72rem !important;
+  justify-content: start !important;
+  gap: 0.7rem !important;
   align-items: center !important;
+  width: max-content !important;
+  max-width: 100% !important;
   min-width: 0 !important;
 }
 
 .site-footer .footer-logo-outline {
   display: grid !important;
+  grid-area: auto !important;
   width: 34px !important;
   height: 34px !important;
   flex: 0 0 auto !important;
@@ -7225,10 +7229,13 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
 .site-footer .footer-note {
   display: grid !important;
+  grid-area: auto !important;
   align-self: center !important;
-  gap: 0.26rem !important;
+  justify-items: start !important;
+  gap: 0.3rem !important;
   min-width: 0 !important;
   padding-right: 0 !important;
+  text-align: left !important;
 }
 
 .site-footer .footer-kicker {
@@ -7292,16 +7299,16 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
   }
 
   .site-footer .footer-brand {
-    flex-direction: column !important;
-    width: 100% !important;
+    width: max-content !important;
+    max-width: calc(100vw - (var(--chrome-edge) * 2)) !important;
     justify-self: center !important;
     justify-content: center !important;
-    gap: 0.44rem !important;
+    gap: 0.62rem !important;
   }
 
   .site-footer .footer-note {
-    justify-items: center !important;
-    text-align: center !important;
+    justify-items: start !important;
+    text-align: left !important;
   }
 
   .site-footer .footer-links,
@@ -7322,8 +7329,16 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
   }
 
   .site-footer .footer-logo-outline {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 1rem !important;
+    width: 31px !important;
+    height: 31px !important;
+    font-size: 0.98rem !important;
+  }
+
+  .site-footer .footer-brand {
+    gap: 0.54rem !important;
+  }
+
+  .site-footer .footer-note p:not(.footer-kicker) {
+    font-size: 0.8rem !important;
   }
 }
