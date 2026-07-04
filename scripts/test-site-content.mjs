@@ -7,7 +7,7 @@ const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8"
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
-const assetVersion = "20260704-extension-icons-list";
+const assetVersion = "20260704-footer-redesign";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -97,6 +97,30 @@ assert.match(
   stylesCss,
   /main #chrome-extensions \.project-card\.is-chrome-extension \.app-icon\s*{[^}]*object-fit:\s*cover/s,
   "chrome extension icons should fill their square icon area"
+);
+
+assert.match(
+  indexHtml,
+  /class="footer-line-mark"/,
+  "footer should use the right-side line mark instead of the header logo block"
+);
+
+assert.doesNotMatch(
+  indexHtml,
+  /class="footer-mark"|data-footer-color|footer-spectrum|footer-copy-toast/,
+  "footer should not include the old header-style mark or color-copy controls"
+);
+
+assert.match(
+  indexHtml,
+  /href="#chrome-extensions">谷歌插件/,
+  "footer should keep a direct Chrome extension navigation link"
+);
+
+assert.doesNotMatch(
+  scriptJs,
+  /initFooterSpectrum|data-footer-color|footerColorPalette|execCommand\("copy"\)/,
+  "footer color-copy JavaScript should be removed"
 );
 
 assert.match(

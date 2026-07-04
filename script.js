@@ -225,11 +225,6 @@ const themeColors = {
   dark: "#151515",
 };
 
-const FOOTER_COLOR_SELECTOR = "[data-footer-color]";
-const FOOTER_COPIED_MS = 900;
-const FOOTER_COPY_TOAST_MS = 1400;
-const FOOTER_SPECTRUM_STEP_COUNT = 9;
-
 const projectPalette = [
   { name: "墨黑", color: "#111111" },
   { name: "铁灰", color: "#3F3F3F" },
@@ -237,24 +232,6 @@ const projectPalette = [
   { name: "石灰", color: "#9A9A9A" },
   { name: "线灰", color: "#B8B8B8" },
   { name: "纸白", color: "#F7F7F7" },
-];
-
-const footerColorPalette = [
-  { name: "月白", hex: "#F9F4DC" },
-  { name: "佛手黄", hex: "#FED71A" },
-  { name: "香叶红", hex: "#F07C82" },
-  { name: "银朱", hex: "#ED5126" },
-  { name: "竹绿", hex: "#1BA784" },
-  { name: "美蝶绿", hex: "#12AA9C" },
-  { name: "晴山蓝", hex: "#8EC3E6" },
-  { name: "釉蓝", hex: "#1781B5" },
-  { name: "花青", hex: "#1661AB" },
-  { name: "玫瑰紫", hex: "#BA2F7B" },
-  { name: "绛紫", hex: "#8B2671" },
-  { name: "枣红", hex: "#7C1823" },
-  { name: "赭罗", hex: "#9A8878" },
-  { name: "茶褐", hex: "#5C3719" },
-  { name: "玛瑙灰", hex: "#CFCCC9" },
 ];
 
 const projectProfiles = {
@@ -852,132 +829,6 @@ function randomItems(items, count) {
   return pool.slice(0, count);
 }
 
-async function copyText(value) {
-  if (!value) return false;
-
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(value);
-      return true;
-    }
-  } catch {
-    // Fall back to the textarea path below for browsers that block Clipboard API.
-  }
-
-  const textarea = document.createElement("textarea");
-  const selection = document.getSelection();
-  const selectedRange = selection?.rangeCount ? selection.getRangeAt(0) : null;
-
-  textarea.value = value;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.top = "-9999px";
-  textarea.style.opacity = "0";
-  document.body.append(textarea);
-  textarea.select();
-  textarea.setSelectionRange(0, textarea.value.length);
-
-  let copied = false;
-  try {
-    copied = document.execCommand("copy");
-  } catch {
-    copied = false;
-  }
-
-  textarea.remove();
-  if (selectedRange && selection) {
-    selection.removeAllRanges();
-    selection.addRange(selectedRange);
-  }
-
-  return copied;
-}
-
-function footerColorButtons() {
-  return [...document.querySelectorAll(FOOTER_COLOR_SELECTOR)];
-}
-
-function footerCopyValue(color) {
-  return `${color.name} ${color.hex}`;
-}
-
-function normalizeFooterColor(color) {
-  if (!color || typeof color !== "object") return null;
-
-  const hex = color.hex || color.color || color.value;
-  if (typeof hex !== "string" || !hex.startsWith("#")) return null;
-
-  return {
-    name: color.name || color.title || color.label || hex,
-    hex,
-  };
-}
-
-function footerSpectrumPalette() {
-  const injectedColors = Array.isArray(window.TRADITIONAL_COLOR_IMAGES)
-    ? window.TRADITIONAL_COLOR_IMAGES.map(normalizeFooterColor).filter(Boolean)
-    : [];
-
-  return injectedColors.length ? injectedColors : footerColorPalette;
-}
-
-function setFooterButtonColor(button, color, index) {
-  const copyValue = footerCopyValue(color);
-  button.style.setProperty("--spectrum-color", color.hex);
-  button.style.setProperty("--spectrum-index", String((index % FOOTER_SPECTRUM_STEP_COUNT) + 1));
-  button.style.removeProperty("--spectrum-height");
-  button.dataset.footerCopyValue = copyValue;
-  button.title = `复制 ${copyValue}`;
-  button.setAttribute("aria-label", `复制 ${color.name} 色值 ${color.hex}`);
-}
-
-function buildFooterSpectrum(buttons = footerColorButtons()) {
-  if (!buttons.length) return;
-
-  const colors = randomItems(footerSpectrumPalette(), buttons.length);
-  buttons.forEach((button, index) => {
-    setFooterButtonColor(button, colors[index % colors.length], index);
-  });
-}
-
-function markFooterButtonCopied(button) {
-  button.dataset.copied = "true";
-  window.setTimeout(() => {
-    if (button.dataset.copied === "true") delete button.dataset.copied;
-  }, FOOTER_COPIED_MS);
-}
-
-function showFooterCopyToast(message) {
-  const toast = document.querySelector("[data-footer-copy-toast]");
-  if (!toast) return;
-
-  toast.textContent = message;
-  toast.dataset.visible = "true";
-  window.clearTimeout(showFooterCopyToast.timeoutId);
-  showFooterCopyToast.timeoutId = window.setTimeout(() => {
-    delete toast.dataset.visible;
-  }, FOOTER_COPY_TOAST_MS);
-}
-
-function initFooterSpectrum() {
-  buildFooterSpectrum();
-  document.addEventListener("click", async (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    const button = target?.closest(FOOTER_COLOR_SELECTOR);
-    if (!button) return;
-
-    const copyValue = button.dataset.footerCopyValue;
-    const copied = await copyText(copyValue);
-    if (!copied) {
-      showFooterCopyToast("浏览器未允许复制");
-      return;
-    }
-
-    markFooterButtonCopied(button);
-    showFooterCopyToast(`已复制：${copyValue}`);
-  });
-}
-
 function setActiveSection(sectionId) {
   if (!sectionId) return;
 
@@ -1319,7 +1170,6 @@ function initPage() {
   initTheme();
   initMobileNav();
   initMotion();
-  initFooterSpectrum();
   initSectionNav();
   renderSkills();
   initSkillModal();
