@@ -6,6 +6,7 @@ const scriptJs = readFileSync(new URL("../script.js", import.meta.url), "utf8");
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
+const assetVersion = "20260704-project-groups";
 
 assert.match(
   indexHtml,
@@ -43,4 +44,16 @@ assert.match(
   scriptJs,
   /function\s+renderChromeExtensions\s*\(/,
   "script should render chrome extensions separately"
+);
+
+assert.match(
+  indexHtml,
+  new RegExp(`styles\\.css\\?v=${assetVersion}`),
+  "stylesheet URL should be cache-busted for the project grouping change"
+);
+
+assert.match(
+  indexHtml,
+  new RegExp(`script\\.js\\?v=${assetVersion}`),
+  "script URL should be cache-busted for the project grouping change"
 );
