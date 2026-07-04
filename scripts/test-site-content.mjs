@@ -1,12 +1,27 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const scriptJs = readFileSync(new URL("../script.js", import.meta.url), "utf8");
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
-const assetVersion = "20260704-project-groups";
+const assetVersion = "20260704-extension-icons";
+const chromeExtensionIcons = [
+  "tampermonkey-scripts.jpg",
+  "xposter.jpg",
+  "obsidian-todo-sync.jpg",
+  "image-crop-tool.jpg",
+  "flomo-quick-post.jpg",
+  "wechat-article-publisher-extension.jpg",
+  "wechat-image-replacer.jpg",
+  "doubao-cache-cleaner.svg",
+  "ocr-image-text-recognition.jpg",
+  "wechat-tag-tool.jpg",
+  "wechat-cover-generator.jpg",
+  "transparent-element-screenshot.jpg",
+  "bookmark-line-indicator.jpg",
+];
 
 assert.match(
   indexHtml,
@@ -47,13 +62,32 @@ assert.match(
 );
 
 assert.match(
+  scriptJs,
+  /class="project-store-state"/,
+  "chrome extension cards should include store status metadata"
+);
+
+assert.match(
+  scriptJs,
+  /isChromeExtension\s+\?\s+"project-card is-chrome-extension"/,
+  "chrome extension cards should have a dedicated class for presentation"
+);
+
+for (const iconName of chromeExtensionIcons) {
+  const iconPath = `assets/icons/chrome-extensions/${iconName}`;
+  const escapedIconPath = iconPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  assert.match(scriptJs, new RegExp(escapedIconPath), `${iconPath} should be mapped in script.js`);
+  assert.ok(existsSync(new URL(`../${iconPath}`, import.meta.url)), `${iconPath} should exist`);
+}
+
+assert.match(
   indexHtml,
   new RegExp(`styles\\.css\\?v=${assetVersion}`),
-  "stylesheet URL should be cache-busted for the project grouping change"
+  "stylesheet URL should be cache-busted for the extension icon change"
 );
 
 assert.match(
   indexHtml,
   new RegExp(`script\\.js\\?v=${assetVersion}`),
-  "script URL should be cache-busted for the project grouping change"
+  "script URL should be cache-busted for the extension icon change"
 );

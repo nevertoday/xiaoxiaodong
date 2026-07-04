@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">豆包页面缓存清理图标</title>
+  <desc id="desc">浏览器窗口中的缓存方块和清理扫线</desc>
+  <rect width="128" height="128" fill="#111111"/>
+  <rect x="21" y="25" width="86" height="66" fill="#f7f7f7"/>
+  <rect x="21" y="25" width="86" height="15" fill="#d8d8d8"/>
+  <circle cx="31" cy="32.5" r="2.6" fill="#111111"/>
+  <circle cx="40" cy="32.5" r="2.6" fill="#111111"/>
+  <circle cx="49" cy="32.5" r="2.6" fill="#111111"/>
+  <rect x="35" y="53" width="17" height="17" fill="#111111"/>
+  <rect x="56" y="53" width="17" height="17" fill="#777777"/>
+  <rect x="77" y="53" width="17" height="17" fill="#111111"/>
+  <rect x="35" y="74" width="17" height="6" fill="#777777"/>
+  <rect x="56" y="74" width="17" height="6" fill="#111111"/>
+  <rect x="77" y="74" width="17" height="6" fill="#777777"/>
+  <path d="M34 101h42c8 0 14-6 14-14" fill="none" stroke="#f7f7f7" stroke-width="8" stroke-linecap="square"/>
+  <path d="M78 78l12 9-12 9" fill="none" stroke="#f7f7f7" stroke-width="8" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

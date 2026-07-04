@@ -450,8 +450,19 @@ const projectProfiles = {
 const projectIcons = {
   "chinese-traditional-colors": "assets/icons/traditional-colors-site.svg",
   "zhongguo-traditional-colors": "assets/icons/traditional-colors-site.svg",
-  "tampermonkey-scripts": "assets/icons/tampermonkey-scripts.png",
-  xposter: "assets/icons/xposter.png",
+  "tampermonkey-scripts": "assets/icons/chrome-extensions/tampermonkey-scripts.jpg",
+  xposter: "assets/icons/chrome-extensions/xposter.jpg",
+  "obsidian-todo-sync": "assets/icons/chrome-extensions/obsidian-todo-sync.jpg",
+  "image-crop-tool": "assets/icons/chrome-extensions/image-crop-tool.jpg",
+  "flomo-quick-post": "assets/icons/chrome-extensions/flomo-quick-post.jpg",
+  "wechat-article-publisher-extension": "assets/icons/chrome-extensions/wechat-article-publisher-extension.jpg",
+  "wechat-image-replacer": "assets/icons/chrome-extensions/wechat-image-replacer.jpg",
+  "doubao-cache-cleaner": "assets/icons/chrome-extensions/doubao-cache-cleaner.svg",
+  "ocr-image-text-recognition": "assets/icons/chrome-extensions/ocr-image-text-recognition.jpg",
+  "wechat-tag-tool": "assets/icons/chrome-extensions/wechat-tag-tool.jpg",
+  "wechat-cover-generator": "assets/icons/chrome-extensions/wechat-cover-generator.jpg",
+  "transparent-element-screenshot": "assets/icons/chrome-extensions/transparent-element-screenshot.jpg",
+  "bookmark-line-indicator": "assets/icons/chrome-extensions/bookmark-line-indicator.jpg",
   "100-layout-compositions": "assets/icons/layout-compositions.svg",
   "chrome-store-submission": "assets/icons/chrome-submission.svg",
 };
@@ -647,6 +658,13 @@ function getProjectAction(view) {
     label: "GitHub",
     url: view.repo.html_url,
   };
+}
+
+function getChromeStatusLabel(status) {
+  if (!status) return "";
+  if (status.includes("已发布")) return "已发布";
+  if (status.includes("待审核")) return "待审核";
+  return status.split(" - ")[0] || status;
 }
 
 function isGithubUrl(url) {
@@ -1152,6 +1170,7 @@ function initSkillModal() {
 
 function createProjectCard(view, visibleIndex) {
   const { repo, profile, homepage } = view;
+  const isChromeExtension = isChromeStoreExtension(repo);
   const safeName = escapeHtml(repo.name);
   const displayName = escapeCopy(profile.displayName || repo.displayName || repo.name);
   const projectTitle = escapeCopy(profile.title || profile.intent || repo.description || repo.name);
@@ -1162,14 +1181,17 @@ function createProjectCard(view, visibleIndex) {
   const actionLabel = escapeHtml(action.label);
   const icon = escapeHtml(getProjectIcon(repo));
   const tone = escapeHtml(profile.color || "#111111");
+  const chromeStatus = escapeHtml(getChromeStatusLabel(repo.chromeStatus));
+  const articleClass = isChromeExtension ? "project-card is-chrome-extension" : "project-card";
 
   return `
-    <article class="project-card" style="--card-delay: ${90 + visibleIndex * 48}ms; --project-tone: ${tone}">
+    <article class="${articleClass}" style="--card-delay: ${90 + visibleIndex * 48}ms; --project-tone: ${tone}">
       <div class="project-card-top">
         <img class="app-icon" src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="project-title">
           <p>${escapeCopy(profile.kind)}</p>
           <span title="${safeName}">${displayName}</span>
+          ${chromeStatus ? `<b class="project-store-state">${chromeStatus}</b>` : ""}
         </div>
       </div>
       <div class="project-copy">
