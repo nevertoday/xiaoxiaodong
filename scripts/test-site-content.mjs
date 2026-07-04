@@ -10,7 +10,7 @@ const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 const footerStart = indexHtml.indexOf('<footer class="site-footer">');
 const footerEnd = indexHtml.indexOf("</footer>", footerStart);
 const footerMarkup = indexHtml.slice(footerStart, footerEnd);
-const assetVersion = "20260704-footer-brand-v4";
+const assetVersion = "20260704-footer-align-v5";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -126,6 +126,36 @@ assert.match(
   stylesCss,
   /\.site-footer::before\s*{[^}]*content:\s*none\s*!important/s,
   "footer should not draw a duplicate top rule"
+);
+
+assert.match(
+  stylesCss,
+  /\.site-footer,[\s\S]*?padding-inline:\s*var\(--chrome-edge\)\s*!important/s,
+  "footer should align to the same horizontal edge as the header"
+);
+
+assert.match(
+  stylesCss,
+  /\.site-footer \.footer-brand\s*{[^}]*justify-self:\s*start\s*!important[^}]*justify-content:\s*flex-start\s*!important/s,
+  "desktop footer brand should start at the header logo edge"
+);
+
+assert.match(
+  stylesCss,
+  /@media \(max-width:\s*960px\)[\s\S]*?\.site-footer[\s\S]*?text-align:\s*center\s*!important/s,
+  "narrow footer layout should center its content"
+);
+
+assert.match(
+  stylesCss,
+  /@media \(max-width:\s*960px\)[\s\S]*?\.site-footer \.footer-brand\s*{[^}]*flex-direction:\s*column\s*!important/s,
+  "narrow footer brand should stack and center the logo above the text"
+);
+
+assert.match(
+  stylesCss,
+  /@media \(max-width:\s*960px\)[\s\S]*?\.site-footer \.footer-links,[\s\S]*?\.site-footer \.footer-meta[\s\S]*?justify-content:\s*center\s*!important/s,
+  "narrow footer links and metadata should be centered"
 );
 
 assert.match(

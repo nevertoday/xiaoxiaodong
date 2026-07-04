@@ -7162,9 +7162,11 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   grid-template-areas: "brand links meta" !important;
   grid-template-columns: minmax(17rem, 1fr) minmax(16rem, auto) minmax(15rem, auto) !important;
   align-items: center !important;
+  justify-items: stretch !important;
   gap: clamp(1rem, 3vw, 3rem) !important;
   min-height: 0 !important;
   margin-top: 0 !important;
+  padding-inline: var(--chrome-edge) !important;
   padding-block: 16px !important;
   border-top: 1px solid var(--line) !important;
   background: var(--paper) !important;
@@ -7182,6 +7184,8 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 .site-footer .footer-brand {
   display: inline-flex !important;
   grid-area: brand !important;
+  justify-self: start !important;
+  justify-content: flex-start !important;
   gap: 0.72rem !important;
   align-items: center !important;
   min-width: 0 !important;
@@ -7221,6 +7225,7 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
 .site-footer .footer-note {
   display: grid !important;
+  align-self: center !important;
   gap: 0.26rem !important;
   min-width: 0 !important;
   padding-right: 0 !important;
@@ -7239,11 +7244,13 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
 .site-footer .footer-links {
   grid-area: links !important;
+  justify-self: center !important;
   justify-content: center !important;
 }
 
 .site-footer .footer-meta {
   grid-area: meta !important;
+  justify-self: end !important;
   justify-content: flex-end !important;
   max-width: none !important;
 }
@@ -7278,17 +7285,30 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
       "links"
       "meta" !important;
     grid-template-columns: minmax(0, 1fr) !important;
+    justify-items: center !important;
     gap: 0.56rem !important;
     padding-block: 16px !important;
+    text-align: center !important;
   }
 
   .site-footer .footer-brand {
+    flex-direction: column !important;
     width: 100% !important;
+    justify-self: center !important;
+    justify-content: center !important;
+    gap: 0.44rem !important;
+  }
+
+  .site-footer .footer-note {
+    justify-items: center !important;
+    text-align: center !important;
   }
 
   .site-footer .footer-links,
   .site-footer .footer-meta {
-    justify-content: flex-start !important;
+    justify-self: center !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
 
   .site-footer .footer-meta {
