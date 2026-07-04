@@ -3,10 +3,11 @@ import { existsSync, readFileSync } from "node:fs";
 
 const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const scriptJs = readFileSync(new URL("../script.js", import.meta.url), "utf8");
+const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
-const assetVersion = "20260704-extension-icons";
+const assetVersion = "20260704-extension-icons-list";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -79,6 +80,24 @@ for (const iconName of chromeExtensionIcons) {
   assert.match(scriptJs, new RegExp(escapedIconPath), `${iconPath} should be mapped in script.js`);
   assert.ok(existsSync(new URL(`../${iconPath}`, import.meta.url)), `${iconPath} should exist`);
 }
+
+assert.match(
+  stylesCss,
+  /main #chrome-extensions \.project-grid\s*{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s,
+  "chrome extensions should stay in the existing single-column project list layout"
+);
+
+assert.doesNotMatch(
+  stylesCss,
+  /main #chrome-extensions \.project-grid\s*{[^}]*repeat\(2,/s,
+  "chrome extensions should not render multiple cards in one row"
+);
+
+assert.match(
+  stylesCss,
+  /main #chrome-extensions \.project-card\.is-chrome-extension \.app-icon\s*{[^}]*object-fit:\s*cover/s,
+  "chrome extension icons should fill their square icon area"
+);
 
 assert.match(
   indexHtml,

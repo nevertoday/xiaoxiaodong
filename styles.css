@@ -6653,96 +6653,70 @@ main > .skills-section:hover::after {
   content: none !important;
 }
 
-/* EOF Chrome extension icon lock: show real plugin icons as the primary scan cue. */
-main .projects-section .archive-main {
-  width: min(100%, 960px) !important;
-}
-
-main #chrome-extensions.project-category {
-  width: 100% !important;
-}
-
+/* EOF Chrome extension icon lock: keep the project list layout, only upgrade real icons. */
 main #chrome-extensions .project-grid {
-  width: min(100%, 960px) !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: clamp(0.72rem, 1.6vw, 1rem) !important;
-  border-top: 0 !important;
+  width: min(100%, 720px) !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0.72rem !important;
 }
 
-main #chrome-extensions .project-card.is-chrome-extension,
-:root:not([data-theme="dark"]) main #chrome-extensions .project-card.is-chrome-extension {
-  display: grid !important;
+main #chrome-extensions .project-card.is-chrome-extension {
   grid-template-areas:
+    "icon"
     "label"
     "body"
+    "meta"
     "action" !important;
   grid-template-columns: minmax(0, 1fr) !important;
-  grid-template-rows: auto minmax(0, 1fr) auto !important;
-  justify-items: stretch !important;
-  align-items: start !important;
-  min-height: 14.5rem !important;
-  padding: clamp(0.95rem, 1.8vw, 1.15rem) !important;
-  border: 1px solid color-mix(in srgb, var(--project-tone) 24%, transparent) !important;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--project-tone) 4%, transparent), transparent 44%),
-    color-mix(in srgb, var(--surface) 98%, var(--paper)) !important;
-  text-align: left !important;
-}
-
-main #chrome-extensions .project-card.is-chrome-extension:hover,
-main #chrome-extensions .project-card.is-chrome-extension:focus-within {
-  border-color: color-mix(in srgb, var(--project-tone) 42%, transparent) !important;
-  box-shadow: 0 18px 36px color-mix(in srgb, var(--ink) 8%, transparent) !important;
-  transform: translateY(-3px) !important;
+  justify-items: center !important;
+  align-items: center !important;
+  min-height: 0 !important;
+  text-align: center !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .project-card-top {
   display: flex !important;
-  flex-direction: row !important;
+  flex-direction: column !important;
   grid-area: label !important;
-  gap: 0.78rem !important;
+  gap: 0.62rem !important;
   align-items: center !important;
-  justify-content: flex-start !important;
-  width: 100% !important;
-  text-align: left !important;
+  justify-content: center !important;
+  text-align: center !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .app-icon {
-  flex: 0 0 auto !important;
-  justify-self: start !important;
-  width: 64px !important;
-  height: 64px !important;
-  padding: 6px !important;
-  border: 1px solid color-mix(in srgb, var(--project-tone) 18%, var(--line)) !important;
+  display: block !important;
+  width: 72px !important;
+  height: 72px !important;
+  padding: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent) !important;
   background: #ffffff !important;
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--ink) 7%, transparent) !important;
-  object-fit: contain !important;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--ink) 6%, transparent) !important;
+  object-fit: cover !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension:hover .app-icon,
 main #chrome-extensions .project-card.is-chrome-extension:focus-within .app-icon {
-  transform: translateY(-2px) scale(1.03) !important;
+  transform: translateY(-2px) scale(1.02) !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .project-title,
 main #chrome-extensions .project-card.is-chrome-extension .project-copy,
 main #chrome-extensions .project-card.is-chrome-extension .project-footer {
-  justify-items: start !important;
-  justify-content: flex-start !important;
-  text-align: left !important;
+  justify-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .project-title {
   display: grid !important;
-  flex: 1 1 auto !important;
-  gap: 0.26rem !important;
+  gap: 0.24rem !important;
   min-width: 0 !important;
-  width: auto !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .project-title span {
   color: var(--ink) !important;
-  font-size: 0.94rem !important;
+  font-size: 0.92rem !important;
   line-height: 1.28 !important;
 }
 
@@ -6750,6 +6724,7 @@ main #chrome-extensions .project-card.is-chrome-extension .project-title span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  justify-self: center;
   width: max-content;
   min-height: 22px;
   max-width: 100%;
@@ -6766,45 +6741,26 @@ main #chrome-extensions .project-card.is-chrome-extension .project-title span {
   white-space: nowrap;
 }
 
-main #chrome-extensions .project-card.is-chrome-extension .project-copy {
-  align-self: start !important;
-  gap: 0.42rem !important;
-  width: 100% !important;
-}
-
 main #chrome-extensions .project-card.is-chrome-extension .project-intent {
-  font-size: clamp(1.02rem, 1.5vw, 1.18rem) !important;
-  line-height: 1.28 !important;
-  text-align: left !important;
+  font-size: clamp(1.16rem, 2.2vw, 1.34rem) !important;
+  line-height: 1.24 !important;
+  text-align: center !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .project-summary {
-  max-width: none !important;
-  margin-inline: 0 !important;
-  color: var(--ink-soft) !important;
-  font-size: 0.86rem !important;
-  line-height: 1.62 !important;
-  text-align: left !important;
+  max-width: min(100%, 38rem) !important;
+  margin-inline: auto !important;
+  text-align: center !important;
 }
 
 main #chrome-extensions .project-card.is-chrome-extension .project-footer {
-  align-self: end !important;
-  width: 100% !important;
-  margin-top: 0.42rem !important;
-  gap: 0.46rem !important;
+  width: auto !important;
+  margin-top: 0 !important;
 }
 
-main #chrome-extensions .project-card.is-chrome-extension .project-get,
-main #chrome-extensions .project-card.is-chrome-extension .project-source {
-  min-height: 38px !important;
-  padding-inline: 0.76rem !important;
-}
-
-:root[data-theme="dark"] main #chrome-extensions .project-card.is-chrome-extension {
-  border-color: color-mix(in srgb, var(--project-tone) 32%, transparent) !important;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--project-tone) 8%, transparent), transparent 48%),
-    color-mix(in srgb, var(--surface) 94%, var(--paper)) !important;
+:root[data-theme="dark"] main #chrome-extensions .project-card.is-chrome-extension .app-icon {
+  border-color: color-mix(in srgb, var(--ink) 18%, transparent) !important;
+  box-shadow: 0 12px 26px color-mix(in srgb, #000 18%, transparent) !important;
 }
 
 :root[data-theme="dark"] main #chrome-extensions .project-card.is-chrome-extension .project-store-state {
@@ -6812,32 +6768,9 @@ main #chrome-extensions .project-card.is-chrome-extension .project-source {
   background: color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
-@media (max-width: 900px) {
-  main #chrome-extensions .project-grid {
-    width: min(100%, 720px) !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-}
-
 @media (max-width: 560px) {
-  main #chrome-extensions .project-card.is-chrome-extension {
-    min-height: 0 !important;
-    padding: 0.9rem !important;
-  }
-
-  main #chrome-extensions .project-card.is-chrome-extension .project-card-top {
-    gap: 0.68rem !important;
-  }
-
   main #chrome-extensions .project-card.is-chrome-extension .app-icon {
-    width: 56px !important;
-    height: 56px !important;
-    padding: 5px !important;
-  }
-
-  main #chrome-extensions .project-card.is-chrome-extension .project-footer {
-    flex-wrap: wrap !important;
-    justify-content: flex-start !important;
-    width: 100% !important;
+    width: 64px !important;
+    height: 64px !important;
   }
 }
