@@ -7,7 +7,7 @@ const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8"
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
-const assetVersion = "20260704-footer-redesign";
+const assetVersion = "20260704-footer-compact-v3";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",

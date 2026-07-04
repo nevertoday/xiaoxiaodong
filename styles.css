@@ -6782,26 +6782,22 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   position: relative !important;
   isolation: isolate !important;
   display: grid !important;
-  grid-template-areas: "note links meta mark" !important;
-  grid-template-columns: minmax(18rem, 1fr) minmax(14rem, 0.72fr) minmax(9rem, auto) clamp(76px, 9vw, 128px) !important;
-  align-items: end !important;
+  grid-template-areas: "note meta links mark" !important;
+  grid-template-columns: minmax(18rem, 1fr) minmax(13rem, auto) minmax(18rem, auto) clamp(58px, 6vw, 82px) !important;
+  align-items: center !important;
   width: 100% !important;
-  gap: clamp(1.1rem, 3vw, 3.5rem) !important;
-  padding: clamp(40px, 7vw, 88px) var(--edge) clamp(30px, 4vw, 52px) !important;
+  gap: 0.58rem clamp(1.2rem, 3vw, 3.6rem) !important;
+  padding: clamp(24px, 3vw, 34px) var(--edge) clamp(22px, 2.7vw, 30px) !important;
   overflow: hidden !important;
   border-top: 1px solid var(--line) !important;
   color: var(--ink) !important;
-  background:
-    linear-gradient(102deg, transparent 0 54%, color-mix(in srgb, var(--ink) 3%, transparent) 54% calc(54% + 1px), transparent calc(54% + 1px) 100%),
-    linear-gradient(180deg, color-mix(in srgb, var(--ink) 2%, var(--paper)) 0%, var(--paper) 74%) !important;
+  background: var(--paper) !important;
   box-shadow: none !important;
   text-align: left !important;
 }
 
 :root[data-theme="dark"] .site-footer {
-  background:
-    linear-gradient(102deg, transparent 0 54%, color-mix(in srgb, var(--ink) 5%, transparent) 54% calc(54% + 1px), transparent calc(54% + 1px) 100%),
-    linear-gradient(180deg, color-mix(in srgb, var(--ink) 4%, var(--paper)) 0%, var(--paper) 78%) !important;
+  background: var(--paper) !important;
 }
 
 .site-footer::before {
@@ -6817,15 +6813,14 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
 .site-footer::after {
   position: absolute !important;
-  top: 18% !important;
-  right: calc(var(--edge) + clamp(96px, 10vw, 150px)) !important;
-  bottom: 18% !important;
-  width: 1px !important;
-  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--ink) 16%, transparent), transparent) !important;
+  right: calc(var(--edge) + clamp(70px, 7vw, 96px)) !important;
+  bottom: clamp(23px, 2.8vw, 32px) !important;
+  width: clamp(46px, 6vw, 78px) !important;
+  height: 1px !important;
+  background: color-mix(in srgb, var(--ink) 14%, transparent) !important;
   content: "" !important;
-  opacity: 0.76 !important;
-  transform: rotate(8deg) !important;
-  transform-origin: center !important;
+  opacity: 1 !important;
+  transform: none !important;
   pointer-events: none !important;
 }
 
@@ -6838,17 +6833,17 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 .site-footer .footer-note {
   display: grid !important;
   grid-area: note !important;
-  gap: 0.65rem !important;
-  align-self: end !important;
+  gap: 0.38rem !important;
+  align-self: center !important;
   justify-items: start !important;
-  max-width: 31rem !important;
+  max-width: 30rem !important;
 }
 
 .site-footer .footer-kicker {
   margin: 0 !important;
   color: var(--muted) !important;
   font-family: var(--latin) !important;
-  font-size: 0.72rem !important;
+  font-size: 0.66rem !important;
   font-weight: 900 !important;
   line-height: 1 !important;
   text-transform: lowercase !important;
@@ -6857,39 +6852,40 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 .site-footer .footer-note p:not(.footer-kicker) {
   max-width: 30rem !important;
   margin: 0 !important;
-  color: var(--ink) !important;
-  font-family: var(--font-title) !important;
-  font-size: 1.26rem !important;
-  font-weight: 900 !important;
-  line-height: 1.3 !important;
+  color: var(--ink-soft) !important;
+  font-family: var(--font) !important;
+  font-size: 0.84rem !important;
+  font-weight: 620 !important;
+  line-height: 1.45 !important;
   text-wrap: balance !important;
 }
 
 .site-footer .footer-links {
-  display: grid !important;
+  display: flex !important;
   grid-area: links !important;
-  grid-template-columns: repeat(2, max-content) !important;
-  gap: 0.48rem 1.25rem !important;
-  align-content: end !important;
-  justify-content: start !important;
-  justify-items: start !important;
+  flex-wrap: wrap !important;
+  gap: 0.26rem clamp(0.8rem, 1.3vw, 1.2rem) !important;
+  align-content: center !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  align-self: center !important;
   margin: 0 !important;
 }
 
 .site-footer .footer-links a {
   position: relative !important;
   display: inline-flex !important;
-  gap: 0.48rem !important;
+  gap: 0.38rem !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  min-height: 28px !important;
+  min-height: 24px !important;
   padding: 0 !important;
   overflow: visible !important;
   color: var(--ink-soft) !important;
   background: transparent !important;
   box-shadow: none !important;
-  font-size: 0.82rem !important;
-  font-weight: 800 !important;
+  font-size: 0.76rem !important;
+  font-weight: 780 !important;
   line-height: 1.1 !important;
   text-align: left !important;
   white-space: nowrap !important;
@@ -6901,10 +6897,10 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
 .site-footer .footer-links a::before {
   display: block !important;
-  width: 0.82rem !important;
+  width: 0.62rem !important;
   height: 1px !important;
   flex: 0 0 auto !important;
-  background: color-mix(in srgb, var(--ink) 24%, transparent) !important;
+  background: color-mix(in srgb, var(--ink) 18%, transparent) !important;
   content: "" !important;
   transition:
     width 180ms var(--ease),
@@ -6915,33 +6911,40 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 .site-footer .footer-links a:focus-visible {
   color: var(--ink) !important;
   background: transparent !important;
-  transform: translateX(2px) !important;
+  transform: translateX(1px) !important;
 }
 
 .site-footer .footer-links a:hover::before,
 .site-footer .footer-links a:focus-visible::before {
-  width: 1.35rem !important;
+  width: 0.96rem !important;
   background: var(--ink) !important;
 }
 
 .site-footer .footer-meta {
-  display: grid !important;
+  display: flex !important;
   grid-area: meta !important;
-  gap: 0.34rem !important;
-  align-content: end !important;
+  flex-wrap: wrap !important;
+  gap: 0.28rem 0.75rem !important;
+  align-self: center !important;
+  align-items: center !important;
   justify-content: start !important;
-  justify-items: start !important;
   color: var(--muted) !important;
-  font-size: 0.72rem !important;
-  font-weight: 700 !important;
-  line-height: 1.22 !important;
+  font-size: 0.65rem !important;
+  font-weight: 760 !important;
+  line-height: 1.15 !important;
   text-align: left !important;
 }
 
 .site-footer .footer-meta span {
-  display: block !important;
+  display: inline-flex !important;
+  gap: 0.16rem !important;
+  align-items: baseline !important;
   color: inherit !important;
   font-variant-numeric: tabular-nums !important;
+}
+
+.site-footer .footer-meta [data-style-count] {
+  display: inline !important;
 }
 
 .site-footer .footer-meta span:first-child {
@@ -6954,12 +6957,12 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   display: grid !important;
   grid-area: mark !important;
   grid-template-columns: minmax(0, 1fr) auto !important;
-  gap: 0.58rem !important;
+  gap: 0.34rem !important;
   align-items: center !important;
-  align-self: stretch !important;
+  align-self: center !important;
   justify-self: end !important;
-  width: clamp(76px, 9vw, 128px) !important;
-  min-height: 118px !important;
+  width: clamp(58px, 6vw, 82px) !important;
+  min-height: 64px !important;
   padding: 0 !important;
   border: 0 !important;
   color: var(--ink) !important;
@@ -6975,7 +6978,7 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
 .site-footer .footer-line-mark svg {
   display: block !important;
-  width: min(100%, 96px) !important;
+  width: min(100%, 58px) !important;
   height: auto !important;
   overflow: visible !important;
 }
@@ -6985,14 +6988,14 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   stroke: currentColor !important;
   stroke-linecap: round !important;
   stroke-linejoin: round !important;
-  stroke-width: 2.45 !important;
+  stroke-width: 2.25 !important;
   vector-effect: non-scaling-stroke !important;
 }
 
 .site-footer .footer-line-word {
   color: var(--muted) !important;
   font-family: var(--font-title) !important;
-  font-size: 0.8rem !important;
+  font-size: 0.66rem !important;
   font-weight: 900 !important;
   line-height: 1.1 !important;
   writing-mode: vertical-rl !important;
@@ -7018,11 +7021,11 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   :root[data-theme="dark"] .site-footer {
     grid-template-areas:
       "note mark"
-      "links mark"
-      "meta mark" !important;
-    grid-template-columns: minmax(0, 1fr) minmax(74px, auto) !important;
+      "links links"
+      "meta meta" !important;
+    grid-template-columns: minmax(0, 1fr) minmax(58px, auto) !important;
     align-items: start !important;
-    gap: 1.1rem clamp(1.1rem, 5vw, 2.6rem) !important;
+    gap: 0.62rem clamp(1rem, 5vw, 2.2rem) !important;
   }
 
   .site-footer .footer-note,
@@ -7033,7 +7036,7 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
 
   .site-footer .footer-line-mark {
     align-self: start !important;
-    min-height: 112px !important;
+    min-height: 60px !important;
   }
 }
 
@@ -7042,13 +7045,12 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   :root:not([data-theme="dark"]) .site-footer,
   :root[data-theme="dark"] .site-footer {
     grid-template-areas:
-      "mark"
       "note"
       "links"
       "meta" !important;
     grid-template-columns: minmax(0, 1fr) !important;
-    gap: 1rem !important;
-    padding-block: 30px 28px !important;
+    gap: 0.58rem !important;
+    padding-block: 20px 20px !important;
   }
 
   .site-footer::after {
@@ -7056,14 +7058,17 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   }
 
   .site-footer .footer-line-mark {
+    position: absolute !important;
+    top: 18px !important;
+    right: var(--edge) !important;
     grid-template-columns: auto auto !important;
     justify-self: end !important;
-    width: 94px !important;
-    min-height: 76px !important;
+    width: 70px !important;
+    min-height: 54px !important;
   }
 
   .site-footer .footer-line-mark svg {
-    width: 70px !important;
+    width: 52px !important;
   }
 
   .site-footer .footer-line-word {
@@ -7071,29 +7076,34 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   }
 
   .site-footer .footer-note {
-    gap: 0.56rem !important;
+    gap: 0.34rem !important;
     max-width: none !important;
+    padding-right: 5.8rem !important;
   }
 
   .site-footer .footer-note p:not(.footer-kicker) {
     max-width: 23rem !important;
-    font-size: 1.04rem !important;
-    line-height: 1.34 !important;
+    font-size: 0.86rem !important;
+    line-height: 1.42 !important;
   }
 
   .site-footer .footer-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    display: flex !important;
     width: 100% !important;
-    gap: 0.42rem 0.85rem !important;
+    gap: 0.22rem 0.78rem !important;
+    justify-content: flex-start !important;
   }
 
   .site-footer .footer-links a {
     min-width: 0 !important;
     white-space: normal !important;
+    min-height: 22px !important;
+    font-size: 0.72rem !important;
   }
 
   .site-footer .footer-meta {
-    font-size: 0.68rem !important;
+    gap: 0.24rem 0.56rem !important;
+    font-size: 0.62rem !important;
   }
 }
 
@@ -7102,5 +7112,44 @@ main #chrome-extensions .project-card.is-chrome-extension .project-footer {
   .site-footer .footer-links a::before,
   .site-footer .footer-line-mark {
     transition: none !important;
+  }
+}
+
+/* EOF footer compact lock: desktop footer is a low single-line close. */
+@media (min-width: 961px) {
+  .site-footer,
+  :root:not([data-theme="dark"]) .site-footer,
+  :root[data-theme="dark"] .site-footer {
+    display: flex !important;
+    gap: clamp(1.25rem, 3vw, 3rem) !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 0 !important;
+    padding-block: 18px !important;
+  }
+
+  .site-footer .footer-note {
+    flex: 1 1 24rem !important;
+    align-self: center !important;
+  }
+
+  .site-footer .footer-links {
+    flex: 0 1 auto !important;
+    justify-content: center !important;
+  }
+
+  .site-footer .footer-meta {
+    flex: 0 0 auto !important;
+    max-width: 16rem !important;
+  }
+
+  .site-footer .footer-line-mark {
+    flex: 0 0 72px !important;
+    width: 72px !important;
+    min-height: 52px !important;
+  }
+
+  .site-footer .footer-line-mark svg {
+    width: 50px !important;
   }
 }
