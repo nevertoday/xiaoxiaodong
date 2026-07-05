@@ -929,36 +929,38 @@ function createSkillDetailMarkup(skill) {
     <div class="skill-modal-heading">
       <p class="eyebrow">${escapeCopy(skill.label)}</p>
       <h3 id="skill-modal-title">${escapeCopy(skill.title)}</h3>
-      <p>${escapeCopy(skill.summary)}</p>
+      <p class="skill-modal-summary">${escapeCopy(skill.summary)}</p>
     </div>
-    <div class="skill-modal-grid">
-      <section>
-        <h4>解决的痛点</h4>
-        <p>${escapeCopy(skill.pain)}</p>
-      </section>
-      <section>
-        <h4>详细亮点</h4>
-        <ul>${createListMarkup(skill.highlights)}</ul>
-      </section>
-      <section>
-        <h4>使用方案</h4>
-        <ol>${createListMarkup(skill.usage)}</ol>
-      </section>
-      <section>
-        <h4>使用技巧</h4>
-        <ul>${createListMarkup(skill.tips)}</ul>
-      </section>
+    <div class="skill-modal-content" tabindex="-1">
+      <div class="skill-modal-grid">
+        <section>
+          <h4>解决的痛点</h4>
+          <p>${escapeCopy(skill.pain)}</p>
+        </section>
+        <section>
+          <h4>详细亮点</h4>
+          <ul>${createListMarkup(skill.highlights)}</ul>
+        </section>
+        <section>
+          <h4>使用方案</h4>
+          <ol>${createListMarkup(skill.usage)}</ol>
+        </section>
+        <section>
+          <h4>使用技巧</h4>
+          <ul>${createListMarkup(skill.tips)}</ul>
+        </section>
+      </div>
+      <dl class="skill-modal-links">
+        <div>
+          <dt>触发方式</dt>
+          <dd>${escapeCopy(skill.trigger)}</dd>
+        </div>
+        <div>
+          <dt>相关地址</dt>
+          <dd><a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(skill.source)}</a></dd>
+        </div>
+      </dl>
     </div>
-    <dl class="skill-modal-links">
-      <div>
-        <dt>触发方式</dt>
-        <dd>${escapeCopy(skill.trigger)}</dd>
-      </div>
-      <div>
-        <dt>相关地址</dt>
-        <dd><a href="${escapeHtml(skill.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(skill.source)}</a></dd>
-      </div>
-    </dl>
   `;
 }
 
@@ -970,11 +972,12 @@ function openSkillModal(skillName) {
   if (!skill || !modal || !body || !panel) return;
 
   body.innerHTML = createSkillDetailMarkup(skill);
+  const modalContent = body.querySelector(".skill-modal-content");
   modal.hidden = false;
   document.body.classList.add("modal-open");
   window.requestAnimationFrame(() => {
     modal.classList.add("is-open");
-    panel.focus();
+    (modalContent || panel).focus({ preventScroll: true });
   });
 }
 

@@ -10,7 +10,7 @@ const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 const footerStart = indexHtml.indexOf('<footer class="site-footer">');
 const footerEnd = indexHtml.indexOf("</footer>", footerStart);
 const footerMarkup = indexHtml.slice(footerStart, footerEnd);
-const assetVersion = "20260704-footer-lockup-v6";
+const assetVersion = "20260705-modal-header-v1";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -174,6 +174,24 @@ assert.match(
   indexHtml,
   /href="#chrome-extensions">谷歌插件/,
   "footer should keep a direct Chrome extension navigation link"
+);
+
+assert.match(
+  scriptJs,
+  /class="skill-modal-content" tabindex="-1"/,
+  "skill modal should render a dedicated scrollable content region"
+);
+
+assert.match(
+  stylesCss,
+  /\.skill-modal-panel,[\s\S]*?overflow:\s*hidden\s*!important/s,
+  "skill modal panel should keep the title bar fixed while content scrolls"
+);
+
+assert.match(
+  stylesCss,
+  /\.skill-modal-content\s*{[\s\S]*?overflow:\s*auto\s*!important/s,
+  "skill modal body content should scroll independently"
 );
 
 assert.doesNotMatch(

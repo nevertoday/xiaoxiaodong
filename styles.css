@@ -7342,3 +7342,190 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
     font-size: 0.8rem !important;
   }
 }
+
+/* EOF skill modal fixed header lock: compact title bar with independent content scrolling. */
+.skill-modal,
+:root:not([data-theme="dark"]) .skill-modal,
+:root[data-theme="dark"] .skill-modal {
+  align-items: center !important;
+  justify-items: center !important;
+  padding: clamp(0.85rem, 2.4vw, 1.6rem) !important;
+}
+
+.skill-modal-panel,
+:root:not([data-theme="dark"]) .skill-modal-panel,
+:root[data-theme="dark"] .skill-modal-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  width: min(100%, 48rem) !important;
+  max-height: min(84dvh, 43rem) !important;
+  overflow: hidden !important;
+}
+
+.skill-modal-close,
+:root:not([data-theme="dark"]) .skill-modal-close,
+:root[data-theme="dark"] .skill-modal-close {
+  position: absolute !important;
+  top: 0.68rem !important;
+  right: 0.68rem !important;
+  z-index: 5 !important;
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent) !important;
+  background: color-mix(in srgb, var(--surface) 94%, transparent) !important;
+  box-shadow: none !important;
+  font-size: 1.18rem !important;
+  line-height: 1 !important;
+}
+
+.skill-modal-close:hover,
+.skill-modal-close:focus-visible {
+  color: var(--paper) !important;
+  background: var(--ink) !important;
+}
+
+.skill-modal-body {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  max-height: inherit !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.skill-modal-heading,
+:root:not([data-theme="dark"]) .skill-modal-heading,
+:root[data-theme="dark"] .skill-modal-heading {
+  position: relative !important;
+  z-index: 3 !important;
+  display: grid !important;
+  flex: 0 0 auto !important;
+  justify-items: start !important;
+  gap: 0.28rem !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0.8rem 3.8rem 0.78rem clamp(1rem, 2.4vw, 1.35rem) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  background: color-mix(in srgb, var(--surface) 96%, transparent) !important;
+  backdrop-filter: blur(14px) !important;
+  text-align: left !important;
+}
+
+.skill-modal-heading .eyebrow {
+  color: var(--muted) !important;
+  font-size: 0.62rem !important;
+  line-height: 1 !important;
+}
+
+.skill-modal-heading h3 {
+  max-width: calc(100% - 0.5rem) !important;
+  font-size: clamp(1.24rem, 2.2vw, 1.72rem) !important;
+  line-height: 1.13 !important;
+}
+
+.skill-modal-heading .skill-modal-summary,
+.skill-modal-heading p:not(.eyebrow) {
+  display: -webkit-box !important;
+  max-width: 62ch !important;
+  overflow: hidden !important;
+  color: var(--ink-soft) !important;
+  font-size: 0.88rem !important;
+  font-weight: 520 !important;
+  line-height: 1.42 !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+}
+
+.skill-modal-content {
+  display: grid !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  gap: clamp(0.85rem, 1.7vw, 1.15rem) !important;
+  padding: clamp(0.9rem, 2.2vw, 1.25rem) !important;
+  overflow: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-gutter: stable both-edges !important;
+}
+
+.skill-modal-content:focus {
+  outline: none !important;
+}
+
+.skill-modal-grid,
+:root:not([data-theme="dark"]) .skill-modal-grid,
+:root[data-theme="dark"] .skill-modal-grid,
+.skill-modal-links,
+:root:not([data-theme="dark"]) .skill-modal-links,
+:root[data-theme="dark"] .skill-modal-links {
+  gap: 0.72rem !important;
+  margin: 0 !important;
+}
+
+.skill-modal-grid section,
+:root:not([data-theme="dark"]) .skill-modal-grid section,
+:root[data-theme="dark"] .skill-modal-grid section,
+.skill-modal-links div,
+:root:not([data-theme="dark"]) .skill-modal-links div,
+:root[data-theme="dark"] .skill-modal-links div {
+  padding: 0.9rem 0.95rem !important;
+}
+
+@media (max-width: 760px) {
+  .skill-modal,
+  :root:not([data-theme="dark"]) .skill-modal,
+  :root[data-theme="dark"] .skill-modal {
+    align-items: end !important;
+    padding: 0.55rem !important;
+  }
+
+  .skill-modal-panel,
+  :root:not([data-theme="dark"]) .skill-modal-panel,
+  :root[data-theme="dark"] .skill-modal-panel {
+    width: 100% !important;
+    max-height: 91dvh !important;
+  }
+
+  .skill-modal-close,
+  :root:not([data-theme="dark"]) .skill-modal-close,
+  :root[data-theme="dark"] .skill-modal-close {
+    top: 0.56rem !important;
+    right: 0.56rem !important;
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 1.12rem !important;
+  }
+
+  .skill-modal-heading,
+  :root:not([data-theme="dark"]) .skill-modal-heading,
+  :root[data-theme="dark"] .skill-modal-heading {
+    gap: 0.22rem !important;
+    padding: 0.68rem 3.25rem 0.66rem 0.85rem !important;
+  }
+
+  .skill-modal-heading h3 {
+    font-size: clamp(1.08rem, 5.2vw, 1.36rem) !important;
+    line-height: 1.14 !important;
+  }
+
+  .skill-modal-heading .skill-modal-summary,
+  .skill-modal-heading p:not(.eyebrow) {
+    font-size: 0.82rem !important;
+    line-height: 1.36 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .skill-modal-content {
+    gap: 0.68rem !important;
+    padding: 0.75rem !important;
+    scrollbar-gutter: stable !important;
+  }
+
+  .skill-modal-grid,
+  .skill-modal-links {
+    grid-template-columns: 1fr !important;
+  }
+}
