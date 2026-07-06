@@ -5,15 +5,17 @@ const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8"
 const scriptJs = readFileSync(new URL("../script.js", import.meta.url), "utf8");
 const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
 const communityStart = indexHtml.indexOf('<section id="community"');
+const promptLibraryStart = indexHtml.indexOf('<section id="prompt-library"');
 const contactStart = indexHtml.indexOf('<section id="contact"');
-const communityMarkup = indexHtml.slice(communityStart, contactStart);
+const communityMarkup = indexHtml.slice(communityStart, promptLibraryStart);
+const promptLibraryMarkup = indexHtml.slice(promptLibraryStart, contactStart);
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 const footerStart = indexHtml.indexOf('<footer class="site-footer">');
 const footerEnd = indexHtml.indexOf("</footer>", footerStart);
 const footerMarkup = indexHtml.slice(footerStart, footerEnd);
-const assetVersion = "20260706-community-services-v1";
+const assetVersion = "20260706-prompt-library-section-v1";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -36,54 +38,69 @@ assert.match(
   "primary navigation should include a 谷歌插件 category"
 );
 
-assert.ok(communityStart >= 0 && contactStart > communityStart, "community section should exist before contact");
-
 assert.match(
-  communityMarkup,
-  /class="community-copy community-services"/,
-  "community section should render independent service columns"
+  indexHtml,
+  /<a\s+href="#prompt-library">提示词库<\/a>/,
+  "primary navigation should include a 提示词库 category"
 );
 
-assert.equal(
-  (communityMarkup.match(/class="community-service /g) || []).length,
-  2,
-  "community section should have exactly two independent service columns"
+assert.ok(
+  communityStart >= 0 && promptLibraryStart > communityStart && contactStart > promptLibraryStart,
+  "community, prompt library, and contact sections should be separate and ordered"
 );
 
 assert.match(
   communityMarkup,
-  /class="community-service community-service-planet"[\s\S]*?<h3>知识星球<\/h3>[\s\S]*?扫码加入星球/,
-  "knowledge planet should be an independent QR service column"
+  /<h2>知识星球<\/h2>/,
+  "community section should be the knowledge planet section"
 );
 
 assert.match(
   communityMarkup,
-  /class="community-service community-service-library"[\s\S]*?<h3>成员提示词库<\/h3>[\s\S]*?699 元\/年/,
-  "prompt library should be an independent priced service column"
+  /扫码加入星球[\s\S]*星球会员也可以解锁成员提示词库/,
+  "knowledge planet section should explain that planet members unlock the prompt library"
 );
 
 assert.match(
   communityMarkup,
-  /同一个付费体系下的两个服务栏目/,
-  "community introduction should explain both services are under one paid system"
-);
-
-assert.match(
-  communityMarkup,
-  /星球会员也可以解锁成员提示词库/,
-  "knowledge planet service should explain that planet membership unlocks the member prompt library"
-);
-
-assert.match(
-  communityMarkup,
-  /成员提示词库是同一付费体系下的独立服务栏目，单独开通 699 元\/年/,
-  "prompt library service should state the standalone annual price"
+  /扫码加入知识星球/,
+  "community section should keep the knowledge planet QR entry"
 );
 
 assert.doesNotMatch(
   communityMarkup,
-  /role="tab"|data-community-tab|data-community-panel|hidden/,
-  "community services should not be hidden behind tabs"
+  /<h2>成员提示词库<\/h2>|prompt-library-entry|699 元\/年/,
+  "prompt library should not be merged into the knowledge planet section"
+);
+
+assert.match(
+  promptLibraryMarkup,
+  /<section id="prompt-library" class="prompt-library-section"/,
+  "prompt library should be a standalone page section"
+);
+
+assert.match(
+  promptLibraryMarkup,
+  /<h2>成员提示词库<\/h2>/,
+  "prompt library section should have its own heading"
+);
+
+assert.match(
+  promptLibraryMarkup,
+  /成员提示词库是同一付费体系下的独立服务栏目，单独开通 699 元\/年/,
+  "prompt library service should state the standalone annual price"
+);
+
+assert.match(
+  promptLibraryMarkup,
+  /prompt-library-count[\s\S]*data-style-count[\s\S]*套提示词风格/,
+  "prompt library section should show the style count"
+);
+
+assert.match(
+  stylesCss,
+  /#prompt-library\s*{[^}]*order:\s*3/s,
+  "prompt library should have its own section order between community and contact"
 );
 
 assert.doesNotMatch(
@@ -94,8 +111,8 @@ assert.doesNotMatch(
 
 assert.match(
   stylesCss,
-  /main > \.community-section \.community-services,[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)\s*!important/s,
-  "community services should render as two independent desktop columns"
+  /main > \.prompt-library-section,[\s\S]*?display:\s*grid\s*!important/s,
+  "prompt library section should have standalone section styling"
 );
 
 assert.ok(projectsStart >= 0 && skillsStart > projectsStart, "projects section should exist before skills");

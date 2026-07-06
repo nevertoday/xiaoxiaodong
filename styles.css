@@ -7530,98 +7530,205 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
   }
 }
 
-/* EOF community service columns correction: two independent services, same paid system. */
-main > .community-section .community-services,
-:root:not([data-theme="dark"]) main > .community-section .community-services,
-:root[data-theme="dark"] main > .community-section .community-services {
+/* EOF prompt library section lock: separate prompt library from knowledge planet. */
+#prompt-library {
+  order: 3;
+}
+
+#contact {
+  order: 4;
+}
+
+#projects {
+  order: 5;
+}
+
+#skills {
+  order: 6;
+}
+
+main > .prompt-library-section,
+:root:not([data-theme="dark"]) main > .prompt-library-section,
+:root[data-theme="dark"] main > .prompt-library-section {
+  position: relative !important;
+  isolation: isolate !important;
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  justify-items: stretch !important;
-  align-items: stretch !important;
-  width: min(100%, 760px) !important;
-  gap: clamp(1.35rem, 4vw, 2.5rem) !important;
+  justify-items: center !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding: clamp(4.2rem, 8vw, 7.2rem) clamp(22px, 5vw, 72px) clamp(4.4rem, 9vw, 7.8rem) !important;
+  border-bottom: 0 !important;
+  background: var(--paper) !important;
+  box-shadow: none !important;
+  text-align: center !important;
+  transition: background-color 180ms var(--ease) !important;
+}
+
+main > .prompt-library-section::before {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  z-index: 2 !important;
+  display: block !important;
+  height: 1px !important;
+  background: color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  content: "" !important;
+  pointer-events: none !important;
+}
+
+main > .prompt-library-section::after {
+  content: none !important;
+}
+
+main > .prompt-library-section:hover,
+:root:not([data-theme="dark"]) main > .prompt-library-section:hover {
+  background: color-mix(in srgb, var(--ink) 3.5%, var(--paper)) !important;
+}
+
+:root[data-theme="dark"] main > .prompt-library-section:hover {
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper)) !important;
+}
+
+main .prompt-library-intro,
+main .prompt-library-entry {
+  display: grid !important;
+  justify-items: center !important;
+  width: min(100%, 720px) !important;
   margin-inline: auto !important;
-  text-align: left !important;
+  text-align: center !important;
 }
 
-.community-service {
-  display: grid !important;
-  grid-template-rows: auto minmax(0, 1fr) !important;
-  gap: clamp(0.9rem, 2.2vw, 1.25rem) !important;
-  align-content: start !important;
-  justify-items: start !important;
-  min-width: 0 !important;
-  padding-top: clamp(0.85rem, 2vw, 1.1rem) !important;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 13%, transparent) !important;
+main .prompt-library-intro {
+  gap: 0.58rem !important;
+}
+
+main .prompt-library-intro h2 {
+  margin: 0 !important;
+}
+
+main .prompt-library-intro p:not(.eyebrow) {
+  max-width: 38rem !important;
+  margin-inline: auto !important;
+  color: var(--ink-soft) !important;
+  font-size: clamp(0.96rem, 1.25vw, 1.04rem) !important;
+  line-height: 1.82 !important;
+  text-align: center !important;
+}
+
+main .prompt-library-entry,
+:root:not([data-theme="dark"]) main .prompt-library-entry,
+:root[data-theme="dark"] main .prompt-library-entry {
+  gap: clamp(0.58rem, 1.7vw, 0.85rem) !important;
+  margin-top: clamp(1.2rem, 3vw, 1.8rem) !important;
+  padding: 0 !important;
+  border: 0 !important;
   background: transparent !important;
-  text-align: left !important;
+  box-shadow: none !important;
 }
 
-.community-service-copy {
+.prompt-library-count {
   display: grid !important;
-  gap: 0.46rem !important;
-  justify-items: start !important;
-  min-width: 0 !important;
-  text-align: left !important;
-}
-
-.community-service-copy .eyebrow {
+  gap: 0.18rem !important;
+  justify-items: center !important;
   margin: 0 !important;
 }
 
-.community-service-copy h3 {
-  margin: 0 !important;
+.prompt-library-count strong {
   color: var(--ink) !important;
   font-family: var(--font-title) !important;
-  font-size: clamp(1.35rem, 3.3vw, 2rem) !important;
+  font-size: clamp(3.8rem, 11vw, 6.8rem) !important;
   font-weight: 900 !important;
-  line-height: 1.08 !important;
   letter-spacing: 0 !important;
+  line-height: 0.88 !important;
 }
 
-.community-service-copy p:not(.eyebrow) {
-  max-width: 31rem !important;
-  margin: 0 !important;
-  color: var(--ink-soft) !important;
-  font-size: clamp(0.92rem, 1.35vw, 0.98rem) !important;
-  font-weight: 520 !important;
-  line-height: 1.72 !important;
-  text-align: left !important;
+.prompt-library-count span,
+.prompt-library-price span {
+  color: var(--muted) !important;
+  font-family: var(--latin) !important;
+  font-size: 0.8rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
 }
 
-.community-service .community-side,
-:root:not([data-theme="dark"]) main > .community-section .community-service .community-side,
-:root[data-theme="dark"] main > .community-section .community-service .community-side {
+.prompt-library-price {
+  display: inline-flex !important;
+  gap: 0.42rem !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  color: var(--ink) !important;
+}
+
+.prompt-library-price strong {
+  display: inline !important;
+  color: inherit !important;
+  font-family: var(--font-title) !important;
+  font-size: clamp(1.65rem, 5.5vw, 3.05rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.95 !important;
+}
+
+.prompt-library-price span {
+  font-family: var(--font) !important;
+  font-size: clamp(0.82rem, 1.6vw, 0.95rem) !important;
+  text-transform: none !important;
+}
+
+.prompt-library-actions {
   display: grid !important;
-  justify-self: start !important;
-  justify-items: start !important;
-  align-self: end !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.72rem !important;
+  justify-content: center !important;
+  justify-items: stretch !important;
+  width: min(100%, 18rem) !important;
+  margin: 0.12rem auto 0 !important;
+}
+
+.prompt-library-actions a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 0 0.95rem !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-size: 0.84rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  transition:
+    color 180ms var(--ease),
+    background 180ms var(--ease),
+    transform 180ms var(--ease) !important;
+}
+
+main > .community-section .community-planet {
+  display: grid !important;
+  justify-items: center !important;
+  width: min(100%, 720px) !important;
+  margin-inline: auto !important;
+}
+
+main > .community-section .community-planet .community-side,
+:root:not([data-theme="dark"]) main > .community-section .community-planet .community-side,
+:root[data-theme="dark"] main > .community-section .community-planet .community-side {
+  display: grid !important;
+  justify-items: center !important;
   width: auto !important;
   margin: 0 !important;
   border: 0 !important;
   background: transparent !important;
 }
 
-.community-service .community-qr,
-:root:not([data-theme="dark"]) main > .community-section .community-service .community-qr,
-:root[data-theme="dark"] main > .community-section .community-service .community-qr {
-  display: grid !important;
-  gap: 0.52rem !important;
-  justify-items: center !important;
-  width: max-content !important;
-  max-width: 100% !important;
-  padding: 0 !important;
-  border: 0 !important;
-  color: var(--muted) !important;
-  background: transparent !important;
-  text-align: center !important;
-}
-
-.community-service .community-qr img,
-.community-service .community-qr:hover img,
-.community-service .community-qr:focus-visible img,
-:root:not([data-theme="dark"]) main > .community-section .community-service .community-qr img {
-  display: block !important;
+main > .community-section .community-planet .community-qr img,
+main > .community-section .community-planet .community-qr:hover img,
+main > .community-section .community-planet .community-qr:focus-visible img {
   width: clamp(112px, 17vw, 132px) !important;
   height: clamp(112px, 17vw, 132px) !important;
   border-radius: 10px !important;
@@ -7631,130 +7738,24 @@ main > .community-section .community-services,
   image-rendering: auto !important;
 }
 
-.community-service .community-qr span {
-  color: var(--muted) !important;
-  font-size: 0.72rem !important;
-  font-weight: 900 !important;
-  line-height: 1.15 !important;
-}
-
-.community-service-library .plan-board,
-main > .community-section .community-service-library .plan-board,
-:root:not([data-theme="dark"]) main > .community-section .community-service-library .plan-board,
-:root[data-theme="dark"] main > .community-section .community-service-library .plan-board {
-  display: grid !important;
-  justify-items: start !important;
-  align-self: end !important;
-  width: 100% !important;
-  gap: 0.58rem !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  text-align: left !important;
-}
-
-.community-service-library .community-count {
-  gap: 0.18rem !important;
-  justify-items: start !important;
-  margin: 0 !important;
-}
-
-.community-service-library .community-count strong {
-  font-size: clamp(3.1rem, 7.6vw, 5.2rem) !important;
-  line-height: 0.9 !important;
-}
-
-.community-service-library .community-count span {
-  text-align: left !important;
-}
-
-.community-price {
-  display: inline-flex !important;
-  gap: 0.42rem !important;
-  align-items: baseline !important;
-  justify-content: center !important;
-  min-width: 0 !important;
-  color: var(--ink) !important;
-}
-
-.community-price strong {
-  display: inline !important;
-  color: inherit !important;
-  font-family: var(--font-title) !important;
-  font-size: clamp(1.65rem, 5.5vw, 3.05rem) !important;
-  font-weight: 900 !important;
-  line-height: 0.95 !important;
-}
-
-.community-price span {
-  color: var(--muted) !important;
-  font-family: var(--font) !important;
-  font-size: clamp(0.82rem, 1.6vw, 0.95rem) !important;
-  font-weight: 850 !important;
-  line-height: 1.2 !important;
-}
-
-.community-service-library .community-price {
-  justify-content: flex-start !important;
-}
-
-.community-service-library .community-actions {
-  justify-content: start !important;
-  justify-items: stretch !important;
-  width: min(100%, 18rem) !important;
-  margin: 0.12rem 0 0 !important;
-}
-
 @media (max-width: 760px) {
-  main > .community-section .community-services,
-  :root:not([data-theme="dark"]) main > .community-section .community-services,
-  :root[data-theme="dark"] main > .community-section .community-services {
-    grid-template-columns: minmax(0, 1fr) !important;
+  main > .prompt-library-section {
+    padding-inline: clamp(18px, 5vw, 28px) !important;
+  }
+
+  main .prompt-library-intro,
+  main .prompt-library-entry,
+  main > .community-section .community-planet {
     width: min(100%, 34rem) !important;
-    gap: 1.35rem !important;
-    text-align: center !important;
   }
 
-  .community-service,
-  .community-service-copy,
-  .community-service-copy p:not(.eyebrow) {
-    justify-items: center !important;
-    text-align: center !important;
+  .prompt-library-actions {
+    width: min(100%, 18rem) !important;
   }
+}
 
-  .community-service .community-side,
-  :root:not([data-theme="dark"]) main > .community-section .community-service .community-side,
-  :root[data-theme="dark"] main > .community-section .community-service .community-side,
-  .community-service-library .plan-board,
-  main > .community-section .community-service-library .plan-board,
-  :root:not([data-theme="dark"]) main > .community-section .community-service-library .plan-board,
-  :root[data-theme="dark"] main > .community-section .community-service-library .plan-board,
-  .community-service-library .community-count {
-    justify-self: center !important;
-    justify-items: center !important;
-    text-align: center !important;
-  }
-
-  .community-service-library .community-count span {
-    text-align: center !important;
-  }
-
-  .community-service-library .community-price {
-    justify-content: center !important;
-  }
-
-  .community-service-library .community-actions {
-    justify-content: center !important;
-    margin-inline: auto !important;
-  }
-
-  .community-service .community-qr img,
-  .community-service .community-qr:hover img,
-  .community-service .community-qr:focus-visible img {
-    width: 116px !important;
-    height: 116px !important;
-    border-radius: 9px !important;
+@media (max-width: 340px) {
+  .prompt-library-actions {
+    width: 100% !important;
   }
 }
