@@ -7,15 +7,15 @@ const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8"
 const communityStart = indexHtml.indexOf('<section id="community"');
 const promptLibraryStart = indexHtml.indexOf('<section id="prompt-library"');
 const contactStart = indexHtml.indexOf('<section id="contact"');
-const communityMarkup = indexHtml.slice(communityStart, promptLibraryStart);
-const promptLibraryMarkup = indexHtml.slice(promptLibraryStart, contactStart);
+const promptLibraryMarkup = indexHtml.slice(promptLibraryStart, communityStart);
+const communityMarkup = indexHtml.slice(communityStart, contactStart);
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 const footerStart = indexHtml.indexOf('<footer class="site-footer">');
 const footerEnd = indexHtml.indexOf("</footer>", footerStart);
 const footerMarkup = indexHtml.slice(footerStart, footerEnd);
-const assetVersion = "20260706-prompt-library-section-v1";
+const assetVersion = "20260706-prompt-library-first-v1";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -45,8 +45,20 @@ assert.match(
 );
 
 assert.ok(
-  communityStart >= 0 && promptLibraryStart > communityStart && contactStart > promptLibraryStart,
-  "community, prompt library, and contact sections should be separate and ordered"
+  promptLibraryStart >= 0 && communityStart > promptLibraryStart && contactStart > communityStart,
+  "prompt library, community, and contact sections should be separate and ordered"
+);
+
+assert.match(
+  indexHtml,
+  /<nav id="primary-nav" class="site-nav" aria-label="主要导航">[\s\S]*?<a href="#prompt-library">提示词库<\/a>\s*<a href="#community">知识星球<\/a>/,
+  "primary navigation should place 提示词库 before 知识星球"
+);
+
+assert.match(
+  footerMarkup,
+  /<a href="#prompt-library">提示词库<\/a>\s*<a href="#community">知识星球<\/a>/,
+  "footer navigation should place 提示词库 before 知识星球"
 );
 
 assert.match(
@@ -99,8 +111,14 @@ assert.match(
 
 assert.match(
   stylesCss,
-  /#prompt-library\s*{[^}]*order:\s*3/s,
-  "prompt library should have its own section order between community and contact"
+  /#prompt-library\s*{[^}]*order:\s*2/s,
+  "prompt library should have the first content section order"
+);
+
+assert.match(
+  stylesCss,
+  /#community\s*{[^}]*order:\s*3/s,
+  "community should follow the prompt library section order"
 );
 
 assert.doesNotMatch(

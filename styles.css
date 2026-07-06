@@ -186,20 +186,24 @@ main {
   order: 1;
 }
 
-#community {
+#prompt-library {
   order: 2;
 }
 
-#contact {
+#community {
   order: 3;
 }
 
-#projects {
+#contact {
   order: 4;
 }
 
-#skills {
+#projects {
   order: 5;
+}
+
+#skills {
+  order: 6;
 }
 
 .site-header {
@@ -7530,8 +7534,12 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
   }
 }
 
-/* EOF prompt library section lock: separate prompt library from knowledge planet. */
+/* EOF prompt library section lock: keep prompt library before knowledge planet. */
 #prompt-library {
+  order: 2;
+}
+
+#community {
   order: 3;
 }
 
