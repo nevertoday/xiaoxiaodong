@@ -4,13 +4,16 @@ import { existsSync, readFileSync } from "node:fs";
 const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const scriptJs = readFileSync(new URL("../script.js", import.meta.url), "utf8");
 const stylesCss = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+const communityStart = indexHtml.indexOf('<section id="community"');
+const contactStart = indexHtml.indexOf('<section id="contact"');
+const communityMarkup = indexHtml.slice(communityStart, contactStart);
 const projectsStart = indexHtml.indexOf('<section id="projects"');
 const skillsStart = indexHtml.indexOf('<section id="skills"');
 const projectsMarkup = indexHtml.slice(projectsStart, skillsStart);
 const footerStart = indexHtml.indexOf('<footer class="site-footer">');
 const footerEnd = indexHtml.indexOf("</footer>", footerStart);
 const footerMarkup = indexHtml.slice(footerStart, footerEnd);
-const assetVersion = "20260705-modal-header-v1";
+const assetVersion = "20260706-community-services-v1";
 const chromeExtensionIcons = [
   "tampermonkey-scripts.jpg",
   "xposter.jpg",
@@ -31,6 +34,68 @@ assert.match(
   indexHtml,
   /<a\s+href="#chrome-extensions">谷歌插件<\/a>/,
   "primary navigation should include a 谷歌插件 category"
+);
+
+assert.ok(communityStart >= 0 && contactStart > communityStart, "community section should exist before contact");
+
+assert.match(
+  communityMarkup,
+  /class="community-copy community-services"/,
+  "community section should render independent service columns"
+);
+
+assert.equal(
+  (communityMarkup.match(/class="community-service /g) || []).length,
+  2,
+  "community section should have exactly two independent service columns"
+);
+
+assert.match(
+  communityMarkup,
+  /class="community-service community-service-planet"[\s\S]*?<h3>知识星球<\/h3>[\s\S]*?扫码加入星球/,
+  "knowledge planet should be an independent QR service column"
+);
+
+assert.match(
+  communityMarkup,
+  /class="community-service community-service-library"[\s\S]*?<h3>成员提示词库<\/h3>[\s\S]*?699 元\/年/,
+  "prompt library should be an independent priced service column"
+);
+
+assert.match(
+  communityMarkup,
+  /同一个付费体系下的两个服务栏目/,
+  "community introduction should explain both services are under one paid system"
+);
+
+assert.match(
+  communityMarkup,
+  /星球会员也可以解锁成员提示词库/,
+  "knowledge planet service should explain that planet membership unlocks the member prompt library"
+);
+
+assert.match(
+  communityMarkup,
+  /成员提示词库是同一付费体系下的独立服务栏目，单独开通 699 元\/年/,
+  "prompt library service should state the standalone annual price"
+);
+
+assert.doesNotMatch(
+  communityMarkup,
+  /role="tab"|data-community-tab|data-community-panel|hidden/,
+  "community services should not be hidden behind tabs"
+);
+
+assert.doesNotMatch(
+  scriptJs,
+  /initCommunityTabs|data-community-tab|data-community-panel/,
+  "script should not contain obsolete community tab behavior"
+);
+
+assert.match(
+  stylesCss,
+  /main > \.community-section \.community-services,[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)\s*!important/s,
+  "community services should render as two independent desktop columns"
 );
 
 assert.ok(projectsStart >= 0 && skillsStart > projectsStart, "projects section should exist before skills");
