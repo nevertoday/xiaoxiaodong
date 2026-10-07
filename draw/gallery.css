@@ -1,0 +1,381 @@
+/* xxd-draw-001 gallery: tiles + detail view. Builds on the site tokens in styles.css. */
+.dw-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-card {
+  display: grid;
+  gap: 0.62rem;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.dw-frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  padding: 6px;
+  border: 1px solid var(--line);
+  background: #fbf8f2;
+  transition:
+    border-color 220ms var(--ease),
+    box-shadow 220ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.dw-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dw-live {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: #fbf8f2;
+  transition: opacity 240ms var(--ease);
+}
+
+.dw-live.is-on {
+  opacity: 1;
+}
+
+.dw-card:hover .dw-frame,
+.dw-card:focus-visible .dw-frame {
+  border-color: var(--ink);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+  transform: translate(-3px, -3px);
+}
+
+.dw-card:focus-visible {
+  outline: none;
+}
+
+.dw-cap {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.dw-title {
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: 1.02rem;
+  font-weight: 900;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dw-tag {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+@media (min-width: 700px) {
+  .dw-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1180px) {
+  .dw-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .dw-grid {
+    gap: 0.9rem 0.7rem;
+  }
+
+  .dw-title {
+    font-size: 0.9rem;
+  }
+
+  .dw-tag {
+    display: none;
+  }
+}
+
+/* ---- homepage teaser ---- */
+.draw-teaser {
+  width: 100%;
+  padding: clamp(3rem, 7vw, 5.8rem) var(--edge);
+  border-bottom: 1px solid var(--line);
+}
+
+.draw-teaser-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+}
+
+.draw-teaser-links a {
+  display: inline-block;
+  line-height: 38px;
+  padding: 0 1rem;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  font-family: var(--latin);
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition:
+    color 180ms var(--ease),
+    background 180ms var(--ease),
+    border-color 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.draw-teaser-links a:first-child,
+.draw-teaser-links a:hover,
+.draw-teaser-links a:focus-visible {
+  color: var(--paper);
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.draw-teaser-links a:hover,
+.draw-teaser-links a:focus-visible {
+  transform: translate(-2px, -2px);
+}
+
+/* ---- detail view ---- */
+.dw-locked,
+.dw-locked body {
+  overflow: hidden;
+}
+
+.dw-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.dw-dialog::backdrop {
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.dw-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0 clamp(1.2rem, 4vw, 3.5rem);
+  min-height: 100%;
+  padding: 16px var(--edge) clamp(1.2rem, 4vw, 3rem);
+}
+
+.dw-detail-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  font-family: var(--latin);
+}
+
+.dw-count {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.dw-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  background: transparent;
+  transition:
+    color 180ms var(--ease),
+    background 180ms var(--ease),
+    border-color 180ms var(--ease);
+}
+
+.dw-btn:hover,
+.dw-btn:focus-visible {
+  color: var(--paper);
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.dw-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dw-detail-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(0.4rem, 2vw, 1.2rem);
+  align-items: center;
+  justify-items: center;
+  min-width: 0;
+}
+
+.dw-detail-art {
+  display: grid;
+  gap: 0.8rem;
+  width: min(100%, 600px, calc(100svh - 160px));
+}
+
+.dw-detail-frame {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 8px;
+  background: #fbf8f2;
+  box-shadow: 0 18px 40px -24px rgba(17, 17, 17, 0.45), 0 1px 3px rgba(17, 17, 17, 0.08);
+}
+
+.dw-detail-frame .dw-live {
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+}
+
+.dw-status {
+  min-height: 1.4em;
+  color: var(--muted);
+  font-size: 0.84rem;
+  text-align: center;
+}
+
+.dw-detail-text {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.dw-detail-text h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.dw-label {
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.dw-prompt {
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: 1.12rem;
+  line-height: 1.8;
+}
+
+.dw-photo {
+  display: block;
+  width: min(100%, 15rem);
+  border: 1px solid var(--line);
+}
+
+.dw-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.dw-credit,
+.dw-model {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.dw-credit {
+  margin-top: 0.5rem;
+}
+
+.dw-model:empty {
+  display: none;
+}
+
+.dw-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dw-mobile-step {
+  display: none;
+}
+
+.dw-text-btn {
+  padding: 0 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+@media (max-width: 860px) {
+  .dw-detail {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1.2rem;
+    padding-inline: 16px;
+  }
+
+  .dw-detail-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dw-detail-art {
+    width: min(100%, 600px);
+  }
+
+  .dw-nav {
+    display: none;
+  }
+
+  .dw-detail-text {
+    align-content: start;
+  }
+
+  .dw-mobile-step {
+    display: inline-grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-frame,
+  .dw-live {
+    transition: none;
+  }
+}

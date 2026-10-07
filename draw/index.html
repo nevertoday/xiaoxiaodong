@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>画画 Skill | 小小东</title>
+    <meta name="description" content="xxd-draw-001：一句话、一张照片，或照片加几句修改，画成一幅一笔一笔自己画出来的小画。开源 Skill，离线单文件 HTML。" />
+    <meta property="og:title" content="画画 Skill | 小小东" />
+    <meta property="og:description" content="一句话，画成一幅会动的画。xxd-draw-001 开源 Skill 作品展示。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nevertoday.github.io/xiaoxiaodong/draw/" />
+    <meta property="og:image" content="https://nevertoday.github.io/xiaoxiaodong/draw/stills/cranes.webp" />
+    <meta name="theme-color" content="#ffffff" data-theme-color />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="../styles.css?v=20260706-prompt-library-first-v1" />
+    <link rel="stylesheet" href="gallery.css?v=20261007-draw-v1" />
+    <link rel="stylesheet" href="page.css?v=20261007-draw-v1" />
+  </head>
+  <body class="draw-page">
+    <a class="skip-link" href="#works">跳到作品</a>
+
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="返回小小东首页">
+        <span class="brand-logo" aria-hidden="true">东</span>
+        <span>小小东</span>
+      </a>
+
+      <nav id="primary-nav" class="site-nav" aria-label="画画栏目导航">
+        <a href="#works">作品</a>
+        <a href="#usage">怎么用</a>
+        <a href="#repo">项目地址</a>
+        <a href="../">返回首页</a>
+      </nav>
+
+      <div class="header-tools" aria-label="站点工具">
+        <a class="nav-icon-link" href="https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-draw-001" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 打开 xxd-draw-001">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 22v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-7 0C5.27.65 4.09 1 4.09 1A5.07 5.07 0 0 0 4 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 8 18.13V22" />
+            <path d="M8 19c-3 .9-5.5 0-7-2" />
+          </svg>
+        </a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="切换到暗色模式">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z" />
+          </svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
+          </svg>
+          <span class="sr-only" data-theme-label>暗色</span>
+        </button>
+        <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="打开导航菜单">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="draw-hero" aria-labelledby="draw-title">
+        <div class="draw-hero-copy">
+          <p class="eyebrow">open skill · xxd-draw-001</p>
+          <h1 id="draw-title">一句话，<br />画成一幅会动的画</h1>
+          <p class="draw-lede">
+            把一句描述、一张照片，或照片加几句修改交给 Agent。它先读懂画面里该有什么，再用干净的颜色和柔软的笔触，一笔一笔画出来。每幅作品都是一个离线就能打开的 HTML。
+          </p>
+          <div class="draw-links">
+            <a href="#works">看作品</a>
+            <a href="#usage">怎么用</a>
+            <a href="https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-draw-001" target="_blank" rel="noopener noreferrer">GitHub 项目地址</a>
+          </div>
+        </div>
+        <button class="draw-hero-art" type="button" data-draw-hero aria-label="查看《冰湖双鹤》作画过程">
+          <span class="dw-frame">
+            <img src="stills/cranes.webp" alt="冰湖双鹤" width="600" height="600" />
+          </span>
+          <span class="draw-hero-note">冬天结冰的湖面上，两只丹顶鹤在跳舞。</span>
+        </button>
+        <dl class="draw-proof">
+          <div>
+            <dt>input</dt>
+            <dd>文字 · 照片 · 照片 + 修改</dd>
+          </div>
+          <div>
+            <dt>output</dt>
+            <dd>单个离线 HTML · 600 × 600</dd>
+          </div>
+          <div>
+            <dt>agent</dt>
+            <dd>Claude Code、Codex，小模型 gpt-6-luna 也能画</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="works" class="draw-section" aria-labelledby="works-title">
+        <div class="draw-head">
+          <div>
+            <p class="eyebrow">gallery</p>
+            <h2 id="works-title">作品</h2>
+          </div>
+          <p>鼠标停在画上会重新画一遍，点开能看命题或原照片。这里大部分作品由 gpt-6-luna 独立完成，每幅只拿到一句命题或一张照片。</p>
+        </div>
+        <ul class="dw-grid" data-dw-mount data-dw-base="" aria-label="xxd-draw-001 作品"></ul>
+      </section>
+
+      <section id="usage" class="draw-section" aria-labelledby="usage-title">
+        <div class="draw-head">
+          <div>
+            <p class="eyebrow">how to use</p>
+            <h2 id="usage-title">怎么用</h2>
+          </div>
+          <p>装进 Claude Code 或 Codex 的 skills 目录，然后像平时说话一样下命题。</p>
+        </div>
+        <ol class="draw-steps">
+          <li>
+            <h3>安装</h3>
+            <pre><code>git clone https://github.com/nevertoday/xiaoxiaodong.git
+cp -r xiaoxiaodong/skills/xxd-draw-001 ~/.claude/skills/</code></pre>
+            <p>Codex 复制到 <code>~/.codex/skills/</code>。需要 Python 3 + Pillow；自检步骤用 Node.js + Playwright。</p>
+          </li>
+          <li>
+            <h3>文字命题</h3>
+            <pre><code>$xxd-draw-001 画一幅：冬天结冰的湖面上，两只丹顶鹤在跳舞。</code></pre>
+            <p>诗句、场景、抽象的情绪都可以。命题里的每个意象都会画出来，漏了就不交付。</p>
+          </li>
+          <li>
+            <h3>照片，或照片 + 修改</h3>
+            <pre><code>$xxd-draw-001 把这张照片画成作品，天空换成黄昏。</code></pre>
+            <p>附上照片即可。默认画成正方形，颜色取自照片本身；想要竖幅、横幅直接说。</p>
+          </li>
+          <li>
+            <h3>批量</h3>
+            <pre><code>python3 ~/.claude/skills/xxd-draw-001/scripts/batch_run.py 命题.txt --out 输出目录</code></pre>
+            <p>一题一个独立 worker，互相看不到别的命题，跑完自动查重，构图雷同的会重画。</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="repo" class="draw-section" aria-labelledby="repo-title">
+        <div class="draw-head">
+          <div>
+            <p class="eyebrow">source</p>
+            <h2 id="repo-title">项目地址</h2>
+          </div>
+          <p>Skill 源码、绘画引擎和自检脚本都在小小东的开源仓库里。</p>
+        </div>
+        <div class="draw-repo">
+          <a class="draw-repo-link" href="https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-draw-001" target="_blank" rel="noopener noreferrer">
+            <span class="draw-repo-kicker">GitHub</span>
+            <span class="draw-repo-url">github.com/nevertoday/xiaoxiaodong<wbr />/skills/xxd-draw-001</span>
+            <span class="draw-repo-go" aria-hidden="true">→</span>
+          </a>
+          <dl class="draw-repo-facts">
+            <div>
+              <dt>画什么</dt>
+              <dd>由命题决定。没有预设色板和现成主体，Agent 按每样东西实际的样子去描述它。</dd>
+            </div>
+            <div>
+              <dt>怎么画</dt>
+              <dd>由引擎决定。湿边色带、有机形、同色明暗、成片的小笔触，分阶段展开。</dd>
+            </div>
+            <div>
+              <dt>自检</dt>
+              <dd>漏画意象拒绝生成；检查彩度、脏灰、明度、笔触密度和作画节奏。</dd>
+            </div>
+          </dl>
+          <p class="draw-credit">
+            画风灵感来自 Sasha 的 <a href="https://painterly.design-tools.workers.dev/" target="_blank" rel="noopener noreferrer">Painting Loaders</a>。内嵌
+            <a href="https://p5js.org/" target="_blank" rel="noopener noreferrer">p5.js</a>（LGPL-2.1）与
+            <a href="https://github.com/acamposuribe/p5.brush" target="_blank" rel="noopener noreferrer">p5.brush</a>（MIT）。照片输入的原图来自 Unsplash。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <a class="footer-logo-outline" href="../" aria-label="返回小小东首页">
+          <span>东</span>
+        </a>
+        <div class="footer-note">
+          <p class="footer-kicker">xiaoxiaodong.ai</p>
+          <p>提示词、插件、Skills 与开源项目。</p>
+        </div>
+      </div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="../">首页</a>
+        <a href="#works">作品</a>
+        <a href="#usage">怎么用</a>
+        <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="footer-meta" aria-label="站点版本信息">
+        <span><span data-dw-total>18</span> 幅作品</span>
+        <span>Version 2026</span>
+        <span>© 2026 xiaoxiaodong.ai</span>
+      </div>
+    </footer>
+
+    <script src="works.js?v=20261007-draw-v1"></script>
+    <script src="gallery.js?v=20261007-draw-v1"></script>
+    <script src="page.js?v=20261007-draw-v1"></script>
+  </body>
+</html>

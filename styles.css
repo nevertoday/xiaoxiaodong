@@ -202,8 +202,12 @@ main {
   order: 5;
 }
 
-#skills {
+#draw {
   order: 6;
+}
+
+#skills {
+  order: 7;
 }
 
 .site-header {
@@ -7551,8 +7555,12 @@ main #chrome-extensions .project-card.is-chrome-extension .app-icon {
   order: 5;
 }
 
-#skills {
+#draw {
   order: 6;
+}
+
+#skills {
+  order: 7;
 }
 
 main > .prompt-library-section,

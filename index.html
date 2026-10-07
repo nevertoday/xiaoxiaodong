@@ -33,6 +33,7 @@
       })();
     </script>
     <link rel="stylesheet" href="styles.css?v=20260706-prompt-library-first-v1" />
+    <link rel="stylesheet" href="draw/gallery.css?v=20261007-draw-v1" />
   </head>
   <body>
     <a class="skip-link" href="#prompt-library">跳到提示词库</a>
@@ -49,6 +50,7 @@
         <a href="#contact">认识小小东</a>
         <a href="#chrome-extensions">谷歌插件</a>
         <a href="#projects">项目</a>
+        <a href="#draw">画画</a>
         <a href="#skills">Skills</a>
       </nav>
 
@@ -167,6 +169,21 @@
         </div>
       </section>
 
+      <section id="draw" class="draw-teaser" aria-labelledby="draw-teaser-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">painting skill</p>
+            <h2 id="draw-teaser-title">一句话，画成一幅会动的画</h2>
+          </div>
+          <p>开源 Skill xxd-draw-001：给一句描述、一张照片，或照片加几句修改，Agent 读懂后一笔一笔画出来。鼠标停在画上会重画一遍。</p>
+        </div>
+        <ul class="dw-grid" data-dw-mount data-dw-base="draw/" data-dw-limit="6" aria-label="xxd-draw-001 作品精选"></ul>
+        <div class="draw-teaser-links">
+          <a href="draw/">看全部 <span data-dw-total>18</span> 幅作品</a>
+          <a href="https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-draw-001" target="_blank" rel="noopener noreferrer">GitHub 项目地址</a>
+        </div>
+      </section>
+
       <section id="skills" class="skills-section">
         <div class="section-head" data-motion="skills-head">
           <div>
@@ -204,6 +221,7 @@
         <a href="#prompt-library">提示词库</a>
         <a href="#community">知识星球</a>
         <a href="#chrome-extensions">谷歌插件</a>
+        <a href="draw/">画画</a>
         <a href="#skills">Skills</a>
         <a href="https://github.com/nevertoday" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
@@ -214,6 +232,8 @@
       </div>
     </footer>
 
+    <script src="draw/works.js?v=20261007-draw-v1" defer></script>
+    <script src="draw/gallery.js?v=20261007-draw-v1" defer></script>
     <script src="script.js?v=20260706-prompt-library-first-v1" defer></script>
   </body>
 </html>

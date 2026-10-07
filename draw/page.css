@@ -1,0 +1,319 @@
+/* draw/index.html only. Tokens, header and footer come from ../styles.css. */
+.draw-hero,
+.draw-section {
+  width: 100%;
+  padding: clamp(3rem, 7vw, 5.8rem) var(--edge);
+  border-bottom: 1px solid var(--line);
+}
+
+.draw-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 30rem);
+  gap: clamp(1.6rem, 5vw, 4.5rem);
+  align-items: center;
+  padding-top: clamp(2.4rem, 5vw, 4rem);
+}
+
+.draw-hero-copy {
+  display: grid;
+  gap: 1.3rem;
+  justify-items: start;
+  min-width: 0;
+}
+
+.draw-hero h1 {
+  max-width: none;
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+  line-height: 1.08;
+}
+
+.draw-lede {
+  max-width: 36rem;
+  font-size: 1.04rem;
+  line-height: 1.85;
+}
+
+.draw-hero-art {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.draw-hero-art .dw-frame {
+  padding: 10px;
+  box-shadow: 0 22px 50px -30px rgba(17, 17, 17, 0.5);
+}
+
+.draw-hero-art .dw-live {
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+}
+
+.draw-hero-note {
+  color: var(--muted);
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.draw-proof {
+  grid-column: 1 / -1;
+}
+
+.draw-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.draw-steps li {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  min-width: 0;
+  padding: 1.3rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  counter-increment: step;
+}
+
+.draw-steps h3::before {
+  content: counter(step, decimal-leading-zero);
+  margin-right: 0.6rem;
+  color: var(--muted);
+  font-family: var(--latin);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.draw-steps pre {
+  margin: 0;
+  overflow-x: auto;
+  padding: 0.85rem 1rem;
+  color: var(--ink);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+:root:not([data-theme="dark"]) .draw-steps pre {
+  background: #f6f6f4;
+}
+
+.draw-steps code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+.draw-steps p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.draw-repo {
+  display: grid;
+  gap: clamp(1.2rem, 3vw, 2rem);
+}
+
+.draw-repo-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: clamp(1rem, 2.6vw, 1.6rem) clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  transition:
+    color 180ms var(--ease),
+    background 180ms var(--ease),
+    box-shadow 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.draw-repo-link:hover,
+.draw-repo-link:focus-visible {
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 14%, transparent);
+  transform: translate(-3px, -3px);
+}
+
+.draw-repo-kicker {
+  font-family: var(--latin);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.draw-repo-url {
+  font-family: var(--latin);
+  font-size: clamp(1rem, 2.4vw, 1.5rem);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.draw-repo-go {
+  font-size: 1.4rem;
+}
+
+.draw-repo-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: 0;
+}
+
+.draw-repo-facts div {
+  display: grid;
+  gap: 0.45rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.draw-repo-facts dt {
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.draw-repo-facts dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.draw-credit {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+
+.draw-credit a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .draw-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .draw-repo-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .draw-repo-kicker {
+    display: none;
+  }
+
+  .draw-repo-link {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.draw-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.draw-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 1rem;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  font-family: var(--latin);
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition:
+    color 180ms var(--ease),
+    background 180ms var(--ease),
+    border-color 180ms var(--ease),
+    box-shadow 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.draw-links a:last-child {
+  color: var(--paper);
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.draw-links a:hover,
+.draw-links a:focus-visible {
+  color: var(--paper);
+  border-color: var(--ink);
+  background: var(--ink);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 14%, transparent);
+  transform: translate(-2px, -2px);
+}
+
+.draw-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.draw-proof div {
+  display: grid;
+  gap: 0.35rem;
+  padding-top: 0.9rem;
+}
+
+.draw-proof dt {
+  color: var(--muted);
+  font-family: var(--latin);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.draw-proof dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.draw-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(240px, 0.38fr);
+  gap: clamp(1.2rem, 4vw, 3rem);
+  align-items: end;
+  margin-bottom: clamp(1.4rem, 3.5vw, 2.4rem);
+}
+
+.draw-head h2 {
+  margin-top: 0.32rem;
+  font-size: clamp(2.2rem, 4.6vw, 3.35rem);
+}
+
+.draw-head > p {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 860px) {
+  .draw-head,
+  .draw-proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

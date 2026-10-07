@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>xxd-draw-001 作品</title>
+    <meta name="robots" content="noindex" />
+    <!-- p5.js 2.3.3 (LGPL-2.1) + p5.brush 2.2.2 (MIT), unmodified; licenses in runtime/. -->
+    <style>
+      html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; }
+      #sheet { width: 100%; height: 100%; }
+      #sheet > canvas { display: block; width: 100% !important; height: 100% !important; }
+      #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      #error { position: absolute; inset: auto 8px 8px; margin: 0; font: 12px/1.5 sans-serif; color: #603f32; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div id="sheet" role="img"></div>
+    <p id="status" role="status" aria-live="polite">正在准备画笔…</p>
+    <p id="error" role="alert" hidden></p>
+    <script>
+      // One painting per document: p5.brush keeps global renderer state.
+      (() => {
+        const slug = new URLSearchParams(location.search).get("w") || "";
+        if (!/^[a-z0-9-]{1,40}$/.test(slug)) {
+          document.getElementById("error").hidden = false;
+          document.getElementById("error").textContent = "没有这幅作品";
+          return;
+        }
+        document.write('<script src="works/' + slug + '.js"><\/script>');
+      })();
+    </script>
+    <script src="runtime/p5.min.js"></script>
+    <script src="runtime/p5.brush.min.js"></script>
+    <script src="runtime/paint.js"></script>
+  </body>
+</html>

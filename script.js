@@ -448,6 +448,24 @@ const hiddenProjectNames = new Set(["xiaoxiaodong", "nevertoday", "image", "boot
 
 const openSkills = [
   {
+    name: "xxd-draw-001",
+    label: "画画",
+    title: "一句话画成会动的画",
+    summary: "文字、照片都能画，一笔一笔画出来",
+    trigger: "$xxd-draw-001",
+    scene: "插画 / 动态小画",
+    output: "离线 HTML 动画",
+    source: "skills/xxd-draw-001/SKILL.md",
+    url: "https://github.com/nevertoday/xiaoxiaodong/tree/main/skills/xxd-draw-001",
+    icon: "assets/icons/draw.svg",
+    colorName: "炭灰",
+    color: "#2B2B2B",
+    pain: "AI 画图千篇一律，也看不到怎么画出来",
+    highlights: ["读懂命题里的每个意象", "颜色干净、笔触柔软", "一笔一笔播放作画过程"],
+    usage: ["调用 $xxd-draw-001 并写一句命题", "或附上一张照片，可再加几句修改", "得到一个离线可开的 HTML，打开就开始作画"],
+    tips: ["命题写清楚有什么、在哪、什么天气", "照片默认画成正方形，要竖幅直接说", "批量用 scripts/batch_run.py，一题一个 worker"],
+  },
+  {
     name: "xxd-article-poster",
     label: "文章海报",
     title: "长文转海报卡片",

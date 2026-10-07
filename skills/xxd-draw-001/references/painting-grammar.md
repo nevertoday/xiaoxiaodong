@@ -1,0 +1,57 @@
+# 画法原理与笔触词汇
+
+这份文档有两部分：**原作为什么好看**（每幅画都要守的原理），和 **`free` 形态用的笔触词汇**（forms 表达不了的东西才自己写笔触）。
+
+原作 12 幅（Willow、Dawn、Irises、Poppies、Orchard、Wisteria、Garden、Dusk、Koi、Roses、Oranges、Sail）存放在技能目录之外，供维护时对照；作画时不需要也不应该去读它们的源码。
+
+## 原作为什么好看
+
+1. **颜色干净、高明度**：大面积是浅而透的色，深色只在框景和接触暗部；强调色只有一个家族，集中在焦点。暗面是同一个颜色更深更浓，亮面是同一个颜色更浅更暖，从不往灰里调。
+2. **有机形**：叶片形、沿脊线忽粗忽细的身体、弧线、边缘抖动的椭圆。整组原作里只有帆船的帆是三角形。
+3. **体积靠"实心 + 皮 + 偏移明暗"**：橙子是实心圆 + 低晕边 + 往背光偏的暗块 + 往受光偏的亮块 + 一个高光。明暗顺着形体放，不是随机撒。
+4. **主体小、环境密**：帆只有画面六分之一高，周围是上百道水波；船上的人是两个点。几何形放小、被有机笔触包围，就不显硬。
+5. **融进环境**：锦鲤画完再罩一层水色；帆下有倒影；站在地上的东西有接触阴影。
+6. **笔触有方向**：叶从枝头散开，水纹绕中心转，毛顺着身体长。
+7. **光是留白和冷暖，不是画出来的东西**：没有光源就不画光；有光源时只有光源本身、水面正下方的断续倒影、3–5 个亮点、受光边偏暖。
+8. **天空只有色带和软团块**：不撒小点、小横线。
+9. **过程也是作品**：先铺底色，再搭大关系，中段让主角一层层长出来，最后才点光。
+
+## 常见失败 → 修法
+
+| 看到 | 原因 | 修法 |
+| --- | --- | --- |
+| 整幅灰褐、发闷 | colours 选了灰色，或深色用灰 | 换成这个题材本来的颜色，饱和一点；深色用 life 的深调 |
+| 主体像贴上去的剪影 | 一块不透明大形 | 拆成几个部件，各有明暗；表面用 material 产生笔触 |
+| 像 CAD / 矢量图 | 直线多、粗、近黑；大面一块平涂 | structure 的线用 life 深色、细一些；大面交给 forms，不要在 free 里画大块 shape |
+| 稀疏、空 | 只画了主角 | 主角周围要有它的环境：草、水纹、叶、落花，按题材来 |
+| 天上有脏点、画面蒙雾 | free 里往天上撒 marks/touches，或乱开 glow | 天空只用色带和云；亮点只给水面倒影 |
+| 雪地发蓝、东西浮在空中 | 浅色地面压在深色底上 | ground 用接近白的颜色，compose 会自动先浅后深 |
+| 人像吓人 | 给大人物画了眼睛嘴巴 | 人脸只画侧脸轮廓，不画五官（figure 默认如此） |
+| 一摞平行直条 | 几十道 glazes 或细长 shape | glazes 一幅 ≤ 24 道；长条用 strands/arcs/body |
+
+## `free` 形态的笔触词汇
+
+forms 画不了的东西，才用 `{"name": "…", "form": "free", "at": [x, y], "ops": [ … ]}` 自己写笔触。坐标 0–1；`size` 是短边比例，实际显示约为两倍；`count` 会按细节打折（约 ×0.65）；数值字段可写 `[最小, 最大]`。
+
+| type | 必填 | 常用可选 | 用途 |
+| --- | --- | --- | --- |
+| `band` | y0, y1, color | opacity, wobble | 横贯全幅的湿边色带 |
+| `blob` | x, y, rx, ry, color | opacity, bleed, rotation, medium | 柔软团块；`medium:"wash"` 是清楚的小圆盘 |
+| `shape` | points, color | opacity, hand, flat | 一块面，默认手绘边 + 同色明暗；小部件加 `flat: true` |
+| `body` | x, y, length, color | width, angle, profile(8 个半宽) | 沿脊线变粗变细的有机身体 |
+| `line` | points | color, weight, curvature, brush | 一笔线；两点线默认微弯 |
+| `marks` | area, count | size, aspect, rotation, spin, colors, opacity, petal, flow, depth | 小形群：花瓣、叶、斑纹、草痕、石子 |
+| `strands` | area, count | length, angle, spread, sway, colors, weight | 细长笔：草茎、芦苇、发丝、雨、垂丝 |
+| `leaves` | x, y, rx, ry, count | colors, size, rotation | 椭圆区域里的叶群 |
+| `arcs` | x, y, count | radius, span, colors, weight | 绕中心的弧：涟漪、风、蒸汽 |
+| `flowers` | kind + (at 或 area+count) | size, accents | 原作花型：blossom / peony / daisy / lily |
+| `glazes` | area, count | length, angle, colors, weight | 透明长笔，一幅最多十来道 |
+| `touches` | area, count | angle, spread | 亮点，只给有光的地方，≤ 5 |
+
+`area` 写法：`{x,y,rx,ry}` 椭圆；`{box:[x0,y0,x1,y1]}`；`{polygon:[[x,y],…]}` 只落在形内；`{path:[[x,y],…], width}` 沿线分布。`marks` 加 `petal: true` 是一头尖的叶片形；`flow: {fan:[x,y]}` 让笔触从一点散开。颜色可以写 hex，也可以写角色：`washes.0`–`3`（空气到地面）、`foliage.0`–`3`（植物/结构）、`accents.0`–`3`（强调色）、`highlights.0`–`1`（光）。
+
+任何操作都可以加 `label`（画下显示的步骤文字，一直有效到下一个 label）、`pace`（时长倍数）、`group`（把 k 笔合成一次揭示，适合又淡又重复的雨、水纹）。
+
+## 验收数字
+
+`style_check.py` 的门槛来自 12 幅原作的终帧：彩度 ≥ 8、脏灰 ≤ 0.08、平均明度 ≥ 0.65，群落 ≥ 3 组/≥ 150 个，大块 shape 占比 ≤ 55%。`capture_review.cjs` 的 PACING：24 段里看不见变化的段 ≤ 3，且连续不超过 3 段。通过只说明颜色、密度、节奏对上了原作；内容对不对要看图。
