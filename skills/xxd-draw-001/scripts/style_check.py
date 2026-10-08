@@ -2,7 +2,7 @@
 """Measure a final frame (and optionally its plan) against the twelve originals.
 
 The thresholds come from all twelve originals' final frames (600×600, same renderer):
-colourfulness 8.9–24.8, mud ≤ 0.07, mean value 0.68–0.88. Hue families range 1–6:
+colourfulness 8.9–24.8, mud ≤ 0.07, mean value 0.68–0.88, earth (brown/ochre) ≤ 0.015. Hue families range 1–6:
 Sail is a quiet one-family seascape, so hue variety is advice, not a gate.
 The earlier grey v3 examples scored colourfulness 5.7–6.4 and still fail.
 Passing proves the colour/density register matches; it does not judge content.
@@ -11,18 +11,19 @@ import argparse, colorsys, json, math, sys
 from pathlib import Path
 from PIL import Image
 
-LIMITS = {'colorful': 8.0, 'huebins': 3, 'mud': 0.08, 'value': 0.65}
+LIMITS = {'colorful': 8.0, 'huebins': 3, 'mud': 0.08, 'value': 0.65, 'earth': 0.05}
 COLONY = {'leaves', 'marks', 'strands', 'glazes', 'flowers', 'pads', 'touches'}
 
 
 def image_metrics(path):
     im = Image.open(path).convert('RGB').resize((120, 120))
     px = list(im.get_flattened_data() if hasattr(im, 'get_flattened_data') else im.getdata())
-    n = len(px); value = mud = vivid = 0; rg = []; yb = []; hist = [0] * 12
+    n = len(px); value = mud = vivid = earth = 0; rg = []; yb = []; hist = [0] * 12
     for r, g, b in px:
         r, g, b = r / 255, g / 255, b / 255
         h, s, v = colorsys.rgb_to_hsv(r, g, b)
         value += v; mud += s < .12 and v < .75
+        earth += .04 <= h <= .17 and .2 <= s <= .65 and v < .72   # brown / ochre / tan: absent from every original
         rg.append(r - g); yb.append(.5 * (r + g) - b)
         if s > .2:
             hist[int(h * 12) % 12] += 1; vivid += 1
@@ -32,7 +33,7 @@ def image_metrics(path):
     (srg, mrg), (syb, myb) = stats(rg), stats(yb)
     return {'colorful': round(100 * (math.hypot(srg, syb) + .3 * math.hypot(mrg, myb)), 2),
             'huebins': sum(1 for c in hist if c > max(1, .03 * vivid)),
-            'mud': round(mud / n, 3), 'value': round(value / n, 3)}
+            'mud': round(mud / n, 3), 'value': round(value / n, 3), 'earth': round(earth / n, 3)}
 
 
 def _span(o):
@@ -57,6 +58,7 @@ def check(image, plan=None):
     out['advice'] = [] if m['huebins'] >= LIMITS['huebins'] else ['huebins']
     c['mud'] = m['mud'] <= LIMITS['mud']
     c['value'] = m['value'] >= LIMITS['value']
+    c['earth'] = m['earth'] <= LIMITS['earth']
     if plan is not None:
         p = plan_metrics(plan); out['plan'] = p
         c['plan_version'] = p['version'] == 4
@@ -73,6 +75,7 @@ HINTS = {
     'huebins': '色相太单一：至少三个色相家族——底色洗、植物/结构、强调色、暖高光各占一份。',
     'mud': '有脏灰暗块：大面积深色改成 foliage 深色小块或半透明洗，不用灰色不透明剪影。',
     'value': '整体太暗：原作纸色和高明度洗色占大头，深色只在框景和接触暗部。',
+    'earth': '土色太多（褐、赭、土黄）：原作一个都没有。木头、头发、大衣也挑干净的颜色（焦糖、赭红、杏色），暗部用深绿、深靛。',
     'plan_version': 'plan 要由 compose.py 生成。',
     'colonies': '画面太空：原作的主角周围总有成片的小笔触。按题材给主角加它的环境：草（plant grass）、水纹（water ripples）、叶与花（plant shrub/stems）、布纹（cloth pattern）、落花（air petals），或 free 里的 marks。',
     'touches': '亮点太多：原作一幅只有 3–5 个，而且只在水面倒影或湿亮表面上；到处撒会像脏点。',

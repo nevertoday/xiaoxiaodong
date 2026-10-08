@@ -37,17 +37,103 @@ def lift(h, l_lo, l_hi, s_lo, s_hi):
     hh, l, s = hls(h); return from_hls(hh, clamp(l, l_lo, l_hi), clamp(s, s_lo, s_hi))
 
 
+# ------------------------------------------------------------------ pigments
+# Measured from the 186 colours of the twelve originals: no earth tones, no greys,
+# and every dark (L < .35) is cool (deep green 104-170 deg, deep blue/indigo/violet 196-253).
+# Brown under a transparent blue wash is what turns a picture grey and dirty, so every
+# colour that reaches a stroke goes through pigment() first.
+def hue_deg(h): return hls(h)[0] * 360
+
+
+def cool_hue_of(palette_or_colours):
+    """The scene's own cool hue (for tinted greys and inky darks), else indigo."""
+    for h in palette_or_colours:
+        if isinstance(h, str) and h.startswith('#') and 100 <= hue_deg(h) <= 260 and hls(h)[2] > .08: return hls(h)[0]
+    return 225 / 360
+
+
+def pigment(h, cool=225 / 360, grey=240 / 360):
+    if not (isinstance(h, str) and len(h) == 7 and h.startswith('#')): return h
+    hh, l, s = hls(h); deg = hh * 360
+    if l > .94: return h                                   # paper and near-white highlights stay
+    if s < .12:                                            # grey -> a tinted grey (the sky's cool hue, else lavender)
+        hh, s = grey, max(s, .22)
+    elif 10 <= deg <= 60 and s < .55 and l < .76:          # earth: tan/beige -> apricot/butter, brown -> terracotta/caramel
+        if l >= .5: s, l = max(s, .55), max(l, .72)
+        else: s, l = max(s, .5), max(l, .52)
+    if .3 <= l <= .8 and s < .3:                           # a muted middle tone paints as grey: give it colour
+        s = .3
+    if l < .35:                                            # darks are cool and never inky-black
+        deg = hh * 360
+        if 55 <= deg < 100: hh = 125 / 360                 # olive shadow -> deep green, as in the originals
+        elif not (100 <= deg <= 310): hh = cool
+        s, l = clamp(s, .2, .55), max(l, .2)
+    return from_hls(hh, l, s)
+
+
+def hmix(a, b, t):
+    """Blend through hue, not through RGB: two complementary colours meet in a clean colour, never in grey."""
+    (h1, l1, s1), (h2, l2, s2) = hls(a), hls(b)
+    if s1 < .05: h1 = h2
+    if s2 < .05: h2 = h1
+    dh = ((h2 - h1 + .5) % 1) - .5
+    return from_hls((h1 + dh * t) % 1, l1 + (l2 - l1) * t, s1 + (s2 - s1) * t)
+
+
+COLOUR_FIELDS = ('color', 'deep', 'pale', 'shade')
+
+
+def clean_plan(plan):
+    """Run every colour of a plan (palette and strokes) through pigment(). Works on old plans too."""
+    pal = plan.get('palette', {})
+    flat = [c for v in pal.values() for c in (v if isinstance(v, list) else [v])]
+    cool = cool_hue_of([*pal.get('foliage', []), *pal.get('washes', []), *flat])   # darks: the scene's deep green/blue
+    grey = cool_hue_of([*pal.get('washes', []), '#8f8fc4'])                        # tinted greys: the sky, else lavender
+    paint = lambda c: pigment(c, cool, grey)
+    for key, value in list(pal.items()):
+        pal[key] = [paint(c) for c in value] if isinstance(value, list) else paint(value)
+
+    def walk(node):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k in COLOUR_FIELDS and isinstance(v, str): node[k] = paint(v)
+                elif k == 'colors' and isinstance(v, list): node[k] = [paint(x) if isinstance(x, str) else x for x in v]
+                elif k == 'accents' and isinstance(v, list): node[k] = [paint(x) if isinstance(x, str) else x for x in v]
+                else: walk(v)
+        elif isinstance(node, list):
+            for v in node: walk(v)
+    walk(plan.get('strokes', []))
+    # The originals are high-key: the big colour fields (bands, base wash, the wash roles)
+    # sit at L >= .74 even at dusk. Darks belong to subjects, not to the ground they stand on.
+    def airy(h):
+        if not (isinstance(h, str) and h.startswith('#')): return h
+        hh, l, s = hls(h)
+        if s < .25 and l < .74: return from_hls(hh, .74, max(s, .3))      # a dull field becomes a clear high-key wash
+        if s < .4 and l < .64: return from_hls(hh, .64, s + .1)          # a dusky one clears but keeps some depth
+        return h                                                         # a deep, clear sea or forest stays as it is
+    pal['washes'] = [airy(c) for c in pal.get('washes', [])]
+    for op in plan.get('strokes', []):
+        if op.get('type') in ('band', 'wash'): op['color'] = airy(op.get('color'))
+    # A pale veil (glow, mist, window light) should lighten what is under it, not tint it:
+    # warm light over a cool wash is the other way a picture turns grey.
+    for op in plan.get('strokes', []):
+        if op.get('type') == 'blob' and isinstance(op.get('color'), str) and op['color'].startswith('#'):
+            hh, l, s = hls(op['color'])
+            if l >= .82: op['color'] = from_hls(hh, max(l, .93), min(s, .6))
+    return plan
+
+
 def palette_from(colours):
     """Build the engine's colour roles from the brief's own colours. No named palettes exist."""
     need = [k for k in ('air', 'ground', 'life', 'accent') if not str(colours.get(k, '')).startswith('#')]
     if need: raise ValueError(f'colours needs {need} as #RRGGBB, chosen from the request\'s world and mood (any hue)')
-    air = lift(colours['air'], .62, .9, .12, .62); ground = lift(colours['ground'], .45, .92, .1, .6)
+    air = lift(colours['air'], .72, .9, .2, .62); ground = lift(colours['ground'], .55, .92, .2, .6)
     life = lift(colours['life'], .3, .62, .18, .6); acc = lift(colours['accent'], .45, .66, .45, .92)
     light = lift(colours.get('light', '#fff3d9'), .86, .97, .2, 1)
     ha, la, sa = hls(acc)
     paper = colours.get('paper') or mix('#f6f1e8', air, .08)
     return {'ground': paper,
-            'washes': [air, toneish(air, -.08), mix(air, ground, .5), ground],
+            'washes': [air, toneish(air, -.08), hmix(air, ground, .5), ground],
             'foliage': [life, toneish(life, .1), toneish(life, -.14), lift(mix(life, light, .45), .7, .85, .25, .55)],
             'accents': [from_hls(ha, la + .12, sa), acc, from_hls(ha, la - .12, sa), from_hls(ha, .88, sa * .7)],
             'highlights': [light, mix(light, '#ffffff', .6)]}
@@ -938,6 +1024,7 @@ def compose(brief):
             if span < .03: o['pace'] = min(o.get('pace', 1), .25)
     anim = {'duration_ms': brief.get('duration_ms', max(9000, min(14000, 6000 + 180 * len(c.ops)))), 'hold_ms': 1500, 'loop': False, 'phrases': [sp.get('label', '铺开底色…'), '完成']}
     plan = {'version': 4, 'title': brief['title'], 'seed': brief.get('seed', 1), 'palette': palette, 'animation': anim, 'strokes': c.ops}
+    clean_plan(plan)
     if brief.get('canvas'): plan['canvas'] = {'width': int(cv['width']), 'height': int(cv['height'])}
     return plan
 
