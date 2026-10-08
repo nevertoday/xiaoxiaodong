@@ -55,9 +55,10 @@ python3 $S/compose.py --forms      # 每种形态需要描述什么
 3. **主角不站中线**：放在三分线附近（x≈0.33 或 0.67）。所有东西都摞在 x≈0.5 一列、左右对称，会被拒绝（`CENTRED STACK`）。
 4. **东西收拢成一组**：主角和它的环境聚在画面一侧或下半，前后叠一点；另一侧就是留白。站着的东西要落在地上。
 5. **同类成群、有节奏**：花、鸟、果、叶、船 3–7 个一组，大小不一，沿一条斜线或弧线排开；成群的笔触也只聚在这一组里，不铺满全画。
-6. **不用长直杆切格子**：栏杆、柱子、窗框、货架留两三根就够（`CAGE` 提示）。
-7. **室内不用 building**：building 会画出整座房子和柱子；室内的墙、窗、柜用 structure 和 cloth（`INTERIOR BUILDING` 提示）。
-8. **颜色有主次**：强调色给主角；环境的颜色 compose 会往画面的两三个色系上靠，地平线附近的东西会融进天空色，越远越淡。
+6. **不用细线勾轮廓**：窗、框、墙、桌子、柜子用色块（structure 的 panes、cloth）画，不用细线描边；线只给本来就细长的东西——草茎、枝条、绳子、发丝（`HAIRLINE` 提示）。引擎画的线都带手绘弧度，但一条孤零零的细线勾框，在这种画风里还是别扭。
+7. **不用长直杆切格子**：栏杆、柱子、窗框、货架留两三根就够（`CAGE` 提示）。
+8. **室内不用 building**：building 会画出整座房子和柱子；室内的墙、窗、柜用 structure 和 cloth（`INTERIOR BUILDING` 提示）。
+9. **颜色有主次**：强调色给主角；环境的颜色 compose 会往画面的两三个色系上靠，地平线附近的东西会融进天空色，越远越淡。
 
 ### 3. 描述每一样东西（things）
 
@@ -99,7 +100,7 @@ node $S/capture_review.cjs /用户指定目录/作品名.html $W/evidence --quic
 python3 $S/style_check.py $W/evidence/final.png --plan $W/plan.json
 ```
 
-compose 会提示：`MISSING IMAGERY`（有意象没画，**会拒绝生成**）、`CENTRED STACK`（居中堆成一列，**会拒绝生成**）、`CAGE` / `INTERIOR BUILDING`（构图问题，要改）、`MISSING ENVIRONMENT`（雪、雨、夜、阳光等没体现）、`GENERIC NAMES`（"远景""细节"这类空名字）、`SKY MARKS`（天上撒点）。看到就改 brief。
+compose 会提示：`MISSING IMAGERY`（有意象没画，**会拒绝生成**）、`CENTRED STACK`（居中堆成一列，**会拒绝生成**）、`CAGE` / `HAIRLINE` / `INTERIOR BUILDING`（构图问题，要改）、`MISSING ENVIRONMENT`（雪、雨、夜、阳光等没体现）、`GENERIC NAMES`（"远景""细节"这类空名字）、`SKY MARKS`（天上撒点）。看到就改 brief。
 
 打开 `$W/evidence/final.png` 看图，逐条回答 checklist：是/否。"否"就改 brief 重来；`STYLE FAIL`、`PACING FIX` 也要改；文字题出现 `ADVICE open`（留白太少）也要改。最多改 3 轮，仍做不到的如实告诉用户。交付前去掉 `--quick` 再跑一次完整检查。
 

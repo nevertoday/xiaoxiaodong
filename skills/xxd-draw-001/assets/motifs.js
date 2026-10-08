@@ -205,20 +205,44 @@ function curvePts(pts, n = 18) {
   }
   return out;
 }
-function ribbonPts(pts, width, taper = 0.35) {
-  const c = curvePts(pts), n = c.length, left = [], right = [];
+function ribbonPts(pts, width, taper = 0.35, taperIn = taper) {
+  const c = pts.length > 6 ? pts : curvePts(pts), n = c.length, left = [], right = [];
   const seed = noise(c[0][0] * 0.01, c[0][1] * 0.01) * 10;
   for (let i = 0; i < n; i++) {
     const a = c[Math.max(0, i - 1)], b = c[Math.min(n - 1, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
-    const u = i / (n - 1), end = Math.min(1, Math.min(u, 1 - u) / taper);
+    const u = i / (n - 1), end = Math.min(1, u / Math.max(0.01, taperIn), (1 - u) / Math.max(0.01, taper));
     const half = width / 2 * (0.5 + 0.5 * Math.sqrt(end)) * (0.88 + 0.24 * noise(seed + u * 2.2));
     left.push([c[i][0] - dy / L * half, c[i][1] + dx / L * half]);
     right.push([c[i][0] + dy / L * half, c[i][1] - dx / L * half]);
   }
   return [...left, ...right.reverse()];
 }
-function paintRibbon(pts, width, color, alpha) {
-  const poly = ribbonPts(pts, width);
+/* No ruled lines: a painted line bows a little (2-4.5% of its length), and a long one lifts the
+ * brush once or twice, leaving a small gap, the way a real stroke runs dry. */
+function bowedPath(pts) {
+  const out = [pts[0]];
+  for (let i = 1; i < pts.length; i++) {
+    const [ax, ay] = pts[i - 1], [bx, by] = pts[i], L = Math.hypot(bx - ax, by - ay) || 1;
+    const bow = (0.02 + 0.025 * noise(ax * 0.03, by * 0.03)) * L * (noise(bx * 0.02, ay * 0.02) > 0.5 ? 1 : -1);
+    out.push([(ax + bx) / 2 - (by - ay) / L * bow, (ay + by) / 2 + (bx - ax) / L * bow], [bx, by]);
+  }
+  return out;
+}
+function brokenRuns(path) {
+  const c = curvePts(path, 24), n = c.length;
+  let len = 0; for (let i = 1; i < n; i++) len += Math.hypot(c[i][0] - c[i - 1][0], c[i][1] - c[i - 1][1]);
+  if (len < m * 0.4) return [c];
+  const cuts = len > m * 0.7 ? [rr(0.28, 0.42), rr(0.62, 0.76)] : [rr(0.3, 0.7)], gap = rr(0.015, 0.03), runs = [];
+  let start = 0;
+  for (const u of [...cuts, 1]) {
+    const a = Math.round(start * (n - 1)), b = Math.round(Math.min(1, u) * (n - 1));
+    if (b - a >= 2) runs.push(c.slice(a, b + 1));
+    start = u + gap;
+  }
+  return runs;
+}
+function paintRibbon(pts, width, color, alpha, taperIn = 0.35, taperOut = 0.35) {
+  const poly = ribbonPts(pts, width, taperOut, taperIn);
   washStyle(color, alpha); brush.polygon(poly);
   if (width > m * 0.012) { washStyle(toneOf(color, -0.06, 0.04), Math.round(alpha * 0.45)); brush.polygon(ribbonPts(pts, width * 0.45, 0.5)); }
 }
@@ -348,10 +372,14 @@ const MOTIFS = {
     const pts = op.points.map(([x, y]) => [x * W, y * H]), w = span(op.weight, 2.6) * S.brushSize, color = roleColor(op.color ?? 'foliage.2');
     const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]), axis = Math.max(...xs) - Math.min(...xs) > Math.max(...ys) - Math.min(...ys) ? 'x' : 'y';
     const dir = Math.sign(axis === 'x' ? pts.at(-1)[0] - pts[0][0] : pts.at(-1)[1] - pts[0][1]) || 1;
-    // Thick lines (poles, rails, shelves, slats) become tapered wash ribbons; only fine lines are stroked.
-    if (w > 2.2 && !op.brush) {
-      const width = w * 2.9 * (m / 600);
-      return [D(() => paintRibbon(pts, width, color, op.opacity ?? 225), bboxOf(pts, width * 2 + 8), axis, dir, op.duration ?? 260, 40)];
+    // Every line is painted, never ruled: a tapered wash ribbon that bows a little and lifts the brush
+    // on long runs. A stamped brush beads into caterpillars when thick and reads as a ruler when thin.
+    // Only strokes that ask for a brush (whiskers, hair, flicks) are still stroked.
+    if (!op.brush) {
+      const width = Math.max(1.8, w * 2.9) * (m / 600);
+      // a stroke lands quickly and lifts slowly; where the brush lifts mid-line the end stays blunt
+      return [D(() => { const runs = brokenRuns(bowedPath(pts)); runs.forEach((run, i) => paintRibbon(run, width * (1 - 0.12 * i) * rr(0.9, 1.08), color, op.opacity ?? 225, i === 0 ? 0.12 : 0.04, i === runs.length - 1 ? 0.4 : 0.06)); },
+        bboxOf(pts, width * 2 + m * 0.03), axis, dir, op.duration ?? 260, 40)];
     }
     return [D(() => { if (op.field) brush.field(op.field); strokeStyle(op.brush ?? 'rim', color, w); pts.length === 2 && op.ruler ? brush.line(...pts[0], ...pts[1]) : brush.spline(pts.length === 2 ? handLine(pts) : pts, op.curvature ?? 0.4); brush.noField(); },
       bboxOf(pts, 12 * S.brushSize + w * 4), axis, dir, op.duration ?? 260, 40)];

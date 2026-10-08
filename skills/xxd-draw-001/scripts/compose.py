@@ -572,7 +572,7 @@ def f_plant(c, p):
             col = rng.choice([leaf, 'foliage.0', 'foliage.2'])
             for j in range(6):
                 a = (bx + lean * j / 6, y - h * j / 6); b = (bx + lean * (j + 1) / 6, y - h * (j + 1) / 6 + .006)
-                c.add({'type': 'line', 'points': [[r4(a[0]), r4(a[1])], [r4(b[0]), r4(b[1])]], 'color': col, 'weight': 2.4 - 1.2 * j / 6, 'ruler': True}, pace=.15)
+                c.add({'type': 'line', 'points': [[r4(a[0]), r4(a[1])], [r4(b[0]), r4(b[1])]], 'color': col, 'weight': 2.4 - 1.2 * j / 6}, pace=.15)
             c.add({'type': 'marks', 'area': {'x': r4(bx + lean * .7), 'y': r4(y - h * .75), 'rx': .07, 'ry': h * .25}, 'count': 30, 'size': [.004, .007], 'aspect': [4, 6], 'petal': True,
                    'flow': {'fan': [r4(bx + lean * .6), r4(y - h * .6)]}, 'colors': ['foliage.0', 'foliage.1', 'foliage.3', 'foliage.2'], 'batch': 6}, pace=.6)
         return
@@ -1005,6 +1005,12 @@ def composition_gaps(brief):
         advice.append('INTERIOR BUILDING: building paints a whole house with posts; indoors, paint walls, windows and shelves with structure and cloth.')
     bars = [m for t in brief.get('things', []) if t.get('form') == 'structure' for m in t.get('members', [])
             if len(m.get('points', [])) >= 2 and max(abs(m['points'][0][1] - m['points'][-1][1]), abs(m['points'][0][0] - m['points'][-1][0])) > .45]
+    hair = [t.get('name') for t in brief.get('things', []) if t.get('form') == 'structure'
+            for m in t.get('members', []) if float(m.get('width', 2) or 2) <= 1.2 and len(m.get('points', [])) >= 2
+            and sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(m['points'], m['points'][1:])) > .2]
+    if hair:
+        advice.append('HAIRLINE: ' + '、'.join(dict.fromkeys(hair)) + ' outlined with long thin lines; the originals never outline man-made things. '
+                      'Paint a window, frame, wall or table as panes (colour fields); keep lines for things that are thin by nature (stems, twigs, string, hair).')
     if len(bars) >= 4:
         advice.append(f'CAGE: {len(bars)} long straight members cross the picture and cut it into a grid; keep two or three, shorten the rest, let leaves, cloth or light break them.')
     return refuse, advice
