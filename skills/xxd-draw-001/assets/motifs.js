@@ -191,6 +191,38 @@ function handLine([[ax, ay], [bx, by]]) {
   return [[ax, ay], [(ax + bx) / 2 - (by - ay) / (L || 1) * bend, (ay + by) / 2 + (bx - ax) / (L || 1) * bend], [bx, by]];
 }
 
+/* A thick line is painted as a tapered wash ribbon, never as a fat stamped stroke:
+ * a stamped brush at 2-3x weight beads into a "caterpillar" (the originals paint
+ * trunks and poles as shapes). Smooth centre line, ends drawn to a point, a slow
+ * swell along the length, watercolour edge from the wash itself. */
+function curvePts(pts, n = 18) {
+  const P = pts.length === 2 ? handLine(pts) : pts, out = [];
+  for (let i = 0; i <= n; i++) {
+    const t = i / n * (P.length - 1), k = Math.min(P.length - 2, Math.floor(t)), s = t - k;
+    const p0 = P[Math.max(0, k - 1)], p1 = P[k], p2 = P[k + 1], p3 = P[Math.min(P.length - 1, k + 2)];
+    const cr = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * s + (2 * a - 5 * b + 4 * c - d) * s * s + (-a + 3 * b - 3 * c + d) * s * s * s);
+    out.push([cr(p0[0], p1[0], p2[0], p3[0]), cr(p0[1], p1[1], p2[1], p3[1])]);
+  }
+  return out;
+}
+function ribbonPts(pts, width, taper = 0.35) {
+  const c = curvePts(pts), n = c.length, left = [], right = [];
+  const seed = noise(c[0][0] * 0.01, c[0][1] * 0.01) * 10;
+  for (let i = 0; i < n; i++) {
+    const a = c[Math.max(0, i - 1)], b = c[Math.min(n - 1, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
+    const u = i / (n - 1), end = Math.min(1, Math.min(u, 1 - u) / taper);
+    const half = width / 2 * (0.5 + 0.5 * Math.sqrt(end)) * (0.88 + 0.24 * noise(seed + u * 2.2));
+    left.push([c[i][0] - dy / L * half, c[i][1] + dx / L * half]);
+    right.push([c[i][0] + dy / L * half, c[i][1] - dx / L * half]);
+  }
+  return [...left, ...right.reverse()];
+}
+function paintRibbon(pts, width, color, alpha) {
+  const poly = ribbonPts(pts, width);
+  washStyle(color, alpha); brush.polygon(poly);
+  if (width > m * 0.012) { washStyle(toneOf(color, -0.06, 0.04), Math.round(alpha * 0.45)); brush.polygon(ribbonPts(pts, width * 0.45, 0.5)); }
+}
+
 /* Organic primitives from the Painting Loaders source (Koi / Oranges / Sail). */
 function petalPts(cx, cy, rx, ry, rot, n = 14, jit = 0.05) {
   const pts = [], cr = Math.cos(rot), sr = Math.sin(rot);
@@ -280,6 +312,7 @@ const MOTIFS = {
   },
   strands: (op) => {
     const cols = colorList(op.colors, ['foliage.1', 'foliage.2']), out = [], n = Math.round(op.count * (0.35 + 0.65 * S.detail));
+    const soft = op.soft ?? (Array.isArray(op.colors) && op.colors.some((c) => String(c).startsWith('highlights')));
     for (let i = 0; i < n; i++) {
       const [x0, y0] = areaPoint(op.area), ds = depthScale(op, y0);
       const len = span(op.length, [0.1, 0.3]) * H * ds, ang = angleOf(op, Math.PI / 2) + rr(-1, 1) * (op.spread ?? 0.08);
@@ -287,6 +320,12 @@ const MOTIFS = {
       const weight = span(op.weight, [0.7, 1.3]) * S.scale * (1.5 - 0.5 * S.detail) * ds, name = random() < (op.rim ?? 0.2) ? 'rim' : op.brush ?? 'flick';
       const end = [x0 + Math.cos(ang) * len, y0 + Math.sin(ang) * len];
       const axis = Math.abs(Math.cos(ang)) > Math.abs(Math.sin(ang)) ? 'x' : 'y', dir = Math.sign(axis === 'x' ? Math.cos(ang) : Math.sin(ang)) || 1;
+      // Pale strands (rain) are thin wash streaks: a stamped light stroke grows a dark rim on pale paper.
+      if (soft) {
+        const width = Math.max(1.2, weight * 1.6) * (m / 600), mid = [x0 + Math.cos(ang) * len * 0.5 + sway * 0.5, y0 + Math.sin(ang) * len * 0.5];
+        out.push(D(() => paintRibbon([[x0, y0], mid, end], width, color, 150), bboxOf([[x0, y0], end], width * 3 + 6), axis, dir, 120 + len * 1.2, 30));
+        continue;
+      }
       out.push(D(() => drawStrandAt(x0, y0, len, ang, sway, color, weight, name), bboxOf([[x0, y0], end], 14 + Math.abs(sway) + weight * 5 * S.brushSize), axis, dir, 120 + len * 1.2, 30));
     }
     return out;
@@ -309,6 +348,11 @@ const MOTIFS = {
     const pts = op.points.map(([x, y]) => [x * W, y * H]), w = span(op.weight, 2.6) * S.brushSize, color = roleColor(op.color ?? 'foliage.2');
     const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]), axis = Math.max(...xs) - Math.min(...xs) > Math.max(...ys) - Math.min(...ys) ? 'x' : 'y';
     const dir = Math.sign(axis === 'x' ? pts.at(-1)[0] - pts[0][0] : pts.at(-1)[1] - pts[0][1]) || 1;
+    // Thick lines (poles, rails, shelves, slats) become tapered wash ribbons; only fine lines are stroked.
+    if (w > 2.2 && !op.brush) {
+      const width = w * 2.9 * (m / 600);
+      return [D(() => paintRibbon(pts, width, color, op.opacity ?? 225), bboxOf(pts, width * 2 + 8), axis, dir, op.duration ?? 260, 40)];
+    }
     return [D(() => { if (op.field) brush.field(op.field); strokeStyle(op.brush ?? 'rim', color, w); pts.length === 2 && op.ruler ? brush.line(...pts[0], ...pts[1]) : brush.spline(pts.length === 2 ? handLine(pts) : pts, op.curvature ?? 0.4); brush.noField(); },
       bboxOf(pts, 12 * S.brushSize + w * 4), axis, dir, op.duration ?? 260, 40)];
   },

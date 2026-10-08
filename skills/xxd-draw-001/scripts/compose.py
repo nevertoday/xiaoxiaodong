@@ -892,6 +892,52 @@ FIELDS = {
 }
 GROUNDED = {'figure': .35, 'animal': 1.0, 'building': 1.0}
 
+# ------------------------------------------------------------------ 章法: hierarchy, harmony, depth
+# The originals have one subject in full colour and contrast; everything else is its setting,
+# painted in the picture's two or three colour families and fading toward the air with distance.
+SUBJECT_FORMS = {'figure', 'animal', 'bird', 'fish', 'insect', 'vessel', 'craft', 'round'}
+
+
+def families(palette):
+    pick = lambda role, i=0: (palette.get(role) or ['#888888'])[i]
+    return [hls(h)[0] for h in (pick('washes'), pick('foliage'), pick('accents', 1), pick('washes', 3))]
+
+
+def harmonise(h, fams, pull):
+    """Turn a colour part of the way toward the nearest colour family of the picture."""
+    hh, l, s = hls(h)
+    if s < .08: return h
+    near = min(fams, key=lambda f: abs(((hh - f + .5) % 1) - .5))
+    d = ((near - hh + .5) % 1) - .5
+    if abs(d) * 360 < 25: return h
+    return from_hls((hh + d * pull) % 1, l, s)
+
+
+def settle(c, ops, t, sp):
+    """Place one thing in the picture's order: subjects keep their colour, settings join the families,
+    and anything standing far back fades toward the air (lighter, cooler, softer)."""
+    subject = t.get('form') in SUBJECT_FORMS and t.get('role') != 'extra' and not t.get('light_source')
+    view = sp.get('view', 'eye'); hz = sp.get('horizon', .5)
+    y = (t.get('at') or [0, 1])[1]
+    far = 0.0
+    if view == 'eye' and 'at' in t: far = clamp((hz + .1 - y) / .25, 0, 1) if y < hz + .1 else 0.0
+    if t.get('role') == 'extra': far = max(far, .45)
+    if subject and far == 0: return
+    fams = families(c.palette); air = c.palette['washes'][0]
+    def tone(v):
+        if not isinstance(v, str): return v
+        h = c.hexof(v) if not v.startswith('#') else v
+        if not (isinstance(h, str) and h.startswith('#')) or hls(h)[1] > .94: return v
+        if not subject: h = harmonise(h, fams, .3)
+        if far: h = mix(h, air, .4 * far)
+        return h
+    for o in ops:
+        if o.get('type') in ('touches',): continue
+        for k in ('color', 'deep', 'pale'):
+            if k in o: o[k] = tone(o[k])
+        if isinstance(o.get('colors'), list): o['colors'] = [tone(v) for v in o['colors']]
+        if far and isinstance(o.get('opacity'), (int, float)): o['opacity'] = round(o['opacity'] * (1 - .25 * far))
+
 AIR = {
     'rain': ({'type': 'strands', 'area': {'box': [-.05, -.05, 1, .85]}, 'count': 90, 'length': [.035, .08], 'angle': 1.82, 'spread': .03, 'sway': .002, 'weight': [.35, .6], 'rim': 0, 'colors': ['highlights.1', '#e6edf6', 'washes.2'], 'group': 4}, .7, '落下细雨…'),
     'snow': ({'type': 'marks', 'area': {'box': [0, 0, 1, 1]}, 'count': 160, 'size': [.0015, .003], 'colors': ['#ffffff', 'highlights.1'], 'opacity': [200, 250], 'batch': 10}, .7, '飘起小雪…'),
@@ -933,6 +979,34 @@ GENERIC_NAMES = {'远景', '近景', '中景', '树影', '流水', '水面', '�
 def environment_gaps(brief):
     text = ' '.join([brief.get('title', ''), brief.get('request', '')] + list(brief.get('checklist', []))).lower()  # the request, not the things' names (a 雪山 is not snowfall)
     return [msg for words, ok, msg in ENVIRONMENT if any(w in text for w in words) and not ok(brief)]
+
+
+def composition_gaps(brief):
+    """章法 the originals keep (koi on a diagonal, the sail at .6, oranges massed to one side):
+    a subject big enough to lead, placed off the centre line, the rest arranged around it, open
+    space on one side. Returns (refusals, advice). Photos keep the photo's own composition."""
+    things = [t for t in brief.get('things', []) if 'at' in t and t.get('form') != 'free']
+    photo = brief.get('source') == 'photo' or any(k in str(brief.get('request', '')) for k in ('照片', 'photo', 'Photo'))
+    view = brief.get('space', {}).get('view', 'eye')
+    refuse, advice = [], []
+    lead = [t for t in things if t.get('form') in SUBJECT_FORMS and t.get('role') != 'extra' and not t.get('light_source') and int(t.get('count', 1) or 1) == 1]
+    main = max(lead, key=lambda t: t.get('size', 0), default=None)
+    core = [t for t in things if t.get('role') != 'extra']
+    # the thing the picture is about: the largest named thing that is not ground, water or a frame
+    hero = max([t for t in core if t.get('form') not in ('land', 'water', 'structure', 'cloth')], key=lambda t: t.get('size', 0), default=None)
+    centred = [t for t in core if abs(t['at'][0] - .5) < .08]
+    if not photo and len(core) >= 3 and len(centred) >= .6 * len(core) and (hero is None or abs(hero['at'][0] - .5) < .08):
+        refuse.append('CENTRED STACK: ' + '、'.join(t['name'] for t in centred) + ' all stand on the centre line (x≈0.5), stacked like a column. '
+                      'Put the subject near a third (x≈0.33 or 0.67), let the other things overlap it front and back on the other side, and leave one side open (sky, water, wall).')
+    if main and not photo and main.get('size', 0) < .2 and view in ('eye', 'interior', 'top') and len(lead) <= 2:
+        advice.append(f'SMALL SUBJECT: 「{main["name"]}」 is only {main.get("size")} tall; the subject leads the picture — make it 0.3-0.5 and let the setting crop around it.')
+    if view == 'interior' and any(t.get('form') == 'building' for t in brief.get('things', [])):
+        advice.append('INTERIOR BUILDING: building paints a whole house with posts; indoors, paint walls, windows and shelves with structure and cloth.')
+    bars = [m for t in brief.get('things', []) if t.get('form') == 'structure' for m in t.get('members', [])
+            if len(m.get('points', [])) >= 2 and max(abs(m['points'][0][1] - m['points'][-1][1]), abs(m['points'][0][0] - m['points'][-1][0])) > .45]
+    if len(bars) >= 4:
+        advice.append(f'CAGE: {len(bars)} long straight members cross the picture and cut it into a grid; keep two or three, shorten the rest, let leaves, cloth or light break them.')
+    return refuse, advice
 
 
 def imagery_gaps(brief):
@@ -994,6 +1068,7 @@ def compose(brief):
         if len(c.ops) > start and not c.ops[start].get('label'): c.ops[start]['label'] = t.get('label') or f'画出{t["name"]}…'
         c.cur_light = None
         if t.get('integrate', True) and form in GROUNDED and len(c.ops) > start: integrate(c, t, sp, start)
+        if form != 'free': settle(c, c.ops[start:], t, sp)
     for a in brief.get('air', []):
         if a == 'sunlight':
             if sp.get('view') != 'interior': continue  # outdoors, sunlight is the palette and the lit edges
@@ -1056,6 +1131,10 @@ if __name__ == '__main__':
     if generic: print('GENERIC NAMES:', '、'.join(generic), '— name things after the request\'s own words.')
     if (missing or not brief.get('imagery')) and not a.allow_missing_imagery:
         ap.exit(3, 'REFUSED: every image in the request must be painted. Fix the brief, then compile again.\n')
+    refuse, advice = composition_gaps(brief)
+    for msg in refuse + advice: print(msg)
+    if refuse and not a.allow_missing_imagery:
+        ap.exit(3, 'REFUSED: the composition has no lead (see above). Rearrange the things, then compile again.\n')
     hz = brief.get('space', {}).get('horizon', .55)
     for t in brief.get('things', []):
         for o in (t.get('ops', []) if t.get('form') == 'free' else []):
