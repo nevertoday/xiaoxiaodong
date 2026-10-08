@@ -241,7 +241,9 @@ def space_base(c, sp):
     for b in order: c.add({'type': 'band', **b})
     if view in ('interior', 'top'):  # a table, floor or cloth is never one flat colour in the originals: soft surface marks in its own tones
         g = c.hexof('washes.3'); y0 = (hz if view == 'interior' else 0)
-        c.add({'type': 'marks', 'area': {'box': [0, r4(y0), 1, 1], 'bias': .8}, 'count': 120, 'size': [.002, .0045], 'aspect': [3, 5], 'rotation': 0, 'spin': .08, 'depth': view == 'interior',
+        # only a strip where things stand: a whole table or floor of dabs eats the picture's open space
+        y0 = max(y0, .78) if view == 'interior' else .72
+        c.add({'type': 'marks', 'area': {'box': [0, r4(y0), 1, 1], 'bias': .8}, 'count': 50, 'size': [.002, .0045], 'aspect': [3, 5], 'rotation': 0, 'spin': .08, 'depth': view == 'interior',
                'colors': [toneish(g, .06), toneish(g, -.06), toneish(g, .12), 'washes.2'], 'opacity': [90, 160], 'batch': 10}, pace=.6)
     if 'sunlight' in c.brief.get('air', []) and view == 'interior':  # cool shade away from the window, so the sun has something to be brighter than
         lx, _ = c.light; room = c.hexof('washes.1')
@@ -983,8 +985,9 @@ def environment_gaps(brief):
 
 def composition_gaps(brief):
     """章法 the originals keep (koi on a diagonal, the sail at .6, oranges massed to one side):
-    a subject big enough to lead, placed off the centre line, the rest arranged around it, open
-    space on one side. Returns (refusals, advice). Photos keep the photo's own composition."""
+    the subject off the centre line, the rest arranged around it, and a third of the picture left
+    open. The subject may be small (the sail is a sixth of the height). Returns (refusals, advice).
+    Photos keep the photo's own composition."""
     things = [t for t in brief.get('things', []) if 'at' in t and t.get('form') != 'free']
     photo = brief.get('source') == 'photo' or any(k in str(brief.get('request', '')) for k in ('照片', 'photo', 'Photo'))
     view = brief.get('space', {}).get('view', 'eye')
@@ -998,8 +1001,6 @@ def composition_gaps(brief):
     if not photo and len(core) >= 3 and len(centred) >= .6 * len(core) and (hero is None or abs(hero['at'][0] - .5) < .08):
         refuse.append('CENTRED STACK: ' + '、'.join(t['name'] for t in centred) + ' all stand on the centre line (x≈0.5), stacked like a column. '
                       'Put the subject near a third (x≈0.33 or 0.67), let the other things overlap it front and back on the other side, and leave one side open (sky, water, wall).')
-    if main and not photo and main.get('size', 0) < .2 and view in ('eye', 'interior', 'top') and len(lead) <= 2:
-        advice.append(f'SMALL SUBJECT: 「{main["name"]}」 is only {main.get("size")} tall; the subject leads the picture — make it 0.3-0.5 and let the setting crop around it.')
     if view == 'interior' and any(t.get('form') == 'building' for t in brief.get('things', [])):
         advice.append('INTERIOR BUILDING: building paints a whole house with posts; indoors, paint walls, windows and shelves with structure and cloth.')
     bars = [m for t in brief.get('things', []) if t.get('form') == 'structure' for m in t.get('members', [])

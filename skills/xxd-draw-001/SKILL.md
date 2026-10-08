@@ -48,13 +48,13 @@ python3 $S/compose.py --forms      # 每种形态需要描述什么
 
 ### 构图章法（先排好画面，再描述东西）
 
-原作每一幅都守这几条，compose 会检查：
+原作每一幅都守这几条，compose 和 style_check 会检查：
 
-1. **一个主角领画面**：命题真正要画的那样东西，高度占画面 0.3–0.5；其余都是它的环境，用 `role: "extra"` 或放远放小。
-2. **主角不站中线**：放在三分线附近（x≈0.33 或 0.67）。所有东西都摞在 x≈0.5 一列、左右对称，会被拒绝（`CENTRED STACK`）。
-3. **另一侧留白**：天空、水面或一面墙留出一片空，眼睛才有地方歇。
-4. **前后有遮挡**：东西彼此叠一点、一前一后，而不是各自悬在空中。站着的东西要落在地上。
-5. **同类成群、有节奏**：花、鸟、果、叶、船 3–7 个一组，大小不一，沿一条斜线或弧线排开。
+1. **留白比什么都重要**：大约三分之一的画面是什么都没有的浅色空地——天、水面、纸色的墙。缩到拇指大小看，一眼就能分出「主角在哪、空在哪」。别往空处补小点、小草、落花（style_check 的 `open` 低于 0.15 会提示；原作平均 0.36）。
+2. **主角可以小**：原作的帆只有画面六分之一高，果树一排都很小。主角靠位置和强调色被看见，不靠塞满画面。
+3. **主角不站中线**：放在三分线附近（x≈0.33 或 0.67）。所有东西都摞在 x≈0.5 一列、左右对称，会被拒绝（`CENTRED STACK`）。
+4. **东西收拢成一组**：主角和它的环境聚在画面一侧或下半，前后叠一点；另一侧就是留白。站着的东西要落在地上。
+5. **同类成群、有节奏**：花、鸟、果、叶、船 3–7 个一组，大小不一，沿一条斜线或弧线排开；成群的笔触也只聚在这一组里，不铺满全画。
 6. **不用长直杆切格子**：栏杆、柱子、窗框、货架留两三根就够（`CAGE` 提示）。
 7. **室内不用 building**：building 会画出整座房子和柱子；室内的墙、窗、柜用 structure 和 cloth（`INTERIOR BUILDING` 提示）。
 8. **颜色有主次**：强调色给主角；环境的颜色 compose 会往画面的两三个色系上靠，地平线附近的东西会融进天空色，越远越淡。
@@ -99,9 +99,9 @@ node $S/capture_review.cjs /用户指定目录/作品名.html $W/evidence --quic
 python3 $S/style_check.py $W/evidence/final.png --plan $W/plan.json
 ```
 
-compose 会提示：`MISSING IMAGERY`（有意象没画，**会拒绝生成**）、`CENTRED STACK`（居中堆成一列，**会拒绝生成**）、`SMALL SUBJECT` / `CAGE` / `INTERIOR BUILDING`（构图问题，要改）、`MISSING ENVIRONMENT`（雪、雨、夜、阳光等没体现）、`GENERIC NAMES`（"远景""细节"这类空名字）、`SKY MARKS`（天上撒点）。看到就改 brief。
+compose 会提示：`MISSING IMAGERY`（有意象没画，**会拒绝生成**）、`CENTRED STACK`（居中堆成一列，**会拒绝生成**）、`CAGE` / `INTERIOR BUILDING`（构图问题，要改）、`MISSING ENVIRONMENT`（雪、雨、夜、阳光等没体现）、`GENERIC NAMES`（"远景""细节"这类空名字）、`SKY MARKS`（天上撒点）。看到就改 brief。
 
-打开 `$W/evidence/final.png` 看图，逐条回答 checklist：是/否。"否"就改 brief 重来；`STYLE FAIL`、`PACING FIX` 也要改。最多改 3 轮，仍做不到的如实告诉用户。交付前去掉 `--quick` 再跑一次完整检查。
+打开 `$W/evidence/final.png` 看图，逐条回答 checklist：是/否。"否"就改 brief 重来；`STYLE FAIL`、`PACING FIX` 也要改；文字题出现 `ADVICE open`（留白太少）也要改。最多改 3 轮，仍做不到的如实告诉用户。交付前去掉 `--quick` 再跑一次完整检查。
 
 ## 照片输入
 
