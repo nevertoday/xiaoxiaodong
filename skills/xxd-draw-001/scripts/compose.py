@@ -389,7 +389,8 @@ def f_animal(c, p):
         c.add({'type': 'shape', 'points': ell(*P(.3, .6), s * .14, s * .12, 10), 'color': lt, 'opacity': 245, 'flat': True}, pace=.5)
         return
     T = .2 + .12 * (1 - b.get('legs', .4))
-    if pose in ('stand', 'walk'):
+    down = pose in ('graze', 'drink')   # head lowered to the ground or the water
+    if pose in ('stand', 'walk', 'graze', 'drink'):
         ty = Lg + T / 2; body_c = P(0, ty)
         tail_root = (-B * .48, ty + T * .2)
         swing = .06 if pose == 'walk' else 0
@@ -397,6 +398,7 @@ def f_animal(c, p):
             c.add({'type': 'shape', 'points': limb(P, (u, ty), (u + sw, .02), .05 - .012 * b.get('legs', .4), .028), 'color': dk if k < 2 else fur, 'opacity': 245, 'flat': True}, pace=.5)
         c.add({'type': 'body', 'x': body_c[0], 'y': body_c[1], 'length': B * s, 'width': T * s, 'angle': 0 if f > 0 else math.pi, 'color': fur, 'profile': [.75, .95, 1, 1, .98, .95, .88, .75]}, pace=1.3)
         neck_a = (B * .38, ty + T * .25); head_c = (B * .42 + N * .55, ty + T * .3 + N + Hd * .25)
+        if down: neck_a = (B * .4, ty + T * .1); head_c = (B * .5 + N * .35 + Hd * .45, Hd * .45 + (.04 if pose == 'graze' else 0))
         body_poly = outline(P, [(-B * .48, ty), (-B * .3, ty + T * .48), (B * .3, ty + T * .48), (B * .5, ty), (B * .3, ty - T * .48), (-B * .3, ty - T * .48)], 3)
     elif pose == 'sit':
         tail_root = (-.22, .05)
@@ -425,8 +427,8 @@ def f_animal(c, p):
     elif tail == 'thin':
         a = tail_root
         c.add({'type': 'line', 'points': [P(*a), P(a[0] - .14, a[1] + .06), P(a[0] - .24, a[1] + .02), P(a[0] - .26, a[1] - .06)], 'color': dk, 'weight': 2 + 10 * s * tw / .03 * .4, 'curvature': .6}, pace=.6)
-    if N > .1:
-        c.add({'type': 'shape', 'points': limb(P, neck_a, (head_c[0] - Hd * .2, head_c[1] - Hd * .2), .07 + .05 * b.get('neck', .2), .05), 'color': fur, 'opacity': 245}, pace=.8)
+    if N > .1 or down:
+        c.add({'type': 'shape', 'points': limb(P, neck_a, (head_c[0] - Hd * .2, head_c[1] + (Hd * .1 if down else -Hd * .2)), .07 + .05 * b.get('neck', .2), .05), 'color': fur, 'opacity': 245}, pace=.8)
     hx, hy = P(*head_c)
     # ears behind the head
     for k, du in enumerate((-.04, .03)):
@@ -437,15 +439,16 @@ def f_animal(c, p):
     c.add({'type': 'shape', 'points': ell(hx, hy, s * Hd * .55, s * Hd * .45, 16), 'color': lt, 'opacity': 245}, pace=1.1)
     sl = {'flat': .2, 'short': .45, 'long': .85}.get(snout, .45)
     if sl > .25:
-        c.add({'type': 'shape', 'points': petal(r4(hx + f * s * Hd * (.3 + sl * .35)), r4(hy + s * Hd * (.1 + .15 * sl)), s * Hd * sl * .55, s * Hd * .3, (0 if f > 0 else math.pi) + f * .25 * sl, 12), 'color': lt, 'opacity': 245}, pace=.6)
-    nx = hx + f * s * Hd * (.3 + sl * .7); ny = hy + s * Hd * (.08 + .25 * sl)
+        tilt = 1.05 if down else .25 * sl   # a lowered head points its muzzle at the ground
+        c.add({'type': 'shape', 'points': petal(r4(hx + f * s * Hd * (.3 + sl * .35) * (.6 if down else 1)), r4(hy + s * Hd * ((.3 + .45 * sl) if down else (.1 + .15 * sl))), s * Hd * sl * .55, s * Hd * .3, (0 if f > 0 else math.pi) + f * tilt, 12), 'color': lt, 'opacity': 245}, pace=.6)
+    nx = hx + f * s * Hd * ((.2 + sl * .4) if down else (.3 + sl * .7)); ny = hy + s * Hd * ((.3 + .75 * sl) if down else (.08 + .25 * sl))
     c.add({'type': 'shape', 'points': ell(r4(nx), r4(ny), s * .012, s * .01, 8), 'color': '#3e3a3a', 'opacity': 245, 'flat': True}, pace=.3)
     c.add({'type': 'shape', 'points': ell(r4(hx + f * s * Hd * .15), r4(hy - s * Hd * .1), s * .012, s * .01, 8), 'color': '#3e3a3a', 'opacity': 245, 'flat': True}, pace=.3)
     if ears == 'drop':
         c.add({'type': 'shape', 'points': petal(r4(hx - f * s * Hd * .3), r4(hy + s * Hd * .15), s * Hd * .5, s * Hd * .2, math.pi / 2 + f * .3, 10), 'color': dk, 'opacity': 245, 'flat': True}, pace=.5)
     if mk.get('pattern') == 'belly' or mk.get('blaze'):
         c.add({'type': 'shape', 'points': ell(*P(head_c[0] - .02, head_c[1] - Hd * .7), s * .06, s * .08, 12), 'color': c.col(mk.get('colour'), '#f8f2ea'), 'opacity': 230, 'flat': True}, pace=.4)
-    material_marks(c, body_poly, fur, mat, s, along=0 if pose in ('stand', 'walk', 'lie') else -1.3,  # fur lies along the body
+    material_marks(c, body_poly, fur, mat, s, along=0 if pose in ('stand', 'walk', 'graze', 'drink', 'lie') else -1.3,  # fur lies along the body
                    markings=mk if mk.get('pattern') in ('stripes', 'spots', 'patch') else None)
 
 
@@ -952,7 +955,7 @@ FORM_HELP = {k: (v.__doc__ or '').strip() for k, v in FORMS.items()}
 COMMON = 'name (the request\'s own word), at [x, y] (where it stands), size, facing left/right or look_at [x, y], role "extra", layer, label'
 FIELDS = {
  'figure': 'pose stand|walk|sit; clothes {upper, lower, length short|long, over (shawl colour), pattern}; hair {colour, style short|long|bun}; skin; shoes; headwear {shape crown|hat, colour}; holds {shape canopy|bunch|rod, colour}; seat (colour of what they sit on)',
- 'animal': 'colour; build {body, legs, neck, head} each 0-1; ears pointed|round|long|drop|none; snout flat|short|long; tail thin|brush|short|long|none; pose stand|walk|sit|lie|face; markings {colour, pattern stripes|spots|patch|belly, blaze}; material fur|scale|skin; eyes (face pose)',
+ 'animal': 'colour; build {body, legs, neck, head} each 0-1; ears pointed|round|long|drop|none; snout flat|short|long; tail thin|brush|short|long|none; pose stand|walk|graze|drink|sit|lie|face (graze/drink: head lowered to the ground or water); markings {colour, pattern stripes|spots|patch|belly, blaze}; material fur|scale|skin; eyes (face pose)',
  'bird': 'colour; wing; breast; head_colour; beak_colour; build {neck, legs, beak} each 0-1; pose perch|stand|fly|swim; count (>1 with fly = distant flock); crown; tail_colour; wingtips',
  'fish': 'colour; markings {colour}; angle (radians) or facing',
  'insect': 'colour; wing; wings narrow|broad',
