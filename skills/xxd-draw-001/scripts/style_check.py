@@ -17,7 +17,7 @@ COLONY = {'leaves', 'marks', 'strands', 'glazes', 'flowers', 'pads', 'touches'}
 
 def open_space(path, n=15):
     """留白: share of the picture that is calm (no edges, little variation) AND light — sky, water, paper.
-    Twelve originals average 0.36 (0.27-0.68; the koi, oranges and willow close-ups are full fields near 0)."""
+    Twelve originals average 0.36 (koi, oranges and willow are full fields near 0; only Sail and Dusk pass 0.55)."""
     from PIL import ImageFilter
     im = Image.open(path).convert('L').resize((300, 300)); edges = im.filter(ImageFilter.FIND_EDGES)
     L = list(im.get_flattened_data() if hasattr(im, 'get_flattened_data') else im.getdata())
@@ -84,14 +84,14 @@ def check(image, plan=None):
     c = out['checks']
     c['colorful'] = m['colorful'] >= LIMITS['colorful']
     out['advice'] = [] if m['huebins'] >= LIMITS['huebins'] else ['huebins']
-    if m['open'] < .15: out['advice'].append('open')
+    if m['open'] > .5: out['advice'].append('open')
     c['mud'] = m['mud'] <= LIMITS['mud']
     c['value'] = m['value'] >= LIMITS['value']
     c['earth'] = m['earth'] <= LIMITS['earth']
     if plan is not None:
         p = plan_metrics(plan); out['plan'] = p
         c['plan_version'] = p['version'] == 4
-        c['colonies'] = p['colony_ops'] >= 3 and p['colony_marks'] >= 100
+        c['colonies'] = p['colony_ops'] >= 3 and p['colony_marks'] >= 150
         c['not_all_shapes'] = p['shape_share'] <= .55
         if p['glazes'] > 24: out['advice'].append('glazes')
         if sum(o.get('count', 0) for o in plan.get('strokes', []) if o.get('type') == 'touches') > 8: out['advice'].append('touches')
@@ -106,10 +106,10 @@ HINTS = {
     'value': '整体太暗：原作纸色和高明度洗色占大头，深色只在框景和接触暗部。',
     'earth': '土色太多（褐、赭、土黄）：原作一个都没有。木头、头发、大衣也挑干净的颜色（焦糖、赭红、杏色），暗部用深绿、深靛。',
     'plan_version': 'plan 要由 compose.py 生成。',
-    'colonies': '主角那一组太单薄：原作的主角周围总有成片的小笔触。只在主角那一组里加它的环境：草（plant grass）、水纹（water ripples）、叶与花（plant shrub/stems）、布纹（cloth pattern），或 free 里的 marks；留白的地方不加。',
+    'colonies': '画面太单薄：原作靠几十上百个同类小笔触成片（花、叶、穗、水光、雪）。按题材加它的母题：草（plant grass）、水纹（water ripples）、叶与花（plant shrub/stems）、布纹（cloth pattern），或 free 里的 marks。',
     'touches': '亮点太多：原作一幅只有 3–5 个，而且只在水面倒影或湿亮表面上；到处撒会像脏点。',
     'glazes': '透明长釉线太多：原作一幅最多十来道（柳岸 7 道），几十道叠在一起会变成一摞直条；减到 24 以内，换成 marks/strands/arcs。',
-    'open': '留白太少：原作平均三成多画面是什么都没有的平静空地（天、水、纸面）。主角可以小（原作的帆只有画面六分之一高），把东西收拢到画面一侧或下半，空出一片天或水；别往空处补小笔触。满幅特写（水面、花丛）和照片题可以不改。',
+    'open': '画面太空：原作的主体是一大片，撑满大半幅、常常跑出画边，母题成百重复（花丛、叶团、水光、稻穗）。把主体放大、铺开、让它出画；只有命题本身讲空旷（孤帆、冰湖、高远的天）才保留大片留白。',
     'not_all_shapes': 'shape 太多：主体用几块干净平涂，其余交给群落、线和光。',
 }
 

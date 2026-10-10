@@ -56,8 +56,8 @@ def pigment(h, cool=225 / 360, grey=240 / 360):
     if not (isinstance(h, str) and len(h) == 7 and h.startswith('#')): return h
     hh, l, s = hls(h); deg = hh * 360
     if l > .94: return h                                   # paper and near-white highlights stay
-    if s < .12:                                            # grey -> a tinted grey (the sky's cool hue, else lavender)
-        hh, s = grey, max(s, .22)
+    if s < .12:                                            # grey -> light greys take the sky's tint; dark greys (trunks,
+        hh, s = (grey, max(s, .22)) if l >= .5 else (cool, max(s, .24))   # stones in shade) the scene's own deep green or blue
     elif 10 <= deg <= 60 and s < .55 and l < .76:          # earth: tan/beige -> apricot/butter, brown -> terracotta/caramel
         if l >= .5: s, l = max(s, .55), max(l, .72)
         else: s, l = max(s, .5), max(l, .52)
@@ -65,6 +65,8 @@ def pigment(h, cool=225 / 360, grey=240 / 360):
         s = .3
     if l < .35:                                            # darks are cool and never inky-black
         deg = hh * 360
+        if (deg < 55 or deg >= 320) and s >= .45:          # a rich warm dark (a mouth, a red lacquer) keeps its hue
+            return from_hls(hh, .38, min(s, .75))
         if 55 <= deg < 100: hh = 125 / 360                 # olive shadow -> deep green, as in the originals
         elif not (100 <= deg <= 310): hh = cool
         s, l = clamp(s, .2, .55), max(l, .2)
@@ -87,7 +89,11 @@ def clean_plan(plan):
     """Run every colour of a plan (palette and strokes) through pigment(). Works on old plans too."""
     pal = plan.get('palette', {})
     flat = [c for v in pal.values() for c in (v if isinstance(v, list) else [v])]
-    cool = cool_hue_of([*pal.get('foliage', []), *pal.get('washes', []), *flat])   # darks: the scene's deep green/blue
+    # darks and dark greys: the scene's own deep plant colour (the originals' trunks are deep green), kept clean
+    deep = (pal.get('foliage') or [None, None, None])[min(2, len(pal.get('foliage') or []) - 1)] if pal.get('foliage') else None
+    cool = hls(deep)[0] if isinstance(deep, str) and deep.startswith('#') and hls(deep)[2] > .1 else cool_hue_of([*pal.get('washes', []), *flat])
+    if 55 / 360 <= cool < 100 / 360: cool = 125 / 360
+    elif not (100 / 360 <= cool <= 310 / 360): cool = 225 / 360
     grey = cool_hue_of([*pal.get('washes', []), '#8f8fc4'])                        # tinted greys: the sky, else lavender
     paint = lambda c: pigment(c, cool, grey)
     for key, value in list(pal.items()):
@@ -123,17 +129,24 @@ def clean_plan(plan):
     return plan
 
 
+def companion(h):
+    """The sky's second colour: cool skies lean toward violet, warm ones toward rose, a little deeper."""
+    hh, l, s = hls(h); deg = hh * 360
+    shift = 32 if 150 <= deg <= 260 else -28 if deg < 150 else 18
+    return from_hls(((deg + shift) % 360) / 360, max(.66, l - .06), min(.42, s + .04))
+
+
 def palette_from(colours):
     """Build the engine's colour roles from the brief's own colours. No named palettes exist."""
     need = [k for k in ('air', 'ground', 'life', 'accent') if not str(colours.get(k, '')).startswith('#')]
     if need: raise ValueError(f'colours needs {need} as #RRGGBB, chosen from the request\'s world and mood (any hue)')
-    air = lift(colours['air'], .72, .9, .2, .62); ground = lift(colours['ground'], .55, .92, .2, .6)
+    air = lift(colours['air'], .72, .9, .16, .4); ground = lift(colours['ground'], .55, .92, .16, .46)
     life = lift(colours['life'], .3, .62, .18, .6); acc = lift(colours['accent'], .45, .66, .45, .92)
     light = lift(colours.get('light', '#fff3d9'), .86, .97, .2, 1)
     ha, la, sa = hls(acc)
     paper = colours.get('paper') or mix('#f6f1e8', air, .08)
     return {'ground': paper,
-            'washes': [air, toneish(air, -.08), hmix(air, ground, .5), ground],
+            'washes': [air, companion(air), hmix(air, ground, .5), ground],
             'foliage': [life, toneish(life, .1), toneish(life, -.14), lift(mix(life, light, .45), .7, .85, .25, .55)],
             'accents': [from_hls(ha, la + .12, sa), acc, from_hls(ha, la - .12, sa), from_hls(ha, .88, sa * .7)],
             'highlights': [light, mix(light, '#ffffff', .6)]}
@@ -241,9 +254,7 @@ def space_base(c, sp):
     for b in order: c.add({'type': 'band', **b})
     if view in ('interior', 'top'):  # a table, floor or cloth is never one flat colour in the originals: soft surface marks in its own tones
         g = c.hexof('washes.3'); y0 = (hz if view == 'interior' else 0)
-        # only a strip where things stand: a whole table or floor of dabs eats the picture's open space
-        y0 = max(y0, .78) if view == 'interior' else .72
-        c.add({'type': 'marks', 'area': {'box': [0, r4(y0), 1, 1], 'bias': .8}, 'count': 50, 'size': [.002, .0045], 'aspect': [3, 5], 'rotation': 0, 'spin': .08, 'depth': view == 'interior',
+        c.add({'type': 'marks', 'area': {'box': [0, r4(y0), 1, 1], 'bias': .8}, 'count': 120, 'size': [.002, .0045], 'aspect': [3, 5], 'rotation': 0, 'spin': .08, 'depth': view == 'interior',
                'colors': [toneish(g, .06), toneish(g, -.06), toneish(g, .12), 'washes.2'], 'opacity': [90, 160], 'batch': 10}, pace=.6)
     if 'sunlight' in c.brief.get('air', []) and view == 'interior':  # cool shade away from the window, so the sun has something to be brighter than
         lx, _ = c.light; room = c.hexof('washes.1')
@@ -256,13 +267,16 @@ def space_base(c, sp):
         c.add({'type': 'blob', 'x': x, 'y': y, 'rx': r, 'ry': r * .7, 'color': 'highlights.1', 'opacity': 120, 'bleed': .7, 'texture': .5})
     n = sp.get('clouds')
     if n and view == 'eye' and hz >= .15:  # soft cumulus the Sail way, in the sky's own colour; never dashes
-        sky = c.hexof(bands[0]['color']); under = toneish(sky, -.06); body = mix(c.hexof('highlights.1'), c.hexof('accents.3'), .45); crown = c.hexof('highlights.1')
+        sky = c.hexof(bands[0]['color']); sh, sl, ss = hls(sky); under = from_hls((sh + .1) % 1, max(.62, sl - .1), min(.3, ss + .05)); body = mix(c.hexof('highlights.1'), c.hexof('accents.3'), .55); crown = c.hexof('highlights.1')
         n = n if isinstance(n, int) and not isinstance(n, bool) else 2
         top = max(.12, hz * .62)
         for cx, cy in [(.2, .16), (.66, .12), (.86, .26), (.4, .3)][:max(1, min(4, n))]:
-            cy = min(cy, top - .06); rx, ry = c.rng.uniform(.13, .19), c.rng.uniform(.045, .07)
-            c.add({'type': 'blob', 'x': cx, 'y': r4(cy + ry * .3), 'rx': rx, 'ry': r4(ry * .7), 'color': under, 'opacity': 140, 'bleed': .55, 'texture': .5}, pace=.7)
-            c.add({'type': 'blob', 'x': cx, 'y': cy, 'rx': r4(rx * .95), 'ry': ry, 'color': body, 'opacity': 190, 'bleed': .5, 'texture': .5}, pace=.8)
+            cy = min(cy, top - .06); rx, ry = c.rng.uniform(.17, .25), c.rng.uniform(.06, .09)
+            c.add({'type': 'blob', 'x': cx, 'y': r4(cy + ry * .35), 'rx': rx, 'ry': r4(ry * .75), 'color': under, 'opacity': 165, 'bleed': .55, 'texture': .5}, pace=.7)
+            c.add({'type': 'blob', 'x': cx, 'y': cy, 'rx': r4(rx * .95), 'ry': ry, 'color': body, 'opacity': 205, 'bleed': .5, 'texture': .5}, pace=.8)
+            for k in (-1, 1):  # puffs either side make a cluster, not a single pill
+                c.add({'type': 'blob', 'x': r4(cx + k * rx * c.rng.uniform(.55, .8)), 'y': r4(cy + ry * c.rng.uniform(-.1, .4)), 'rx': r4(rx * c.rng.uniform(.4, .55)), 'ry': r4(ry * c.rng.uniform(.6, .85)),
+                       'color': under if k > 0 else body, 'opacity': 170, 'bleed': .55, 'texture': .5}, pace=.4)
             c.add({'type': 'blob', 'x': r4(cx - rx * .2), 'y': r4(cy - ry * .45), 'rx': r4(rx * .55), 'ry': r4(ry * .55), 'color': crown, 'opacity': 170, 'bleed': .5, 'texture': .5}, pace=.6)
         for _ in range(2):
             c.add({'type': 'blob', 'x': r4(c.rng.uniform(.15, .85)), 'y': r4(top * c.rng.uniform(.75, .95)), 'rx': r4(c.rng.uniform(.1, .18)), 'ry': .015, 'color': under, 'opacity': 100, 'bleed': .6}, pace=.4)
@@ -533,20 +547,46 @@ def f_fish(c, p):
 
 
 def f_insect(c, p):
-    """A small winged insect: wings broad (butterfly) or narrow pairs (dragonfly), body colour, wing colour."""
-    x, y = xy(p); s = p.get('size', .05); wc = c.col(p.get('wing'), '#e8f2f6'); bc = c.col(p.get('colour'), '#3b5a6e')
-    narrow = p.get('wings', 'narrow') == 'narrow'
-    c.add({'type': 'line', 'points': [[r4(x - s * .5), r4(y)], [r4(x + s * .5), r4(y + .002)]], 'color': bc, 'weight': 1.4 if narrow else 1.8}, pace=.3)
-    for dy in (-1, 1):
-        if narrow:
-            for k in (0, 1): c.add({'type': 'shape', 'points': petal(r4(x + s * (.1 - .15 * k)), r4(y + dy * s * .3), s * .55, s * .14, dy * (1.35 + .25 * k), 10), 'color': wc, 'opacity': 180, 'flat': True}, pace=.2)
-        else:
-            c.add({'type': 'shape', 'points': ell(r4(x + s * .05), r4(y + dy * s * .4), s * .4, s * .35, 12), 'color': wc, 'opacity': 230, 'flat': True}, pace=.3)
+    """A small winged insect seen from above: wings broad (butterfly: fore and hind wing each side) or narrow pairs
+    (dragonfly: four long wings straight out from the thorax, a long slender tail), body colour, wing colour.
+    angle (radians, the way the head points) or facing; a dragonfly lies on a slant by default, a butterfly upright."""
+    x, y = xy(p); s = p.get('size', .05); bc = c.col(p.get('colour'), '#3b5a6e'); bh = c.hexof(bc)
+    narrow = p.get('wings', 'narrow') == 'narrow'; f = -1 if p.get('facing') == 'left' else 1
+    ang = p.get('angle', (-.55 if f > 0 else -math.pi + .55) if narrow else -math.pi / 2)
+    ca, sa = math.cos(ang), math.sin(ang)
+    P = lambda u, v: [r4(x + (u * ca - v * sa) * s), r4(y + (u * sa + v * ca) * s)]   # u along the body (head +), v across
+    if narrow:
+        wc = c.col(p.get('wing'), mix(bh, '#ffffff', .78)); wh = c.hexof(wc)
+        for side in (-1, 1):
+            for k, (sweep, L, W) in enumerate([(.16, .62, .1), (-.12, .58, .12)]):   # forewing leans forward, hindwing back and wider
+                root = (.12 - .1 * k, 0); tip = (root[0] + sweep, side * L); mid = ((root[0] + tip[0]) / 2, (root[1] + tip[1]) / 2)
+                rot = math.atan2((tip[1] - root[1]) * ca + (tip[0] - root[0]) * sa, (tip[0] - root[0]) * ca - (tip[1] - root[1]) * sa)
+                cx_, cy_ = P(*mid)
+                c.add({'type': 'shape', 'points': petal(cx_, cy_, L * s * .52, W * s, rot, 14), 'color': wc, 'opacity': 170, 'flat': True}, pace=.25)
+                c.add({'type': 'line', 'points': [P(root[0] + .02, root[1]), P(tip[0] + .01, tip[1] * .97)], 'color': toneish(wh, -.18), 'weight': .6}, pace=.1)
+                c.add({'type': 'shape', 'points': ell(*P(tip[0] - .02 * side * 0, tip[1] * .86), s * .022, s * .022, 8), 'color': toneish(bh, -.1), 'opacity': 230, 'flat': True}, pace=.1)
+        # tail: long, tapering, segmented
+        tail = [(.0, .045), (-.3, .036), (-.62, .026), (-.86, .016), (-.9, 0), (-.86, -.016), (-.62, -.026), (-.3, -.036), (.0, -.045)]
+        c.add({'type': 'shape', 'points': outline(P, tail, 3), 'color': bc, 'opacity': 245}, pace=.4)
+        for k in range(6):
+            u = -.12 - k * .12; c.add({'type': 'line', 'points': [P(u, .03 - k * .003), P(u, -.03 + k * .003)], 'color': toneish(bh, -.16), 'weight': .7}, pace=.1)
+        c.add({'type': 'shape', 'points': outline(P, [(.22, .07), (.04, .08), (-.04, .045), (-.04, -.045), (.04, -.08), (.22, -.07)], 3), 'color': toneish(bh, -.08), 'opacity': 245}, pace=.3)
+        for side in (-1, 1): c.add({'type': 'shape', 'points': ell(*P(.29, side * .045), s * .05, s * .05, 10), 'color': toneish(bh, -.2), 'opacity': 245, 'flat': True}, pace=.15)
+        return
+    wc = c.col(p.get('wing'), 'accents.1'); wh = c.hexof(wc)
+    for side in (-1, 1):
+        fore = [(.04, .02), (.36, .5), (.18, .72), (-.06, .5), (-.04, .08)]; hind = [(-.04, .03), (-.12, .44), (-.42, .4), (-.5, .16), (-.18, .02)]
+        c.add({'type': 'shape', 'points': outline(P, [(u, side * v) for u, v in hind], 4), 'color': toneish(wh, .06), 'opacity': 235}, pace=.35)
+        c.add({'type': 'shape', 'points': outline(P, [(u, side * v) for u, v in fore], 4), 'color': wc, 'opacity': 240}, pace=.35)
+        c.add({'type': 'marks', 'area': {'polygon': outline(P, [(.3, side * .5), (.17, side * .7), (.05, side * .62), (.2, side * .45)], 2)}, 'count': 8, 'size': [.002, .004], 'colors': [toneish(wh, -.25), '#fffaf0'], 'batch': 4}, pace=.1)
+        c.add({'type': 'shape', 'points': ell(*P(.12, side * .42), s * .045, s * .045, 10), 'color': '#fffaf0', 'opacity': 220, 'flat': True}, pace=.1)
+    c.add({'type': 'shape', 'points': outline(P, [(.24, .03), (-.36, .025), (-.4, 0), (-.36, -.025), (.24, -.03), (.28, 0)], 3), 'color': toneish(bh, -.1), 'opacity': 245}, pace=.25)
+    for side in (-1, 1): c.add({'type': 'line', 'points': [P(.26, side * .01), P(.4, side * .1), P(.44, side * .11)], 'color': toneish(bh, -.1), 'weight': .6, 'curvature': .4}, pace=.1)
 
 
 def f_plant(c, p):
     """Plants by growth habit: tree (crown round/cone/weeping/spray), shrub, stems (a few stems with flower heads),
-    grass, cane (jointed stalks), floating (round leaves on water), vine (hanging clusters).
+    grass, cane (jointed stalks: bamboo), reed (thin curving stalks with plumes: reeds, rushes, pampas), floating (round leaves on water), vine (hanging clusters).
     bloom {colour, shape cup/star/disc/cluster/bud/spray, count}; fruit {colour, count}; leaf colour via colours.life."""
     habit = p.get('habit', 'tree'); bloom = p.get('bloom') or {}; fruit = p.get('fruit') or {}
     bc = c.col(bloom.get('colour'), 'accents.1') if bloom else None
@@ -565,6 +605,24 @@ def f_plant(c, p):
         c.add({'type': 'strands', 'area': {'box': [r4(x - w / 2), r4(y - .01), r4(x + w / 2), r4(y + .01)]}, 'count': p.get('count', 50), 'length': [s * .5, s], 'angle': -1.57, 'spread': p.get('lean', .25),
                'colors': [leaf, 'foliage.0', 'foliage.3'], 'weight': [.6, 1.1], 'group': 2}, pace=.8)
         if bc: c.add({'type': 'marks', 'area': {'box': [r4(x - w / 2), r4(y - s), r4(x + w / 2), r4(y - s * .6)]}, 'count': bloom.get('count', 20), 'size': [.003, .006], 'aspect': [2, 4], 'rotation': -1.57, 'colors': [bc, toneish(c.hexof(bc), .1)], 'batch': 6}, pace=.6)
+        return
+    if habit == 'reed':   # reeds, rushes, pampas: thin curving stalks, ribbon leaves, a soft drooping plume on top
+        n = p.get('count', 14); plume = c.col(bloom.get('colour'), mix(c.hexof(leaf), '#f6ead8', .7)); ph = c.hexof(plume); wind = p.get('lean', .12)
+        c.add({'type': 'strands', 'area': {'box': [r4(x - w / 2), r4(y - .01), r4(x + w / 2), r4(y + .01)]}, 'count': n * 4, 'length': [s * .15, s * .4], 'angle': -1.57 + wind, 'spread': .3,
+               'colors': [leaf, 'foliage.0', 'foliage.3'], 'weight': [.6, 1.1], 'group': 2}, pace=.7)
+        for k in range(n):
+            bx = x + (rng.random() - .5) * w; h = s * rng.uniform(.6, 1.05); bend = wind * rng.uniform(.6, 1.4) * h
+            tip = (bx + bend, y - h); midp = (bx + bend * .35, y - h * .55)
+            col = rng.choice([leaf, 'foliage.0', 'foliage.2'])
+            c.add({'type': 'line', 'points': [[r4(bx), r4(y)], [r4(midp[0]), r4(midp[1])], [r4(tip[0]), r4(tip[1])]], 'color': col, 'weight': rng.uniform(.9, 1.5), 'curvature': .5}, pace=.15)
+            for j in range(rng.randint(1, 3)):   # ribbon leaves peel off the stalk and arch over
+                t0 = rng.uniform(.2, .65); lx, ly = bx + bend * t0 * t0, y - h * t0; d = rng.choice((-1, 1)); L = s * rng.uniform(.14, .26)
+                c.add({'type': 'shape', 'points': petal(r4(lx + d * L * .45), r4(ly - L * .2), L * .5, s * .011, -math.pi / 2 + d * rng.uniform(.7, 1.1), 10), 'color': col, 'opacity': 230, 'flat': True}, pace=.1)
+            if rng.random() < .8:   # the plume nods with the wind
+                L = s * rng.uniform(.1, .16); dx = math.copysign(L * .45, wind if wind else 1)
+                path = [[r4(tip[0]), r4(tip[1])], [r4(tip[0] + dx * .6), r4(tip[1] - L * .25)], [r4(tip[0] + dx), r4(tip[1] + L * .15)]]
+                c.add({'type': 'blob', 'x': r4(tip[0] + dx * .55), 'y': r4(tip[1] - L * .05), 'rx': L * .4, 'ry': L * .22, 'color': plume, 'opacity': 150, 'bleed': .5}, pace=.1)
+                c.add({'type': 'marks', 'area': {'path': path, 'width': L * .3}, 'count': 14, 'size': [.002, .004], 'aspect': [2.5, 4], 'petal': True, 'colors': [plume, toneish(ph, .08), toneish(ph, -.1)], 'batch': 7}, pace=.15)
         return
     if habit == 'cane':
         for k in range(p.get('count', 6)):
@@ -705,24 +763,41 @@ def f_building(c, p):
 
 def f_vessel(c, p):
     """A container described by its profile: widths from base to rim (each 0-1 of size), plus handle/spout/lid.
-    Cup, vase, jar, bowl, teapot, basket, bottle: the profile says which. contents colour fills the mouth."""
+    Cup, vase, jar, bowl, teapot, basket, bottle: the profile says which; height (0-1 of size) makes it low and wide
+    (a bowl is about 0.5). Open vessels show their mouth; contents colour fills it; stripes are bands round the body."""
     x, y = xy(p); s = p.get('size', .15); f = -1 if p.get('facing') == 'left' else 1; prof = p.get('profile', [.5, .6, .55, .4]); col = c.col(p.get('colour'), '#f4efe6')
-    mat = p.get('material', 'ceramic'); n = len(prof)
+    mat = p.get('material', 'ceramic'); n = len(prof); H = p.get('height', 1.0); ch = c.hexof(col)
     if n < 2: raise ValueError('vessel profile needs at least 2 widths (base -> rim)')
-    lx = c.light[0]; c.add({'type': 'blob', 'x': r4(x + (-.3 if lx > x else .3) * s), 'y': r4(y + .006), 'rx': s * .4, 'ry': s * .06, 'color': 'washes.3', 'opacity': 95, 'bleed': .35}, pace=.6)
-    right = [(prof[i] * .5, i / (n - 1)) for i in range(n)]; left = [(-u, v) for u, v in reversed(right)]
+    lx = c.light[0]; c.add({'type': 'blob', 'x': r4(x + (-.3 if lx > x else .3) * s), 'y': r4(y + .006), 'rx': s * .45, 'ry': s * .06, 'color': 'washes.3', 'opacity': 110, 'bleed': .35}, pace=.6)
+    right = [(prof[i] * .5, H * i / (n - 1)) for i in range(n)]; left = [(-u, v) for u, v in reversed(right)]
     P = frame_of(x, y, s, f)
     body = outline(P, right + left, 4)
-    if p.get('handle'): c.add({'type': 'line', 'points': [P(prof[-1] * .45, .78), P(prof[-1] * .45 + .22, .65), P(prof[-1] * .45 + .2, .32), P(prof[0] * .45 + .05, .25)], 'color': toneish(c.hexof(col), -.15), 'weight': 2 + 10 * s, 'curvature': .6}, pace=.6)
-    if p.get('spout'): c.add({'type': 'shape', 'points': [P(-.3, .45), P(-.55, .78), P(-.58, .75), P(-.36, .32)], 'color': col, 'opacity': 245}, pace=.6)
+    if p.get('handle'): c.add({'type': 'line', 'points': [P(prof[-1] * .45, H * .78), P(prof[-1] * .45 + .22, H * .65), P(prof[-1] * .45 + .2, H * .32), P(prof[0] * .45 + .05, H * .25)], 'color': toneish(ch, -.15), 'weight': 2 + 10 * s, 'curvature': .6}, pace=.6)
+    if p.get('spout'): c.add({'type': 'shape', 'points': [P(-.3, H * .45), P(-.55, H * .78), P(-.58, H * .75), P(-.36, H * .32)], 'color': col, 'opacity': 245}, pace=.6)
     c.add({'type': 'shape', 'points': body, 'color': col, 'opacity': 170 if mat == 'glass' else 245, 'glint': mat in ('ceramic', 'metal')}, pace=1.1)
+    if mat != 'glass':   # the side away from the light, same hue a step deeper: gives it volume
+        dark = 1 if (lx < x) == (f > 0) else -1
+        half = [(u, v) for u, v in right] if dark > 0 else [(u, v) for u, v in left]
+        shade = [(dark * abs(u) * .25, v) for u, v in reversed(half)] + half
+        c.add({'type': 'shape', 'points': outline(P, shade, 3), 'color': toneish(ch, -.1), 'opacity': 150, 'flat': True}, pace=.4)
     if p.get('stripes'):
-        for u in (-.2, -.06, .08, .2): c.add({'type': 'line', 'points': [P(u * prof[-1] * 1.6, .9), P(u * prof[0] * 1.6, .1)], 'color': c.col(p['stripes'], 'accents.2'), 'weight': 1.8}, pace=.3)
+        sc = c.col(p['stripes'], 'accents.2')
+        for v in (.84, .72, .14):   # bands follow the front of the round body
+            vv = v * H; w = (prof[0] + (prof[-1] - prof[0]) * v) * .5 * .97
+            c.add({'type': 'line', 'points': [P(w * math.cos(a), vv - w * .26 * math.sin(a)) for a in [math.pi * i / 8 for i in range(9)]], 'color': sc, 'weight': 1.4 + 3 * s if v != .72 else .9 + 1.5 * s}, pace=.25)
     material_marks(c, body, col, mat, s)
-    if p.get('contents'): c.add({'type': 'shape', 'points': ell(*P(0, .97), s * prof[-1] * .45, s * .05, 14), 'color': c.col(p['contents'], '#a86f4c'), 'opacity': 235, 'flat': True}, pace=.5)
+    rim = prof[-1] * .5
+    if not p.get('lid') and prof[-1] >= .5:   # an open mouth: the far rim and the inside
+        mouth = ell(*P(0, H), s * rim, s * rim * .26, 18)
+        c.add({'type': 'shape', 'points': mouth, 'color': toneish(ch, -.14), 'opacity': 240, 'flat': True}, pace=.5)
+        if p.get('contents'):
+            cc = c.col(p['contents'], '#a86f4c')
+            c.add({'type': 'shape', 'points': ell(*P(0, H + .01), s * rim * .9, s * rim * .22, 18), 'color': cc, 'opacity': 240, 'flat': True}, pace=.5)
+        c.add({'type': 'line', 'points': [P(rim * math.cos(a), H - rim * .26 * math.sin(a)) for a in [math.pi * i / 10 for i in range(11)]], 'color': toneish(ch, .08), 'weight': 1 + 3 * s}, pace=.3)
+    elif p.get('contents'): c.add({'type': 'shape', 'points': ell(*P(0, H * .97), s * prof[-1] * .45, s * .05, 14), 'color': c.col(p['contents'], '#a86f4c'), 'opacity': 235, 'flat': True}, pace=.5)
     if p.get('lid'):
-        c.add({'type': 'shape', 'points': ell(*P(0, 1.02), s * prof[-1] * .42, s * .05), 'color': toneish(c.hexof(col), -.18), 'opacity': 220}, pace=.5)
-        c.add({'type': 'shape', 'points': ell(*P(0, 1.1), s * .05, s * .045), 'color': col, 'opacity': 245, 'flat': True}, pace=.3)
+        c.add({'type': 'shape', 'points': ell(*P(0, H * 1.02), s * prof[-1] * .42, s * .05), 'color': toneish(ch, -.18), 'opacity': 220}, pace=.5)
+        c.add({'type': 'shape', 'points': ell(*P(0, H * 1.1), s * .05, s * .045), 'color': col, 'opacity': 245, 'flat': True}, pace=.3)
 
 
 def f_craft(c, p):
@@ -831,8 +906,8 @@ def f_water(c, p):
     c.add({'type': 'shape', 'points': [[x0, y0], [x1, y0], [x1, y1], [x0, y1]], 'color': col, 'opacity': 150, 'medium': 'fill', 'bleed': .2, 'texture': .3}, pace=.8)
     src = next((q for q in c.sources if q[1] < y0), None)
     if surface == 'ripples':
-        c.add({'type': 'marks', 'area': {'box': [x0, y0, x1, y1]}, 'count': p.get('ripples', 110), 'size': [.0012, .0028], 'aspect': [3, 5], 'rotation': 0, 'spin': .05, 'depth': True,
-               'colors': ['washes.3', 'washes.2', 'washes.1', 'highlights.1'], 'batch': 6, **({'light': {'path': [[src[0], y0], [src[0], y1]], 'reach': .08, 'colors': ['highlights.0', 'highlights.1']}} if src else {})}, pace=.8)
+        c.add({'type': 'marks', 'area': {'box': [x0, y0, x1, y1]}, 'count': p.get('ripples', 190), 'size': [.002, .0055], 'aspect': [4, 8], 'rotation': 0, 'spin': .04, 'depth': True,
+               'colors': ['washes.1', 'highlights.1', 'washes.3', 'accents.3', 'washes.0', 'highlights.0'], 'opacity': [120, 215], 'batch': 8, **({'light': {'path': [[src[0], y0], [src[0], y1]], 'reach': .08, 'colors': ['highlights.0', 'highlights.1']}} if src else {})}, pace=.8)
     if src:
         c.add({'type': 'marks', 'area': {'path': [[src[0], y0 + .01], [src[0], y1 - .02]], 'width': .06}, 'count': 26, 'size': [.002, .004], 'aspect': [4, 7], 'rotation': 0, 'spin': .03,
                'colors': ['highlights.0', 'highlights.1'], 'opacity': [170, 235], 'batch': 6}, pace=.6, label='落下倒影…')
@@ -881,9 +956,9 @@ FIELDS = {
  'bird': 'colour; wing; breast; head_colour; beak_colour; build {neck, legs, beak} each 0-1; pose perch|stand|fly|swim; count (>1 with fly = distant flock); crown; tail_colour; wingtips',
  'fish': 'colour; markings {colour}; angle (radians) or facing',
  'insect': 'colour; wing; wings narrow|broad',
- 'plant': 'habit tree|shrub|stems|grass|cane|floating|vine; colour (leaves); size; width; count; crown round|cone|weeping|spray (tree); lean; trunk; bloom {colour, shape cup|star|disc|cluster|bud|spray|rose, count, buds}; fruit {colour, count}',
+ 'plant': 'habit tree|shrub|stems|grass|cane|reed|floating|vine; colour (leaves); size; width; count; crown round|cone|weeping|spray (tree); lean; trunk; bloom {colour, shape cup|star|disc|cluster|bud|spray|rose, count, buds}; fruit {colour, count}',
  'building': 'walls {width, height, colour}; roof {shape gable|eaves|flat|dome, colour, tiers}; open (true = columns only); columns (colour); windows (count); door; door_colour; lit; spans (wall across the scene); wall_colour',
- 'vessel': 'profile [widths base -> rim, 0-1]; colour; material ceramic|glass|metal|wicker|wood; handle; spout; lid; stripes; contents (colour)',
+ 'vessel': 'profile [widths base -> rim, 0-1]; height (0-1 of size, bowl ~0.5); colour; material ceramic|glass|metal|wicker|wood; handle; spout; lid; stripes; contents (colour)',
  'craft': 'size (length); colour (hull); sail (colour or false); cabin (colour)',
  'round': 'colour; size (diameter); outline disc|crescent|oval|pear; light_source; flame; string',
  'land': 'shape rolling|peaks|dune|cliff|rock|path; at [x, ridge y]; size (height); layers; count; snow; colour; width; vanish [x, y] (path)',
@@ -983,10 +1058,34 @@ def environment_gaps(brief):
     return [msg for words, ok, msg in ENVIRONMENT if any(w in text for w in words) and not ok(brief)]
 
 
+def bed(c, brief, sp, at):
+    """疏密: the originals set their subject in one soft, layered mass (Garden's green bed under the
+    flowers, Oranges' leaf cloud, Willow's curtain) and leave the rest open. Lay three to five
+    translucent, overlapping washes in the picture's own colours behind the subject group,
+    widest at its foot and fading out, so the open space has something to breathe against."""
+    if brief.get('bed') is False or sp.get('view', 'eye') not in ('eye', 'top'): return
+    group = [t for t in brief.get('things', []) if 'at' in t and t.get('role') != 'extra'
+             and t.get('form') in ('figure', 'animal', 'plant', 'building', 'vessel', 'craft')]   # things that stand on something
+    if not group: return
+    xs = [t['at'][0] for t in group]; ys = [t['at'][1] for t in group]
+    cx = sum(xs) / len(xs); foot = max(ys); span = max(.22, max(xs) - min(xs) + .2)
+    tall = max(t.get('size', .2) for t in group)
+    wet = any(t.get('form') == 'water' and t.get('surface', 'ripples') in ('ripples', 'still') and t.get('y0', .55) <= foot for t in brief.get('things', []))
+    cols = ['washes.1', 'accents.3', 'highlights.1', 'washes.0', 'washes.2', 'accents.3'] if wet else ['foliage.3', 'washes.2', 'accents.3', 'foliage.0', 'foliage.3', 'washes.1']
+    ops = []
+    for i in range(6):
+        dx = c.rng.uniform(-.55, .55) * span; dy = c.rng.uniform(-.12, .06) * tall - i * tall * .05
+        rx = c.rng.uniform(.17, .27) * (1.15 - i * .1); ry = rx * c.rng.uniform(.36, .58)
+        ops.append({'type': 'blob', 'x': r4(min(.95, max(.05, cx + dx))), 'y': r4(min(.97, foot + dy)), 'rx': r4(rx), 'ry': r4(ry),
+                    'color': cols[i], 'opacity': [190, 165, 150, 140, 160, 130][i], 'bleed': .6, 'texture': .45, 'id': f'bed-{i}'})
+    ops[0]['label'] = '晕开一片底色…'
+    c.ops[at:at] = ops
+
+
 def composition_gaps(brief):
     """章法 the originals keep (koi on a diagonal, the sail at .6, oranges massed to one side):
-    the subject off the centre line, the rest arranged around it, and a third of the picture left
-    open. The subject may be small (the sail is a sixth of the height). Returns (refusals, advice).
+    the subject off the centre line, one large mass that fills most of the picture and runs off its
+    edges; wide open space only when the subject is emptiness itself. Returns (refusals, advice).
     Photos keep the photo's own composition."""
     things = [t for t in brief.get('things', []) if 'at' in t and t.get('form') != 'free']
     photo = brief.get('source') == 'photo' or any(k in str(brief.get('request', '')) for k in ('照片', 'photo', 'Photo'))
@@ -997,10 +1096,10 @@ def composition_gaps(brief):
     core = [t for t in things if t.get('role') != 'extra']
     # the thing the picture is about: the largest named thing that is not ground, water or a frame
     hero = max([t for t in core if t.get('form') not in ('land', 'water', 'structure', 'cloth')], key=lambda t: t.get('size', 0), default=None)
-    centred = [t for t in core if abs(t['at'][0] - .5) < .08]
+    centred = [t for t in core if abs(t['at'][0] - .5) < .08 and t.get('form') not in ('land', 'water', 'cloth')]   # a cloth or ground spanning the width is not a column
     if not photo and len(core) >= 3 and len(centred) >= .6 * len(core) and (hero is None or abs(hero['at'][0] - .5) < .08):
         refuse.append('CENTRED STACK: ' + '、'.join(t['name'] for t in centred) + ' all stand on the centre line (x≈0.5), stacked like a column. '
-                      'Put the subject near a third (x≈0.33 or 0.67), let the other things overlap it front and back on the other side, and leave one side open (sky, water, wall).')
+                      'Put the subject near a third (x≈0.33 or 0.67) and let the main mass sweep across the picture (a diagonal, a band, a frame from one side), overlapping front and back.')
     if view == 'interior' and any(t.get('form') == 'building' for t in brief.get('things', [])):
         advice.append('INTERIOR BUILDING: building paints a whole house with posts; indoors, paint walls, windows and shelves with structure and cloth.')
     bars = [m for t in brief.get('things', []) if t.get('form') == 'structure' for m in t.get('members', [])
@@ -1056,6 +1155,7 @@ def compose(brief):
     cv = brief.get('canvas') or {'width': 600, 'height': 600}; aspect = round(cv['height'] / cv['width'], 4)
     sp = brief.get('space', {})
     space_base(c, sp)
+    bg_end = len(c.ops)
     things = brief.get('things', [])
     if not things: raise ValueError('things is empty: draw what the request names')
     for t in sorted(things, key=lambda t: (t.get('layer', 0), depth(t))):
@@ -1076,6 +1176,7 @@ def compose(brief):
         c.cur_light = None
         if t.get('integrate', True) and form in GROUNDED and len(c.ops) > start: integrate(c, t, sp, start)
         if form != 'free': settle(c, c.ops[start:], t, sp)
+    bed(c, brief, sp, bg_end)
     for a in brief.get('air', []):
         if a == 'sunlight':
             if sp.get('view') != 'interior': continue  # outdoors, sunlight is the palette and the lit edges
